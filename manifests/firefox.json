@@ -1,0 +1,35 @@
+{
+  "manifest_version": 3,
+  "name": "Adyen Test Cards",
+  "version": "0.0.4",
+  "description": "Copy and prefill Adyen test card numbers and other payment methods with a single click.",
+  "action": {
+    "default_title": "Adyen Test Cards"
+  },
+  "icons": {
+    "16": "images/logo-adyen-A.png",
+    "48": "images/logo-adyen-A.png",
+    "128": "images/logo-adyen-A.png"
+  },
+  "background": {
+    "scripts": ["background-firefox.js"]
+  },
+  "sidebar_action": {
+    "default_panel": "panel.html",
+    "default_title": "Adyen Test Cards"
+  },
+  "permissions": ["scripting", "activeTab", "storage"],
+  "host_permissions": ["https://*/*", "http://*/*"],
+  "web_accessible_resources": [
+    {
+      "resources": ["/data/*.json"],
+      "matches": ["https://*/*", "http://*/*"]
+    }
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "adyen-test-cards@example.com",
+      "strict_min_version": "109.0"
+    }
+  }
+}

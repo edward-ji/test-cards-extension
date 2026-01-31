@@ -1,3 +1,6 @@
+// Cross-browser API: Chrome uses chrome.*, Firefox uses browser.*
+const api = typeof browser !== "undefined" ? browser : chrome;
+
 // suffix displaying 3DS support
 const THREE_DS_SUFFIX = " (3DS)";
 
@@ -529,11 +532,11 @@ function createPrefillLink(type) {
         var expiryTd = $(this).closest("tr").find("td.tdExpiry");
         var codeTd = $(this).closest("tr").find("td.tdCode");
 
-        chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+        api.tabs.query({ active: true, currentWindow: true }, function (tabs) {
           var activeTab = tabs[0];
           // inject js script to be run inside the active tab
           // must be injected to be able to access/update DOM
-          chrome.scripting.executeScript(
+          api.scripting.executeScript(
             {
               target: { tabId: activeTab.id, allFrames: true },
               func: prefillCardComponent,
@@ -645,12 +648,12 @@ function prefillCardComponent(type, cardNumberTd, expiryTd, codeTd) {
 
 // save cards in local storage
 async function setInStorage(name, value) {
-  await chrome.storage.local.set({ [name]: value });
+  await api.storage.local.set({ [name]: value });
 }
 
 // get cards from local storage
 async function getFromStorage(name) {
-  let cards = await chrome.storage.local.get([name]);
+  let cards = await api.storage.local.get([name]);
 
   return cards[name];
 }
@@ -658,7 +661,7 @@ async function getFromStorage(name) {
 // load from json file
 async function loadFromFile(filename) {
   console.log("loadFromFile " + filename);
-  const res = await fetch(chrome.runtime.getURL(filename));
+  const res = await fetch(api.runtime.getURL(filename));
   const obj = await res.json()
   return obj;
 }
