@@ -1,6 +1,6 @@
 {
   "name": "adyen-testcards-extension",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "build": "node scripts/build.js",
