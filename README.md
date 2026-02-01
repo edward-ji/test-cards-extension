@@ -45,7 +45,7 @@ Install the extension from Firefox Add-ons when available, or load the built pac
    ```
    This produces `dist/chrome/` and `dist/firefox/`.
 
-2. **Chrome:** Open `chrome://extensions`, enable Developer Mode, click "Load unpacked", and select the `dist/chrome` folder (or the repo root for development; the root `manifest.json` is Chrome-only).
+2. **Chrome:** Open `chrome://extensions`, enable Developer Mode, click "Load unpacked", and select the `dist/chrome` folder.
 
 3. **Firefox:** Open `about:debugging`, click "This Firefox", "Load Temporary Add-on", and select `dist/firefox/manifest.json`.
 
@@ -73,7 +73,7 @@ To contribute:
   ```
 * submit a PR
 
-**Note**: the list of cards, giftcards, etc.. are saved (as JSON) on local storage. If the JSON format changes then the existing users might be affected (breaking change?). 
+**Note**: the list of cards, giftcards, etc.. are saved (as JSON) on local storage. If the JSON format changes then the existing users might be affected (breaking change?).
 
 ## Maintainers
 
