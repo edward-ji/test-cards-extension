@@ -1,6 +1,6 @@
 # Adyen Test Cards browser extension
 
-A [Chrome](https://chrome.google.com/webstore/detail/adyen-test-cards/icllkfleeahmemjgoibajcmeoehkeoag) and Firefox extension that lets you copy and prefill Adyen test card numbers with a single click.
+A [Chrome](https://chrome.google.com/webstore/detail/adyen-test-cards/icllkfleeahmemjgoibajcmeoehkeoag) and [Firefox](https://addons.mozilla.org/en-US/firefox/addon/adyen-test-cards/) extension that lets you copy and prefill Adyen test card numbers with a single click.
 
 Check also our [video](https://www.youtube.com/watch?v=INDxpfjnAnE&t=1s) to learn how to install and use it.
 
@@ -35,7 +35,10 @@ This is necessary as we do not know where your integration is hosted. The Adyen 
 
 #### Firefox: from Add-ons (AMO)
 
-Install the extension from Firefox Add-ons when available, or load the built package (see "Building from source" below).
+1. Find the extension on [Firefox Add-ons (AMO)](https://addons.mozilla.org/en-US/firefox/addon/adyen-test-cards/)
+2. Click "Add to Firefox"
+
+Or load the built package (see "Building from source" below).
 
 #### Building from source (Chrome and Firefox)
 
