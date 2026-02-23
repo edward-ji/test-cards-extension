@@ -23,7 +23,8 @@
   "permissions": [
     "scripting",
     "activeTab",
-    "storage"
+    "storage",
+    "webNavigation"
   ],
   "host_permissions": [
     "https://*/*",

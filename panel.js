@@ -24,7 +24,7 @@ $("#search").on("keyup", function () {
     $(card).toggle($(card).text().toLowerCase().indexOf(criteria) > -1)
     // hide divs containing empty tables (ie don't show empty sections)
     var table = $(card).closest('table');
-    var numVisibleRows = table.find('tr').filter(function() {
+    var numVisibleRows = table.find('tr').filter(function () {
       return $(this).css('display') !== 'none';
     }).length;
     if (numVisibleRows === 0) {
@@ -145,7 +145,7 @@ function createCards() {
       div.append(cards);
 
       divs.push(div);
-    } 
+    }
   });
 
   return divs;
@@ -186,7 +186,7 @@ function createFavourites() {
         if (item.secure3DS) {
           // add suffix when card flow supports 3DS ie 3714 4963 5398 431 (3DS)
           cardnumber = cardnumber + THREE_DS_SUFFIX;
-        } 
+        }
         var tdNumber = $('<td>').addClass("tdCardNumber").text(cardnumber);
         addCopyHandlers(tdNumber);
         var tdExpiry = ($('<td>').addClass("tdExpiry").text(item.expiry));
@@ -257,7 +257,7 @@ function addCopyHandlers(element) {
   // make it copyable
   element.addClass("copyable");
   // set handlers
-  element.click(copyToClipboardHandler)  
+  element.click(copyToClipboardHandler)
 }
 
 // when copying into the clipboard
@@ -267,13 +267,13 @@ function copyToClipboardHandler() {
   value = value.replace(THREE_DS_SUFFIX, "")
   copyToClipboard(value);
 
-   // Show message "Copied!"
-   $('#header').html("Copied &#x2705;");
+  // Show message "Copied!"
+  $('#header').html("Copied &#x2705;");
 
-   // Hide after x seconds
-   setTimeout(function() {
+  // Hide after x seconds
+  setTimeout(function () {
     $('#header').html("");
-   }, 1000 * 2);
+  }, 1000 * 2);
 }
 
 // add to favourites
@@ -329,7 +329,7 @@ function createCardsBrandSection(brand, cards) {
       addCopyHandlers(tdCode);
       var tdLinks = ($('<td>').addClass("center").append(createLinks("card")));
       row.append(tdHidden).append(tdIcon).append(tdNumber).append(tdCountry).append(tdExpiry).append(tdCode).append(tdLinks);
-      table.append(row);  
+      table.append(row);
     }
   });
 
@@ -402,7 +402,7 @@ function createIbans() {
       var tdNumber = ($('<td>').addClass("tdCardNumber").text(item.iban));
       addCopyHandlers(tdNumber);
       var tdCountry = ($('<td>').addClass("tdCountry").text(item.country));
-      addCopyHandlers(tdCountry); 
+      addCopyHandlers(tdCountry);
       var tdName = ($('<td>').addClass("tdExpiry").text(item.name));  // note: use expiry column for IBAN account holder
       addCopyHandlers(tdName)
       var tdLinks = ($('<td>').addClass("center").append(createLinks("iban")));
@@ -536,13 +536,30 @@ function createPrefillLink(type) {
           var activeTab = tabs[0];
           // inject js script to be run inside the active tab
           // must be injected to be able to access/update DOM
-          api.scripting.executeScript(
-            {
+          if (api.webNavigation && api.webNavigation.getAllFrames) {
+            api.webNavigation.getAllFrames({ tabId: activeTab.id }, function (frames) {
+              if (frames) {
+                frames.forEach(function (frame) {
+                  api.scripting.executeScript({
+                    target: { tabId: activeTab.id, frameIds: [frame.frameId] },
+                    func: prefillCardComponent,
+                    args: [type, cardNumberTdValue, expiryTd.text(), codeTd.text()]
+                  }).catch(function (err) {
+                    // Ignore missing host permissions for specific frames (e.g. tracking/ads)
+                  });
+                });
+              }
+            });
+          } else {
+            // Fallback for browsers without webNavigation permission
+            api.scripting.executeScript({
               target: { tabId: activeTab.id, allFrames: true },
               func: prefillCardComponent,
               args: [type, cardNumberTdValue, expiryTd.text(), codeTd.text()]
-            }
-          )
+            }).catch(function (err) {
+              console.error("Failed to inject script fallback:", err);
+            });
+          }
         });
       }
     );
@@ -556,92 +573,60 @@ async function copyToClipboard(val) {
 // find and prefill form input fields (based on type)
 function prefillCardComponent(type, cardNumberTd, expiryTd, codeTd) {
 
-  if (type === "card" || type == "giftcard") {
-    var cardnumber = document.querySelector('input[id^="adyen-checkout-encryptedCardNumber-"]');
-
-    if (cardnumber != null) {
-      cardnumber.focus({ focusVisible: true });
-      document.execCommand('selectAll', false, null);
-      document.execCommand('insertText', false, cardNumberTd);
-    }
-  }
-
-  if (type === "card") {
-    var expiry = document.querySelector('input[id^="adyen-checkout-encryptedExpiryDate-"]');
-
-    if (expiry != null) {
-      expiry.focus({ focusVisible: true });
-      document.execCommand('selectAll', false, null);
-      document.execCommand('insertText', false, expiryTd);
-    }
+  function fillField(element, value) {
+    if (!element) return;
+    element.value = value;
+    element.dispatchEvent(new Event('input', { bubbles: true }));
+    element.dispatchEvent(new Event('change', { bubbles: true }));
+    element.dispatchEvent(new Event('blur', { bubbles: true }));
   }
 
   if (type === "card" || type == "giftcard") {
-    var code = document.querySelector('input[id^="adyen-checkout-encryptedSecurityCode-"]');
-
-    if (code != null) {
-      if (codeTd === "None") {
-        // replace None placeholder with empty code
-        codeTd = "";
-      }
-      code.focus({ focusVisible: true });
-      document.execCommand('selectAll', false, null);
-      document.execCommand('insertText', false, codeTd);
-    }
+    var cardnumber = document.querySelector('input[autocomplete="cc-number"]');
+    fillField(cardnumber, cardNumberTd);
   }
 
   if (type === "card") {
-    var holder = document.querySelector('input[id^="adyen-checkout-holderName-"]');
+    var expiry = document.querySelector('input[autocomplete="cc-exp"]');
+    fillField(expiry, expiryTd);
+  }
 
-    if (holder != null) {
-      holder.focus({ focusVisible: true });
-      document.execCommand('selectAll', false, null);
-      document.execCommand('insertText', false, "J. Smith");
+  if (type === "card" || type == "giftcard") {
+    var code = document.querySelector('input[autocomplete="cc-csc"]');
+    if (codeTd === "None") {
+      // replace None placeholder with empty code
+      codeTd = "";
     }
+    fillField(code, codeTd);
+  }
+
+  if (type === "card") {
+    var holder = document.querySelector('input[autocomplete="cc-name"]');
+    fillField(holder, "J. Smith");
   }
 
   if (type === "card") {
     // prefill expiryMonth (for custom card implementation)
-    var expiryMonth = document.querySelector('input[id^="adyen-checkout-encryptedExpiryMonth-"]');
-
-    if (expiryMonth != null) {
-      expiryMonth.focus({ focusVisible: true });
-      document.execCommand('selectAll', false, null);
-      document.execCommand('insertText', false, expiryTd.slice(0, 2));
-    }
+    var expiryMonth = document.querySelector('input[autocomplete="cc-exp-month"]');
+    fillField(expiryMonth, expiryTd.slice(0, 2));
   }
 
   if (type === "card") {
     // prefill expiryYear (for custom card implementation)
-    var expiryYear = document.querySelector('input[id^="adyen-checkout-encryptedExpiryYear-"]');
-
-    if (expiryYear != null) {
-      expiryYear.focus({ focusVisible: true });
-      document.execCommand('selectAll', false, null);
-      document.execCommand('insertText', false, expiryTd.slice(-2));
-    }
+    var expiryYear = document.querySelector('input[autocomplete="cc-exp-year"]');
+    fillField(expiryYear, expiryTd.slice(-2));
   }
 
   // prefill IBAN
   if (type === "iban") {
     var ibanNumber = document.querySelector('input[name^="ibanNumber"]');
-
-    if (ibanNumber != null) {
-      ibanNumber.focus({ focusVisible: true });
-      document.execCommand('selectAll', false, null);
-      document.execCommand('insertText', false, cardNumberTd);
-    }
+    fillField(ibanNumber, cardNumberTd);
   }
 
   if (type === "iban") {
     // prefill IBAN holder name
     var name = document.querySelector('input[name^="ownerName"]');
-    
-    if (name != null) {
-      name.focus({ focusVisible: true });
-      document.execCommand('selectAll', false, null);
-      document.execCommand('insertText', false, expiryTd);
-    }
+    fillField(name, expiryTd);
   }
 
 }

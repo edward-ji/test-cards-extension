@@ -21,7 +21,8 @@
     "sidePanel",
     "scripting",
     "activeTab",
-    "storage"
+    "storage",
+    "webNavigation"
   ],
   "host_permissions": [
     "https://*/*",
