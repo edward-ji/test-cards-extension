@@ -21,14 +21,14 @@ jobs:
         run: npm run build
 
       - name: Create Chrome ZIP
-        run: cd dist/chrome && zip -r ../../adyen-testcards-chrome.zip .
+        run: cd dist/chrome && zip -r ../../test-cards-chrome.zip .
 
       - name: Create Firefox ZIP
-        run: cd dist/firefox && zip -r ../../adyen-testcards-firefox.zip .
+        run: cd dist/firefox && zip -r ../../test-cards-firefox.zip .
 
       - name: Upload release binaries
         uses: alexellis/upload-assets@0.4.1
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
-          asset_paths: '["./adyen-testcards-chrome.zip", "./adyen-testcards-firefox.zip"]'
+          asset_paths: '["./test-cards-chrome.zip", "./test-cards-firefox.zip"]'

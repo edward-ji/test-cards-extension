@@ -1,4 +1,4 @@
-# Adyen Test Cards browser extension
+# Test Cards Extension
 
 A [Chrome](https://chrome.google.com/webstore/detail/adyen-test-cards/icllkfleeahmemjgoibajcmeoehkeoag) and [Firefox](https://addons.mozilla.org/en-US/firefox/addon/adyen-test-cards/) extension that lets you copy and prefill Adyen test card numbers with a single click.
 
@@ -10,7 +10,7 @@ Check also our [video](https://www.youtube.com/watch?v=INDxpfjnAnE&t=1s) to lear
 
 The extension is built from one codebase for both browsers. **Chrome** uses a side panel (toolbar icon opens the panel); **Firefox** uses a sidebar (toolbar icon opens the sidebar). The same panel UI, test data, and copy/prefill logic run in both. Build output is separate: `dist/chrome` (Chrome Web Store) and `dist/firefox` (Firefox Add-ons).
 
-## Adyen Test Cards
+## Test Cards
 
 Adyen provides [test card numbers](https://docs.adyen.com/development-resources/testing/test-card-numbers) to test the Checkout integration with different payment methods and flows.
 
@@ -30,7 +30,7 @@ The installation will warn that the extension can read and write data on all web
 ![Chrome Web Store message](chrome-store-popup.png)
 
 > **Note**
-This is necessary as we do not know where your integration is hosted. The Adyen Test Cards extension only copies (using Javascript) the selected card details into the Credit Card fields. No other data or fields are read or changed. All of the code is Open-Source and there is no telemetry in this extension.
+This is necessary as we do not know where your integration is hosted. The Test Cards extension only copies (using Javascript) the selected card details into the Credit Card fields. No other data or fields are read or changed. All of the code is Open-Source and there is no telemetry in this extension.
 >
 
 #### Firefox: from Add-ons (AMO)
@@ -85,7 +85,7 @@ To contribute:
 In order to publish a new release:
 * develop and test features and changes
 * update the version (and other applicable fields) in `manifests/chrome.json` and `manifests/firefox.json`
-* create a new release: the `package-extension.yml` workflow runs `npm run build`, zips `dist/chrome` and `dist/firefox`, and attaches `adyen-testcards-chrome.zip` and `adyen-testcards-firefox.zip` to the release
+* create a new release: the `package-extension.yml` workflow runs `npm run build`, zips `dist/chrome` and `dist/firefox`, and attaches `test-cards-chrome.zip` and `test-cards-firefox.zip` to the release
 * upload the Chrome zip to the Chrome Web Store and the Firefox zip to Firefox Add-ons (AMO)
 
 ## License

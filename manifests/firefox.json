@@ -1,37 +1,53 @@
 {
   "manifest_version": 3,
-  "name": "Adyen Test Cards",
+  "name": "Test Cards",
   "version": "0.1.0",
-  "description": "Copy and prefill Adyen test card numbers and other payment methods with a single click.",
+  "description": "Copy and prefill test card numbers and other payment methods with a single click.",
   "action": {
-    "default_title": "Adyen Test Cards"
+    "default_title": "Test Cards"
   },
   "icons": {
-    "16": "images/logo-adyen-A-16.png",
-    "48": "images/logo-adyen-A-48.png",
-    "128": "images/logo-adyen-A-128.png"
+    "16": "images/icon-16.png",
+    "48": "images/icon-48.png",
+    "128": "images/icon-128.png"
   },
   "background": {
-    "scripts": ["background-firefox.js"]
+    "scripts": [
+      "background-firefox.js"
+    ]
   },
   "sidebar_action": {
     "default_panel": "panel.html",
-    "default_title": "Adyen Test Cards"
+    "default_title": "Test Cards"
   },
-  "permissions": ["scripting", "activeTab", "storage"],
-  "host_permissions": ["https://*/*", "http://*/*"],
+  "permissions": [
+    "scripting",
+    "activeTab",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://*/*",
+    "http://*/*"
+  ],
   "web_accessible_resources": [
     {
-      "resources": ["/data/*.json"],
-      "matches": ["https://*/*", "http://*/*"]
+      "resources": [
+        "/data/*.json"
+      ],
+      "matches": [
+        "https://*/*",
+        "http://*/*"
+      ]
     }
   ],
   "browser_specific_settings": {
     "gecko": {
-      "id": "adyen-test-cards@example.com",
+      "id": "test-cards-extension@edwardji.dev",
       "strict_min_version": "109.0",
       "data_collection_permissions": {
-        "required": ["none"]
+        "required": [
+          "none"
+        ]
       }
     }
   }
