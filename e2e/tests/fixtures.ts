@@ -4,7 +4,7 @@
 import { test as base, expect as playwrightTest, chromium, type BrowserContext } from '@playwright/test';
 import path from 'path';
 
-const PATH_TO_EXTENSION = '../../'
+const PATH_TO_EXTENSION = '../../dist/chrome'
 
 export const test = base.extend<{
   context: BrowserContext;
@@ -24,7 +24,7 @@ export const test = base.extend<{
     await use(context);
     await context.close();
   },
-   extensionId: async ({ context }, use) => {
+  extensionId: async ({ context }, use) => {
 
     // for manifest v3:
     let [background] = context.serviceWorkers();
@@ -34,7 +34,7 @@ export const test = base.extend<{
     const extensionId = background.url().split('/')[2];
     await use(extensionId);
 
-    },
+  },
 });
 
 export const expect = test.expect;
