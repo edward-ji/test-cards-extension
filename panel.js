@@ -253,11 +253,11 @@ function createCardsBrandSection(brand, cards) {
         var tdHidden = ($('<td>').addClass("hidden").text(brand + " " + item.cardnumber));
       }
       addCopyHandlers(tdNumber);
-      var tdCountry = ($('<td>').addClass("center").addClass("tdCountry").text(item.country));
+      var tdCountry = ($('<td>').addClass("center").addClass("tdCountry").text(item.country || ""));
       addCopyHandlers(tdCountry);
       var tdExpiry = ($('<td>').addClass("center").addClass("tdExpiry").text(item.expiry));
       addCopyHandlers(tdExpiry);
-      var tdCode = ($('<td>').addClass("center").addClass("tdCode").text(item.CVC));
+      var tdCode = ($('<td>').addClass("center").addClass("tdCode").text(item.CVC || ""));
       addCopyHandlers(tdCode);
       var tdLinks = ($('<td>').addClass("center").append(createLinks("card")));
       row.append(tdHidden).append(tdIcon).append(tdNumber).append(tdCountry).append(tdExpiry).append(tdCode).append(tdLinks);
@@ -295,7 +295,7 @@ function createGiftCards() {
       var tdNumber = ($('<td>').addClass("tdCardNumber").text(item.cardnumber));
       addCopyHandlers(tdNumber);
       var tdType = ($('<td>').addClass("tdType").text(item.type));
-      var tdCode = ($('<td>').addClass("center").addClass("tdCode").text(item.code));
+      var tdCode = ($('<td>').addClass("center").addClass("tdCode").text(item.code || ""));
       addCopyHandlers(tdCode)
       var tdLinks = ($('<td>').addClass("center").append(createLinks("giftcard")));
       row.append(tdHidden).append(tdIcon).append(tdNumber).append(tdType).append(tdCode).append(tdLinks);
@@ -333,7 +333,7 @@ function createIbans() {
       var tdIcon = ($('<td>').append(makeIbanFavIcon(item.iban)));
       var tdNumber = ($('<td>').addClass("tdCardNumber").text(item.iban));
       addCopyHandlers(tdNumber);
-      var tdCountry = ($('<td>').addClass("tdCountry").text(item.country));
+      var tdCountry = ($('<td>').addClass("tdCountry").text(item.country || ""));
       addCopyHandlers(tdCountry);
       var tdName = ($('<td>').addClass("tdExpiry").text(item.name));  // note: use expiry column for IBAN account holder
       addCopyHandlers(tdName)
