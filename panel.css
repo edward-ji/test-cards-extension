@@ -223,3 +223,34 @@ header {
 main {
   margin-top: 25px;
 }
+
+.header-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  gap: 10px;
+}
+
+.gateway-select,
+.search-input {
+  box-sizing: border-box;
+  padding: 8px 12px;
+  font-size: 13px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  outline: none;
+  font-family: inherit;
+}
+
+.gateway-select {
+  flex: 1;
+}
+
+.search-container {
+  flex: 2;
+}
+
+.search-input {
+  width: 100%;
+}

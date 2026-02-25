@@ -6,7 +6,10 @@ const THREE_DS_SUFFIX = " (3DS)";
 
 // name objects on local storage
 const FAVOURITES_LIST = "favourites-list"
+const SELECTED_GATEWAY = "selected-gateway"
 
+let gateways = [];
+let currentGatewayId = "adyen";
 let cards = [];
 let giftcards = [];
 let ibans = [];
@@ -41,10 +44,51 @@ async function load() {
     favourites = [];
   }
 
-  cards = await loadFromFile("data/cards.json");
-  giftcards = await loadFromFile("data/giftcards.json");
-  ibans = await loadFromFile("data/ibans.json");
+  // Load gateway definitions
+  gateways = await loadFromFile("data/gateways.json");
 
+  // Set up the Gateway Selector UI
+  var selector = $('#gatewaySelector');
+  selector.empty();
+  $.each(gateways, function (index, gw) {
+    selector.append($('<option>').val(gw.id).text(gw.name));
+  });
+
+  // Restore previous selection if available
+  let savedGateway = await getFromStorage(SELECTED_GATEWAY);
+  if (savedGateway && gateways.find(g => g.id === savedGateway)) {
+    currentGatewayId = savedGateway;
+  }
+  selector.val(currentGatewayId);
+
+  // Handle gateway changes
+  selector.on('change', async function () {
+    currentGatewayId = $(this).val();
+    await setInStorage(SELECTED_GATEWAY, currentGatewayId);
+    await loadDataForGateway(currentGatewayId);
+  });
+
+  // Load the initial gateway data
+  await loadDataForGateway(currentGatewayId);
+}
+
+// Load cards specific to the selected gateway
+async function loadDataForGateway(gatewayId) {
+
+  // Update docs link
+  let gwInfo = gateways.find(g => g.id === gatewayId);
+  if (gwInfo && gwInfo.docsLink) {
+    $('#docsLink').attr('href', gwInfo.docsLink);
+  }
+
+  cards = await loadFromFile(`data/${gatewayId}/cards.json`);
+  giftcards = await loadFromFile(`data/${gatewayId}/giftcards.json`);
+  ibans = await loadFromFile(`data/${gatewayId}/ibans.json`);
+
+  renderCards();
+}
+
+function renderCards() {
   var outerdiv = $('<div>');
 
   // favourites section
@@ -123,7 +167,7 @@ function createFavourites() {
         addCopyHandlers(tdNumber);
         var tdExpiry = ($('<td>').addClass("tdExpiry").text(item.expiry));
         addCopyHandlers(tdExpiry);
-        var tdCode = ($('<td>').addClass("tdCode").text(item.CVC));
+        var tdCode = ($('<td>').addClass("tdCode").text(item.CVC || ""));
         addCopyHandlers(tdCode);
         var tdLogo = ($('<td>').addClass("center").addClass(logo).attr('title', group));
         var tdLinks = ($('<td>').addClass("center").append(createLinks("card")));
@@ -146,7 +190,7 @@ function createFavourites() {
       var tdIcon = ($('<td>').append(makeGiftCardUnfavIcon(item.cardnumber)));
       var tdNumber = ($('<td>').addClass("tdCardNumber").text(item.cardnumber));
       addCopyHandlers(tdNumber);
-      var tdCode = ($('<td colspan="2">').addClass("center").addClass("tdCode").text(item.code));
+      var tdCode = ($('<td colspan="2">').addClass("center").addClass("tdCode").text(item.code || ""));
       addCopyHandlers(tdCode);
       var tdLogo = ($('<td>').addClass("center").addClass(logo).attr('title', item.type));
       var tdLinks = ($('<td>').addClass("center").append(createLinks("giftcard")));
@@ -578,9 +622,13 @@ async function getFromStorage(name) {
 // load from json file
 async function loadFromFile(filename) {
   console.log("loadFromFile " + filename);
-  const res = await fetch(api.runtime.getURL(filename));
-  const obj = await res.json()
-  return obj;
+  try {
+    const res = await fetch(api.runtime.getURL(filename));
+    const obj = await res.json();
+    return obj;
+  } catch (e) {
+    return [];
+  }
 }
 
 // replace space with underscore

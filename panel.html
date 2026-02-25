@@ -7,10 +7,14 @@
   <body>
     <header id="header"></header>
     <main class="content">
-      <div><p>Find more cards and payment methods on <a href="https://docs.adyen.com/development-resources/testing/test-card-numbers" target="_blank">Adyen docs</a></p></div>
-      <div class="search-container">
-        <input id="search" class="search-input" type="text" placeholder="Filter..." autocomplete="off" />
+      <div class="header-controls">
+        <select id="gatewaySelector" class="gateway-select">
+        </select>
+        <div class="search-container">
+          <input id="search" class="search-input" type="text" placeholder="Filter..." autocomplete="off" />
+        </div>
       </div>
+      <div><p>Find more cards on <a id="docsLink" href="#" target="_blank">Documentation</a></p></div>
       <div id="cards">
       </div>
     </main>

@@ -6,6 +6,9 @@ const ADD_TO_FAVS_TEXT = "Click \'☆\' to add your favourites here";
 test('filter', async ({ page, extensionId }) => {
     await page.goto(`chrome-extension://${extensionId}/panel.html`);
 
+    // default to adyen to match existing test data
+    await page.locator('#gatewaySelector').selectOption('adyen');
+
     // use filter
     await expect(page.getByPlaceholder('Filter...')).toBeVisible();
     await page.locator('input').pressSequentially('Mastercard', { delay: 100 });
@@ -27,6 +30,9 @@ test('fav', async ({ page, extensionId }) => {
 // verify copy card to clipboard
 test('copy card details', async ({ page, extensionId }) => {
     await page.goto(`chrome-extension://${extensionId}/panel.html`);
+
+    // default to adyen to match existing test data
+    await page.locator('#gatewaySelector').selectOption('adyen');
 
     // card number
     let cardnumber = page.locator('text="4871 0499 9999 9910"');
@@ -58,6 +64,9 @@ test('copy card details', async ({ page, extensionId }) => {
 test('copy IBAN details', async ({ page, extensionId }) => {
     await page.goto(`chrome-extension://${extensionId}/panel.html`);
 
+    // default to adyen to match existing test data
+    await page.locator('#gatewaySelector').selectOption('adyen');
+
     // IBAN
     let iban = page.locator('text="IT60X0542811101000000123456"');
     await expect(iban).toBeVisible();
@@ -79,6 +88,9 @@ test('copy IBAN details', async ({ page, extensionId }) => {
 // verify copy Giftcard to clipboard
 test('copy Giftcard details', async ({ page, extensionId }) => {
     await page.goto(`chrome-extension://${extensionId}/panel.html`);
+
+    // default to adyen to match existing test data
+    await page.locator('#gatewaySelector').selectOption('adyen');
 
     // card number
     let cardnumber = page.locator('text="6036280000000000000"');
@@ -102,6 +114,10 @@ test('copy Giftcard details', async ({ page, extensionId }) => {
 test('make favourite', async ({ page, extensionId }) => {
 
     await page.goto(`chrome-extension://${extensionId}/panel.html`);
+
+    // default to adyen to match existing test data
+    await page.locator('#gatewaySelector').selectOption('adyen');
+
     // empty favs message is visible
     await expect(page.locator('text=' + ADD_TO_FAVS_TEXT)).toBeVisible();
 

@@ -33,7 +33,7 @@
   "web_accessible_resources": [
     {
       "resources": [
-        "/data/*.json"
+        "/data/**/*.json"
       ],
       "matches": [
         "https://*/*",
