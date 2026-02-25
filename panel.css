@@ -1,4 +1,3 @@
-
 body {
   font-family: Verdana, Geneva, sans-serif;
   font-size: 12px;
@@ -35,16 +34,21 @@ a {
   border-bottom: 1pt solid #33b964;
 }
 
-.cardnumbers table{
-  width: 100%; 
+.cardnumbers table {
+  width: 100%;
 }
 
 .cardnumbers td:second-child {
-  width: 300px; 
+  width: 300px;
 }
-.cardnumbers tr:nth-child(even){background-color: white;}
 
-.cardnumbers tr:hover {background-color: #ddd;}
+.cardnumbers tr:nth-child(even) {
+  background-color: white;
+}
+
+.cardnumbers tr:hover {
+  background-color: #ddd;
+}
 
 .sectionTitle {
   padding-left: 5px;
@@ -53,138 +57,143 @@ a {
 .fav-icon {
   width: 15px;
   height: 15px;
-  background-image: url('./images/empty-start.png'); 
-  background-size: cover; /* Adjust the image size to fit the container */
-  transition: background-image 0.2s; /* Add a smooth transition effect for background image */
+  background-image: url('./images/empty-star.png');
+  background-size: cover;
+  /* Adjust the image size to fit the container */
+  transition: background-image 0.2s;
+  /* Add a smooth transition effect for background image */
   cursor: pointer;
 }
 
 .fav-icon:hover {
-  background-image: url('./images/yellow-star.png'); 
+  background-image: url('./images/yellow-star.png');
 }
 
 .unfav-icon {
   width: 15px;
   height: 15px;
-  background-image: url('./images/yellow-star.png'); 
-  background-size: cover; /* Adjust the image size to fit the container */
-  transition: background-image 0.2s; /* Add a smooth transition effect for background image */
+  background-image: url('./images/yellow-star.png');
+  background-size: cover;
+  /* Adjust the image size to fit the container */
+  transition: background-image 0.2s;
+  /* Add a smooth transition effect for background image */
   cursor: pointer;
 }
 
 .unfav-icon:hover {
-  background-image: url('./images/empty-start.png'); 
+  background-image: url('./images/empty-star.png');
 }
 
 /* Card logos */
 .amex {
-  background-image: url('./images/logos/amex.svg'); 
+  background-image: url('./images/logos/amex.svg');
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 30px 30px; 
+  background-size: 30px 30px;
   min-width: 30px;
 }
 
 .cup {
-  background-image: url('./images/logos/cup.svg'); 
+  background-image: url('./images/logos/cup.svg');
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 30px 30px; 
+  background-size: 30px 30px;
   min-width: 30px;
 }
 
 .cartebancaire {
-  background-image: url('./images/logos/cartebancaire.svg'); 
+  background-image: url('./images/logos/cartebancaire.svg');
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 30px 30px; 
+  background-size: 30px 30px;
   min-width: 30px;
 }
 
 .dankort {
-  background-image: url('./images/logos/dankort.svg'); 
+  background-image: url('./images/logos/dankort.svg');
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 30px 30px; 
+  background-size: 30px 30px;
   min-width: 30px;
 }
 
 .diners {
-  background-image: url('./images/logos/diners.svg'); 
+  background-image: url('./images/logos/diners.svg');
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 30px 30px; 
+  background-size: 30px 30px;
   min-width: 30px;
 }
 
 .discover {
-  background-image: url('./images/logos/discover.svg'); 
+  background-image: url('./images/logos/discover.svg');
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 30px 30px; 
+  background-size: 30px 30px;
   min-width: 30px;
 }
 
 .jbc {
-  background-image: url('./images/logos/jbc.svg'); 
+  background-image: url('./images/logos/jbc.svg');
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 30px 30px; 
+  background-size: 30px 30px;
   min-width: 30px;
 }
 
 .maestro {
-  background-image: url('./images/logos/maestro.svg'); 
+  background-image: url('./images/logos/maestro.svg');
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 30px 30px; 
+  background-size: 30px 30px;
   min-width: 30px;
 }
 
 .mc {
-  background-image: url('./images/logos/mc.svg'); 
+  background-image: url('./images/logos/mc.svg');
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 30px 30px; 
+  background-size: 30px 30px;
   min-width: 30px;
 }
 
 .visa {
-  background-image: url('./images/logos/visa.svg'); 
+  background-image: url('./images/logos/visa.svg');
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 30px 30px; 
+  background-size: 30px 30px;
   min-width: 30px;
 }
 
 .vpay {
-  background-image: url('./images/logos/vpay.svg'); 
+  background-image: url('./images/logos/vpay.svg');
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 30px 30px; 
+  background-size: 30px 30px;
   min-width: 30px;
 }
 
 .giftcard {
-  background-image: url('./images/logos/giftcard.svg'); 
+  background-image: url('./images/logos/giftcard.svg');
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 30px 30px; 
+  background-size: 30px 30px;
   min-width: 30px;
 }
 
 .svs {
-  background-image: url('./images/logos/svs.svg'); 
+  background-image: url('./images/logos/svs.svg');
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 30px 30px; 
+  background-size: 30px 30px;
   min-width: 30px;
 }
+
 .givex {
-  background-image: url('./images/logos/givex.svg'); 
+  background-image: url('./images/logos/givex.svg');
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 30px 30px; 
+  background-size: 30px 30px;
   min-width: 30px;
 }
 
@@ -197,7 +206,7 @@ a {
 .divFavouritesContainer {
   display: flex;
   justify-content: space-between;
-  align-items: center;  
+  align-items: center;
 }
 
 header {
@@ -212,5 +221,5 @@ header {
 }
 
 main {
-  margin-top: 25px; 
+  margin-top: 25px;
 }
