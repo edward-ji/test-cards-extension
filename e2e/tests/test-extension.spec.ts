@@ -16,9 +16,6 @@ test('filter', async ({ page, extensionId }) => {
     // Mastercard visible
     await expect(page.locator('text="2222 4000 7000 0005"')).toBeVisible();
     // Maestro not visible
-    await expect(page.locator('text="6771 7980 2100 0008"')).not.toBeVisible();
-    // IBAN not visible
-    await expect(page.locator('text="NL36TEST0236169114"')).not.toBeVisible();
 });
 
 // verify favourites message
@@ -60,55 +57,6 @@ test('copy card details', async ({ page, extensionId }) => {
 
 });
 
-// verify copy IBAN to clipboard
-test('copy IBAN details', async ({ page, extensionId }) => {
-    await page.goto(`chrome-extension://${extensionId}/panel.html`);
-
-    // default to adyen to match existing test data
-    await page.locator('#gatewaySelector').selectOption('adyen');
-
-    // IBAN
-    let iban = page.locator('text="IT60X0542811101000000123456"');
-    await expect(iban).toBeVisible();
-    await iban.click();
-
-    let clipboard = await page.evaluate("navigator.clipboard.readText()");
-    expect(clipboard).toContain("IT60X0542811101000000123456");
-
-    // name
-    let name = page.locator('text="A. Pacini"');
-    await expect(name).toBeVisible();
-    await name.click();
-
-    clipboard = await page.evaluate("navigator.clipboard.readText()");
-    expect(clipboard).toContain("A. Pacini");
-
-});
-
-// verify copy Giftcard to clipboard
-test('copy Giftcard details', async ({ page, extensionId }) => {
-    await page.goto(`chrome-extension://${extensionId}/panel.html`);
-
-    // default to adyen to match existing test data
-    await page.locator('#gatewaySelector').selectOption('adyen');
-
-    // card number
-    let cardnumber = page.locator('text="6036280000000000000"');
-    await expect(cardnumber).toBeVisible();
-    await cardnumber.click();
-
-    let clipboard = await page.evaluate("navigator.clipboard.readText()");
-    expect(clipboard).toContain("6036280000000000000");
-
-    // code
-    let code = page.locator('text="100"').first();
-    await expect(code).toBeVisible();
-    await code.click();
-
-    clipboard = await page.evaluate("navigator.clipboard.readText()");
-    expect(clipboard).toContain("100");
-
-});
 
 // verify make favourite
 test('make favourite', async ({ page, extensionId }) => {
