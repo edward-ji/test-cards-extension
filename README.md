@@ -74,7 +74,7 @@ To contribute:
   ```
 * submit a PR
 
-**Note**: the list of cards, giftcards, etc.. are saved (as JSON) on local storage. If the JSON format changes then the existing users might be affected (breaking change?).
+**Note**: the list of cards are saved (as JSON) on local storage. If the JSON format changes then the existing users might be affected (breaking change?).
 
 ## Maintainers
 
