@@ -342,26 +342,15 @@ function createPrefillLink(type) {
           // must be injected to be able to access/update DOM
           if (api.webNavigation && api.webNavigation.getAllFrames) {
             api.webNavigation.getAllFrames({ tabId: activeTab.id }, function (frames) {
-              if (frames) {
-                frames.forEach(function (frame) {
-                  api.scripting.executeScript({
-                    target: { tabId: activeTab.id, frameIds: [frame.frameId] },
-                    func: prefillCardComponent,
-                    args: [cardNumberTdValue, expiryTd.text(), codeTd.text()]
-                  }).catch(function (err) {
-                    // Ignore missing host permissions for specific frames (e.g. tracking/ads)
-                  });
+              frames?.forEach(function (frame) {
+                api.scripting.executeScript({
+                  target: { tabId: activeTab.id, frameIds: [frame.frameId] },
+                  func: prefillCardComponent,
+                  args: [cardNumberTdValue, expiryTd.text(), codeTd.text()]
+                }).catch(function (err) {
+                  // Ignore missing host permissions for specific frames (e.g. tracking/ads)
                 });
-              }
-            });
-          } else {
-            // Fallback for browsers without webNavigation permission
-            api.scripting.executeScript({
-              target: { tabId: activeTab.id, allFrames: true },
-              func: prefillCardComponent,
-              args: [cardNumberTdValue, expiryTd.text(), codeTd.text()]
-            }).catch(function (err) {
-              console.error("Failed to inject script fallback:", err);
+              });
             });
           }
         });
