@@ -81,6 +81,13 @@ async function loadDataForGateway(gatewayId) {
 
   cards = await loadFromFile(`data/${gatewayId}.json`);
 
+  // Assign a unique ID to each item
+  $.each(cards, function (gIndex, group) {
+    $.each(group.items, function (iIndex, item) {
+      item.id = gatewayId + '-' + gIndex + '-' + iIndex;
+    });
+  });
+
   renderCards();
 }
 
@@ -144,11 +151,11 @@ function createFavourites() {
 
     $.each(item.items, function (index, item) {
 
-      if (isFavourite(item.cardnumber)) {
+      if (isFavourite(item.id)) {
         numFavs++;
 
         var row = $('<tr>');
-        var tdIcon = ($('<td>').append(makeCardUnfavIcon(item.cardnumber)));
+        var tdIcon = ($('<td>').append(makeCardUnfavIcon(item.id)));
 
         var cardnumber = item.cardnumber;
         if (item.secure3DS) {
@@ -232,11 +239,11 @@ function createCardsBrandSection(brand, cards) {
   $.each(cards, function (index, item) {
 
     // display card only if not in favourites
-    if (!isFavourite(item.cardnumber)) {
+    if (!isFavourite(item.id)) {
       numCards++;
 
       var row = $('<tr>').addClass("searchable");
-      var tdIcon = ($('<td>').append(makeCardFavIcon(item.cardnumber)));
+      var tdIcon = ($('<td>').append(makeCardFavIcon(item.id)));
       if (item.secure3DS) {
         // add suffix when card flow supports 3DS ie 3714 4963 5398 431 (3DS)
         var tdNumber = ($('<td>').addClass("tdCardNumber").text(item.cardnumber + THREE_DS_SUFFIX));
@@ -273,22 +280,22 @@ function isFavourite(key) {
 }
 
 // icon to add card in favourites
-function makeCardFavIcon(cardnumber) {
-  var div = $('<div>').attr("id", sanitize(cardnumber)).addClass("fav-icon");
+function makeCardFavIcon(id) {
+  var div = $('<div>').attr("id", sanitize(id)).addClass("fav-icon");
 
   div.on('click', function () {
-    addFavourite(cardnumber);
+    addFavourite(id);
   });
 
   return div;
 }
 
 // icon to remove card from favourites
-function makeCardUnfavIcon(cardnumber) {
-  var div = $('<div>').attr("id", sanitize(cardnumber)).addClass("unfav-icon");
+function makeCardUnfavIcon(id) {
+  var div = $('<div>').attr("id", sanitize(id)).addClass("unfav-icon");
 
   div.on('click', function () {
-    removeFavourite(cardnumber);
+    removeFavourite(id);
   });
 
   return div;
