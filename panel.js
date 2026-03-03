@@ -141,43 +141,72 @@ function createFavourites() {
 
   let numFavs = 0;
 
-  // find favourite cards
-  var table = $('<table>').attr("id", "tableFavouritesId");
-
+  // We need to collect all favourites first to determine the columns
+  let favItems = [];
   $.each(cards, function (index, item) {
-
-    const logo = item.logo;
-    const group = item.group;
-
-    $.each(item.items, function (index, item) {
-
-      if (isFavourite(item.id)) {
-        numFavs++;
-
-        var row = $('<tr>');
-        var tdIcon = ($('<td>').append(makeCardUnfavIcon(item.id)));
-
-        var cardnumber = item.cardnumber;
-        if (item.secure3DS) {
-          // add suffix when card flow supports 3DS ie 3714 4963 5398 431 (3DS)
-          cardnumber = cardnumber + THREE_DS_SUFFIX;
-        }
-        var tdNumber = $('<td>').addClass("tdCardNumber").text(cardnumber);
-        addCopyHandlers(tdNumber);
-        var tdExpiry = ($('<td>').addClass("tdExpiry").text(item.expiry));
-        addCopyHandlers(tdExpiry);
-        var tdCode = ($('<td>').addClass("tdCode").text(item.CVC || ""));
-        addCopyHandlers(tdCode);
-        var tdLogo = ($('<td>').addClass("center").addClass(logo).attr('title', group));
-        var tdLinks = ($('<td>').addClass("center").append(createLinks("card")));
-        row.append(tdIcon).append(tdNumber).append(tdExpiry).append(tdCode).append(tdLogo).append(tdLinks);
-        table.append(row);
+    $.each(item.items, function (i, item2) {
+      if (isFavourite(item2.id)) {
+        favItems.push({ item: item2, logo: item.logo, group: item.group });
       }
-      divFavourites.append(table);
     });
   });
 
-  if (numFavs == 0) {
+  if (favItems.length > 0) {
+    let keys = new Set();
+    favItems.forEach(fav => {
+      Object.keys(fav.item).forEach(k => {
+        if (k !== 'id') keys.add(k);
+      });
+    });
+
+    let columns = Array.from(keys);
+    let standardColumns = ['cardnumber', 'expiry', 'CVC', 'name'];
+    let dynamicColumns = columns.filter(c => !standardColumns.includes(c));
+    let orderedColumns = [];
+    standardColumns.forEach(c => {
+      if (columns.includes(c)) orderedColumns.push(c);
+    });
+    orderedColumns.push(...dynamicColumns);
+
+    var table = $('<table>').attr("id", "tableFavouritesId");
+
+    var tbody = $('<tbody>');
+    favItems.forEach(fav => {
+      numFavs++;
+      var row = $('<tr>');
+      var tdIcon = ($('<td>').append(makeCardUnfavIcon(fav.item.id)));
+      row.append(tdIcon);
+
+      orderedColumns.forEach(c => {
+        var td = $('<td>');
+        if (c === 'cardnumber') {
+          td.addClass("tdCardNumber").text(fav.item[c] || "");
+        } else if (c === 'expiry') {
+          td.addClass("center tdExpiry").text(fav.item[c] || "");
+        } else if (c === 'CVC') {
+          td.addClass("center tdCode").text(fav.item[c] || "");
+        } else {
+          let cellValue = fav.item[c] !== null && fav.item[c] !== undefined ? fav.item[c] : "";
+          if (typeof cellValue === 'boolean') cellValue = cellValue ? c : "";
+          td.addClass("center").text(cellValue);
+        }
+        if (fav.item[c] !== null && fav.item[c] !== undefined && fav.item[c] !== "") {
+          addCopyHandlers(td);
+        }
+        row.append(td);
+      });
+
+      var tdLogo = ($('<td>').addClass("center").addClass(fav.logo).attr('title', fav.group));
+      row.append(tdLogo);
+
+      var tdLinks = ($('<td>').addClass("center").append(createLinks("card")));
+      row.append(tdLinks);
+
+      tbody.append(row);
+    });
+    table.append(tbody);
+    divFavourites.append(table);
+  } else {
     // empty section
     var text = $('<span>').html("Click '&#9734' to add your favourites here");
     divFavourites.append(text);
@@ -236,6 +265,24 @@ function createCardsBrandSection(brand, cards) {
   let numCards = 0;
 
   var table = $('<table>');
+
+  // Extract dynamic columns
+  let keys = new Set();
+  $.each(cards, function (index, item) {
+    Object.keys(item).forEach(k => {
+      if (k !== 'id') keys.add(k);
+    });
+  });
+  let columns = Array.from(keys);
+  let standardColumns = ['cardnumber', 'expiry', 'CVC', 'name'];
+  let dynamicColumns = columns.filter(c => !standardColumns.includes(c));
+  let orderedColumns = [];
+  standardColumns.forEach(c => {
+    if (columns.includes(c)) orderedColumns.push(c);
+  });
+  orderedColumns.push(...dynamicColumns);
+
+  var tbody = $('<tbody>');
   $.each(cards, function (index, item) {
 
     // display card only if not in favourites
@@ -244,28 +291,41 @@ function createCardsBrandSection(brand, cards) {
 
       var row = $('<tr>').addClass("searchable");
       var tdIcon = ($('<td>').append(makeCardFavIcon(item.id)));
-      if (item.secure3DS) {
-        // add suffix when card flow supports 3DS ie 3714 4963 5398 431 (3DS)
-        var tdNumber = ($('<td>').addClass("tdCardNumber").text(item.cardnumber + THREE_DS_SUFFIX));
-        // add hidden cell to allow filtering on content (cardnumber, brand, etc..)
-        var tdHidden = ($('<td>').addClass("hidden").text(brand + " " + item.cardnumber + THREE_DS_SUFFIX));
-      } else {
-        var tdNumber = ($('<td>').addClass("tdCardNumber").text(item.cardnumber));
-        // add hidden cell to allow filtering on content (cardnumber, brand, etc..)
-        var tdHidden = ($('<td>').addClass("hidden").text(brand + " " + item.cardnumber));
-      }
-      addCopyHandlers(tdNumber);
-      var tdCountry = ($('<td>').addClass("center").addClass("tdCountry").text(item.country || ""));
-      addCopyHandlers(tdCountry);
-      var tdExpiry = ($('<td>').addClass("center").addClass("tdExpiry").text(item.expiry));
-      addCopyHandlers(tdExpiry);
-      var tdCode = ($('<td>').addClass("center").addClass("tdCode").text(item.CVC || ""));
-      addCopyHandlers(tdCode);
+
+      var searchContent = brand + " ";
+      orderedColumns.forEach(c => {
+        if (item[c] !== null && item[c] !== undefined) searchContent += item[c] + " ";
+      });
+      var tdHidden = ($('<td>').addClass("hidden").text(searchContent));
+
+      row.append(tdHidden).append(tdIcon);
+
+      orderedColumns.forEach(c => {
+        var td = $('<td>');
+        if (c === 'cardnumber') {
+          td.addClass("tdCardNumber").text(item[c] || "");
+        } else if (c === 'expiry') {
+          td.addClass("center tdExpiry").text(item[c] || "");
+        } else if (c === 'CVC') {
+          td.addClass("center tdCode").text(item[c] || "");
+        } else {
+          let cellValue = item[c] !== null && item[c] !== undefined ? item[c] : "";
+          if (typeof cellValue === 'boolean') cellValue = cellValue ? c : "";
+          td.addClass("center").text(cellValue);
+        }
+        if (item[c] !== null && item[c] !== undefined && item[c] !== "") {
+          addCopyHandlers(td);
+        }
+        row.append(td);
+      });
+
       var tdLinks = ($('<td>').addClass("center").append(createLinks("card")));
-      row.append(tdHidden).append(tdIcon).append(tdNumber).append(tdCountry).append(tdExpiry).append(tdCode).append(tdLinks);
-      table.append(row);
+      row.append(tdLinks);
+      tbody.append(row);
     }
   });
+
+  table.append(tbody);
 
   if (numCards > 0) {
     return table;
