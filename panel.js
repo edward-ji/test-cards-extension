@@ -160,7 +160,7 @@ function createFavourites() {
     });
 
     let columns = Array.from(keys);
-    let standardColumns = ['cardnumber', 'expiry', 'CVC', 'name'];
+    let standardColumns = ['number', 'exp', 'csc', 'name'];
     let dynamicColumns = columns.filter(c => !standardColumns.includes(c));
     let orderedColumns = [];
     standardColumns.forEach(c => {
@@ -179,11 +179,11 @@ function createFavourites() {
 
       orderedColumns.forEach(c => {
         var td = $('<td>');
-        if (c === 'cardnumber') {
+        if (c === 'number') {
           td.addClass("tdCardNumber").text(fav.item[c] || "");
-        } else if (c === 'expiry') {
+        } else if (c === 'exp') {
           td.addClass("center tdExpiry").text(fav.item[c] || "");
-        } else if (c === 'CVC') {
+        } else if (c === 'csc') {
           td.addClass("center tdCode").text(fav.item[c] || "");
         } else {
           let cellValue = fav.item[c] !== null && fav.item[c] !== undefined ? fav.item[c] : "";
@@ -274,7 +274,7 @@ function createCardsBrandSection(brand, cards) {
     });
   });
   let columns = Array.from(keys);
-  let standardColumns = ['cardnumber', 'expiry', 'CVC', 'name'];
+  let standardColumns = ['number', 'exp', 'csc', 'name'];
   let dynamicColumns = columns.filter(c => !standardColumns.includes(c));
   let orderedColumns = [];
   standardColumns.forEach(c => {
@@ -302,11 +302,11 @@ function createCardsBrandSection(brand, cards) {
 
       orderedColumns.forEach(c => {
         var td = $('<td>');
-        if (c === 'cardnumber') {
+        if (c === 'number') {
           td.addClass("tdCardNumber").text(item[c] || "");
-        } else if (c === 'expiry') {
+        } else if (c === 'exp') {
           td.addClass("center tdExpiry").text(item[c] || "");
-        } else if (c === 'CVC') {
+        } else if (c === 'csc') {
           td.addClass("center tdCode").text(item[c] || "");
         } else {
           let cellValue = item[c] !== null && item[c] !== undefined ? item[c] : "";
