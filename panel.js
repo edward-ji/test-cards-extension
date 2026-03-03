@@ -1,9 +1,6 @@
 // Cross-browser API: Chrome uses chrome.*, Firefox uses browser.*
 const api = typeof browser !== "undefined" ? browser : chrome;
 
-// suffix displaying 3DS support
-const THREE_DS_SUFFIX = " (3DS)";
-
 // name objects on local storage
 const FAVOURITES_LIST = "favourites-list"
 const SELECTED_GATEWAY = "selected-gateway"
@@ -226,8 +223,6 @@ function addCopyHandlers(element) {
 // when copying into the clipboard
 function copyToClipboardHandler() {
   var value = $(this).text().trim();
-  // remove suffix (if found)
-  value = value.replace(THREE_DS_SUFFIX, "")
   copyToClipboard(value);
 
   // Show message "Copied!"
@@ -361,29 +356,9 @@ function makeCardUnfavIcon(id) {
   return div;
 }
 
-// create action links (copy, prefill)   
+// create action links (prefill)   
 function createLinks(type) {
-  return $('<div>').addClass("actionLinks").append("&nbsp;&nbsp;&nbsp;").append(createPrefillLink(type));
-}
-
-function createCopyLink() {
-  const anchor = $('<a>');
-  anchor.addClass("copyLinkClick");
-  anchor.attr('href', "a");
-  anchor.text("Copy");
-  anchor
-    .click(
-      function (evt) {
-        evt.preventDefault();
-        var cardNumberTd = $(this).closest("tr").find("td.tdCardNumber");
-        // remove suffix (if found)
-        var value = cardNumberTd.text().replace(THREE_DS_SUFFIX, "")
-
-        copyToClipboard(value);
-      }
-    );
-
-  return anchor
+  return $('<div>').addClass("actionLinks").append(createPrefillLink(type));
 }
 
 
@@ -398,8 +373,7 @@ function createPrefillLink(type) {
       async function (evt) {
         evt.preventDefault();
         var cardNumberTd = $(this).closest("tr").find("td.tdCardNumber");
-        // remove suffix (if found)
-        var cardNumberTdValue = cardNumberTd.text().replace(THREE_DS_SUFFIX, "")
+        var cardNumberTdValue = cardNumberTd.text();
         var expiryTd = $(this).closest("tr").find("td.tdExpiry");
         var codeTd = $(this).closest("tr").find("td.tdCode");
 
