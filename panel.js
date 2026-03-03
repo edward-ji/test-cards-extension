@@ -193,7 +193,10 @@ function createFavourites() {
         row.append(td);
       });
 
-      var tdLogo = ($('<td>').addClass("center").addClass(fav.logo).attr('title', fav.group));
+      var tdLogo = ($('<td>')
+        .addClass("center card-logo")
+        .css("background-image", `url('./images/logos/${fav.logo}.svg')`)
+        .attr('title', fav.group));
       row.append(tdLogo);
 
       var tdLinks = ($('<td>').addClass("center").append(createLinks("card")));
