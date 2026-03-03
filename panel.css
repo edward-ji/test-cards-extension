@@ -9,9 +9,7 @@ body {
   display: none;
 }
 
-.visible {
-  display: inline-block;
-}
+
 
 a {
   color: #06f;
@@ -38,9 +36,7 @@ a {
   width: 100%;
 }
 
-.cardnumbers td:second-child {
-  width: 300px;
-}
+
 
 .cardnumbers tr:nth-child(even) {
   background-color: white;
@@ -133,8 +129,8 @@ a {
   min-width: 30px;
 }
 
-.jbc {
-  background-image: url('./images/logos/jbc.svg');
+.jcb {
+  background-image: url('./images/logos/jcb.svg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: 30px 30px;
