@@ -82,6 +82,15 @@ async function loadDataForGateway(gatewayId) {
   $.each(cards, function (gIndex, group) {
     $.each(group.items, function (iIndex, item) {
       item.id = gatewayId + '-' + gIndex + '-' + iIndex;
+
+      // Handle dynamic future expiry dates
+      if (item.exp.match(/^\+(\d+)Y$/)) {
+        let years = parseInt(item.exp.match(/^\+(\d+)Y$/)[1], 10);
+        let date = new Date();
+        let month = String(date.getMonth() + 1).padStart(2, '0');
+        let year = String(date.getFullYear() + years).slice(-2);
+        item.exp = `${month}/${year}`;
+      }
     });
   });
 
