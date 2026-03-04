@@ -70,14 +70,14 @@ test('make favourite', async ({ page, extensionId }) => {
     await expect(page.locator('text=' + ADD_TO_FAVS_TEXT)).toBeVisible();
 
     // pin card in favs
-    await page.click("[id='4871_0499_9999_9910']");
+    await page.locator('tr').filter({ hasText: '4871 0499 9999 9910' }).locator('.fav-icon').click();
     await page.waitForTimeout(1000);
 
     // empty favs message is hidden
     await expect(page.locator('text=' + ADD_TO_FAVS_TEXT)).not.toBeVisible();
 
     // unpin card from favs
-    await page.click("[id='4871_0499_9999_9910']");
+    await page.locator('tr').filter({ hasText: '4871 0499 9999 9910' }).locator('.unfav-icon').click();
     await page.waitForTimeout(1000);
 
     // empty favs message is visible
