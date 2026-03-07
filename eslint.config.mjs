@@ -15,12 +15,12 @@ export default tseslint.config(
                 ...globals.node,
                 ...globals.webextensions,
             },
-        },
+        }
+    },
+    {
+        files: ['e2e/**/*.ts'],
         rules: {
-            '@typescript-eslint/no-explicit-any': 'off',
-            '@typescript-eslint/no-unused-vars': 'off',
-            'no-undef': 'off',
-            'prefer-const': 'off'
-        },
+            'no-empty-pattern': 'off'
+        }
     }
 );

@@ -1,14 +1,14 @@
-import { parseGatewayData, NetworkInfo, Card, ParsedGroup } from './shared/parser';
+import { parseGatewayData, NetworkInfo, Card, ParsedGroup, RawCardItem } from './shared/parser';
 
 // Cross-browser API: Chrome uses chrome.*, Firefox uses browser.*
-declare const browser: any;
+declare const browser: typeof chrome | undefined;
 const api = typeof browser !== "undefined" ? browser : chrome;
 
 // name objects on local storage
 const FAVOURITES_LIST = "favourites-list"
 const SELECTED_GATEWAY = "selected-gateway"
 
-let gateways: any[] = [];
+let gateways: { id: string, name: string, docsLink?: string }[] = [];
 let currentGatewayId = "adyen";
 let cards: ParsedGroup[] = [];
 let favourites: string[] = [];
@@ -55,7 +55,7 @@ if (searchInput) {
 
 // load content of the panel
 async function load() {
-  const storedFavs = await getFromStorage(FAVOURITES_LIST);
+  const storedFavs = await getFromStorage<string[]>(FAVOURITES_LIST);
   favourites = storedFavs || [];
 
   // Load gateway definitions and network definitions
@@ -73,7 +73,7 @@ async function load() {
     });
 
     // Restore previous selection if available
-    let savedGateway = await getFromStorage(SELECTED_GATEWAY);
+    const savedGateway = await getFromStorage<string>(SELECTED_GATEWAY);
     if (savedGateway && gateways.find(g => g.id === savedGateway)) {
       currentGatewayId = savedGateway;
     }
@@ -94,13 +94,13 @@ async function load() {
 // Load cards specific to the selected gateway
 async function loadDataForGateway(gatewayId: string) {
   // Update docs link
-  let gwInfo = gateways.find(g => g.id === gatewayId);
+  const gwInfo = gateways.find(g => g.id === gatewayId);
   if (gwInfo && gwInfo.docsLink && docsLink) {
     docsLink.href = gwInfo.docsLink;
   }
 
-  const rawCards = await loadFromFile(`data/${gatewayId}.json`);
-  cards = parseGatewayData(gatewayId, rawCards, networks);
+  const rawCards = await loadFromFile<{ group: string; items: RawCardItem[] }[]>(`data/${gatewayId}.json`);
+  cards = parseGatewayData(gatewayId, rawCards as { group: string; items: RawCardItem[] }[], networks);
 
   renderCards();
 }
@@ -161,10 +161,10 @@ function createFavourites() {
 
   divFavourites.appendChild(divFavouritesContainer);
 
-  let numFavs = 0;
+
 
   // We need to collect all favourites first to determine the columns
-  let favItems: Card[] = [];
+  const favItems: Card[] = [];
   cards.forEach(group => {
     group.items.forEach(card => {
       if (isFavourite(card.id)) {
@@ -174,15 +174,15 @@ function createFavourites() {
   });
 
   if (favItems.length > 0) {
-    let keys = new Set<string>();
+    const keys = new Set<string>();
     favItems.forEach(card => {
       Object.keys(card.display).forEach(k => keys.add(k));
     });
 
-    let columns = Array.from(keys);
-    let standardColumns = ['number', 'exp', 'csc', 'name'];
-    let dynamicColumns = columns.filter(c => !standardColumns.includes(c));
-    let orderedColumns: string[] = [];
+    const columns = Array.from(keys);
+    const standardColumns = ['number', 'exp', 'csc', 'name'];
+    const dynamicColumns = columns.filter(c => !standardColumns.includes(c));
+    const orderedColumns: string[] = [];
     standardColumns.forEach(c => {
       if (columns.includes(c)) orderedColumns.push(c);
     });
@@ -193,7 +193,7 @@ function createFavourites() {
     const tbody = document.createElement('tbody');
 
     favItems.forEach(card => {
-      numFavs++;
+
       const row = document.createElement('tr');
 
       const tdIcon = document.createElement('td');
@@ -300,15 +300,15 @@ function createCardsNetworkSection(group: string, gCards: Card[]) {
   const table = document.createElement('table');
 
   // Extract dynamic columns
-  let keys = new Set<string>();
+  const keys = new Set<string>();
   gCards.forEach(card => {
     Object.keys(card.display).forEach(k => keys.add(k));
   });
 
-  let columns = Array.from(keys);
-  let standardColumns = ['number', 'exp', 'csc', 'name'];
-  let dynamicColumns = columns.filter(c => !standardColumns.includes(c));
-  let orderedColumns: string[] = [];
+  const columns = Array.from(keys);
+  const standardColumns = ['number', 'exp', 'csc', 'name'];
+  const dynamicColumns = columns.filter(c => !standardColumns.includes(c));
+  const orderedColumns: string[] = [];
   standardColumns.forEach(c => {
     if (columns.includes(c)) orderedColumns.push(c);
   });
@@ -414,18 +414,18 @@ function addPrefillHandler(element: HTMLElement, card: Card) {
     const codeText = card.prefill.csc;
     const nameText = card.prefill.name;
 
-    api.tabs.query({ active: true, currentWindow: true }, function (tabs: any[]) {
+    api.tabs.query({ active: true, currentWindow: true }, function (tabs: chrome.tabs.Tab[]) {
       const activeTab = tabs[0];
       // inject js script to be run inside the active tab
       // must be injected to be able to access/update DOM
       if (api.webNavigation && api.webNavigation.getAllFrames) {
-        api.webNavigation.getAllFrames({ tabId: activeTab.id }, function (frames: any[]) {
+        api.webNavigation.getAllFrames({ tabId: activeTab.id! }, function (frames: chrome.webNavigation.GetAllFrameResultDetails[] | null) {
           frames?.forEach(function (frame) {
             api.scripting.executeScript({
-              target: { tabId: activeTab.id, frameIds: [frame.frameId] },
+              target: { tabId: activeTab.id!, frameIds: [frame.frameId] },
               func: prefillCardComponent,
               args: [cardNumberText, expiryText, codeText, nameText]
-            }).catch(function (err: any) {
+            }).catch(function () {
               // Ignore missing host permissions for specific frames (e.g. tracking/ads)
             });
           });
@@ -462,24 +462,23 @@ function prefillCardComponent(cardNumberText: string, expiryText: string, codeTe
 }
 
 // save cards in local storage
-async function setInStorage(name: string, value: any) {
+async function setInStorage(name: string, value: unknown) {
   await api.storage.local.set({ [name]: value });
 }
 
-// get cards from local storage
-async function getFromStorage(name: string) {
+async function getFromStorage<T>(name: string): Promise<T | undefined> {
   const storageResult = await api.storage.local.get([name]);
-  return storageResult[name];
+  return storageResult[name] as T | undefined;
 }
 
 // load from json file
-async function loadFromFile(filename: string) {
+async function loadFromFile<T>(filename: string): Promise<T | []> {
   console.log("loadFromFile " + filename);
   try {
     const res = await fetch(api.runtime.getURL(filename));
-    const obj = await res.json();
+    const obj = await res.json() as T;
     return obj;
-  } catch (e) {
+  } catch {
     return [];
   }
 }

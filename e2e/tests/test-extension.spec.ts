@@ -32,7 +32,7 @@ test('copy card details', async ({ page, extensionId }) => {
     await page.locator('#gatewaySelector').selectOption('adyen');
 
     // card number
-    let cardnumber = page.locator('text="4871 0499 9999 9910"');
+    const cardnumber = page.locator('text="4871 0499 9999 9910"');
     await expect(cardnumber).toBeVisible();
     await cardnumber.click();
 
@@ -40,7 +40,7 @@ test('copy card details', async ({ page, extensionId }) => {
     expect(clipboard).toContain("4871 0499 9999 9910");
 
     // cvc
-    let cvc = page.locator('text="7373"').first();
+    const cvc = page.locator('text="7373"').first();
     await expect(cvc).toBeVisible();
     await cvc.click();
 
@@ -48,7 +48,7 @@ test('copy card details', async ({ page, extensionId }) => {
     expect(clipboard).toContain("7373");
 
     // country
-    let country = page.locator('text="NL"').first();
+    const country = page.locator('text="NL"').first();
     await expect(country).toBeVisible();
     await country.click();
 

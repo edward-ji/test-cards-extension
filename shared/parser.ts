@@ -19,7 +19,7 @@ export interface Card {
     id: string;
     network: string;
     prefill: PrefillData;
-    display: Record<string, any>;
+    display: Record<string, unknown>;
     search: string;
 }
 
@@ -28,7 +28,16 @@ export interface ParsedGroup {
     items: Card[];
 }
 
-export function parseGatewayData(gatewayId: string, rawGroups: any[], networksList: NetworkInfo[] = []): ParsedGroup[] {
+export interface RawCardItem {
+    number: string;
+    name?: string;
+    csc?: string | number | null;
+    exp?: string;
+    network?: string;
+    [key: string]: unknown;
+}
+
+export function parseGatewayData(gatewayId: string, rawGroups: { group: string; items: RawCardItem[] }[], networksList: NetworkInfo[] = []): ParsedGroup[] {
     const parsedGroups: ParsedGroup[] = [];
 
     rawGroups.forEach((group, gIndex) => {
@@ -37,7 +46,7 @@ export function parseGatewayData(gatewayId: string, rawGroups: any[], networksLi
             items: []
         };
 
-        group.items.forEach((item: any, iIndex: number) => {
+        group.items.forEach((item: RawCardItem, iIndex: number) => {
             const id = `${gatewayId}-${gIndex}-${iIndex}`;
 
             // Build the prefill object
@@ -54,8 +63,9 @@ export function parseGatewayData(gatewayId: string, rawGroups: any[], networksLi
                 rawExp = "+3Y"; // default if empty or missing
             }
 
-            if (rawExp.match(/^\+(\d+)Y$/)) {
-                const years = parseInt(rawExp.match(/^\+(\d+)Y$/)[1], 10);
+            const expMatch = /^\+(\d+)Y$/.exec(rawExp);
+            if (expMatch) {
+                const years = parseInt(expMatch[1], 10);
                 const date = new Date();
                 const month = String(date.getMonth() + 1).padStart(2, '0');
                 const year = String(date.getFullYear() + years).slice(-2);
@@ -65,7 +75,7 @@ export function parseGatewayData(gatewayId: string, rawGroups: any[], networksLi
             }
 
             // Build the display object
-            const display: Record<string, any> = {};
+            const display: Record<string, unknown> = {};
             Object.keys(item).forEach((key) => {
                 // Skip network/logo and our new prefill/display internals
                 if (key !== 'network' && key !== 'id') {

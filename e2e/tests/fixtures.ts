@@ -1,7 +1,7 @@
 /**
  * Defines base test: set the context loading the extension, retrieve extension id
  */
-import { test as base, expect as playwrightTest, chromium, type BrowserContext } from '@playwright/test';
+import { test as base, chromium, type BrowserContext } from '@playwright/test';
 import path from 'path';
 
 const PATH_TO_EXTENSION = '../../dist/chrome'
@@ -10,7 +10,6 @@ export const test = base.extend<{
   context: BrowserContext;
   extensionId: string;
 }>({
-  // eslint-disable-next-line no-empty-pattern
   context: async ({ }, use) => {
     const pathToExtension = path.join(__dirname, PATH_TO_EXTENSION);
     const context = await chromium.launchPersistentContext('', {
