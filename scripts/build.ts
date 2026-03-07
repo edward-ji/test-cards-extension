@@ -1,28 +1,31 @@
-#!/usr/bin/env node
+import fs from 'fs';
+import path from 'path';
+import esbuild from 'esbuild';
+import { fileURLToPath } from 'url';
+
 /**
  * Build script: copies shared extension files into dist/chrome and dist/firefox,
  * then writes the correct manifest and background script for each browser.
  */
 
-const fs = require("fs");
-const path = require("path");
-const esbuild = require("esbuild");
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-const ROOT = path.resolve(__dirname, "..");
-const DIST = path.join(ROOT, "dist");
+const ROOT = path.resolve(__dirname, '..');
+const DIST = path.join(ROOT, 'dist');
 
 const SHARED_FILES = [
-  "panel.html",
-  "panel.css",
+  'panel.html',
+  'panel.css',
 ];
-const SHARED_DIRS = ["data", "images"]; // Removed third-party and shared, they are bundled
+const SHARED_DIRS = ['data', 'images'];
 
-function copyFile(src, dest) {
+function copyFile(src: string, dest: string) {
   fs.mkdirSync(path.dirname(dest), { recursive: true });
   fs.copyFileSync(src, dest);
 }
 
-function copyDir(src, dest) {
+function copyDir(src: string, dest: string) {
   fs.mkdirSync(dest, { recursive: true });
   if (fs.cpSync) {
     fs.cpSync(src, dest, { recursive: true });
@@ -31,7 +34,7 @@ function copyDir(src, dest) {
   }
 }
 
-function copyDirRecursive(src, dest) {
+function copyDirRecursive(src: string, dest: string) {
   const entries = fs.readdirSync(src, { withFileTypes: true });
   for (const entry of entries) {
     const srcPath = path.join(src, entry.name);
@@ -45,7 +48,7 @@ function copyDirRecursive(src, dest) {
   }
 }
 
-function buildBrowser(browser) {
+function buildBrowser(browser: 'chrome' | 'firefox') {
   const outDir = path.join(DIST, browser);
   fs.mkdirSync(outDir, { recursive: true });
 
@@ -61,26 +64,26 @@ function buildBrowser(browser) {
 
   // Bundle TypeScript via ESBuild into the output directory
   esbuild.buildSync({
-    entryPoints: [path.join(ROOT, "panel.ts")],
+    entryPoints: [path.join(ROOT, 'panel.ts')],
     bundle: true,
-    outfile: path.join(outDir, "panel.js"),
-    target: ["es2020"],
-    minify: process.env.NODE_ENV === "production"
+    outfile: path.join(outDir, 'panel.js'),
+    target: ['es2020'],
+    minify: process.env.NODE_ENV === 'production'
   });
 
-  const manifestSrc = path.join(ROOT, "manifests", `${browser}.json`);
-  const manifestDest = path.join(outDir, "manifest.json");
+  const manifestSrc = path.join(ROOT, 'manifests', `${browser}.json`);
+  const manifestDest = path.join(outDir, 'manifest.json');
   fs.copyFileSync(manifestSrc, manifestDest);
 
-  if (browser === "chrome") {
+  if (browser === 'chrome') {
     copyFile(
-      path.join(ROOT, "service-worker.js"),
-      path.join(outDir, "service-worker.js")
+      path.join(ROOT, 'service-worker.js'),
+      path.join(outDir, 'service-worker.js')
     );
-  } else if (browser === "firefox") {
+  } else if (browser === 'firefox') {
     copyFile(
-      path.join(ROOT, "background-firefox.js"),
-      path.join(outDir, "background-firefox.js")
+      path.join(ROOT, 'background-firefox.js'),
+      path.join(outDir, 'background-firefox.js')
     );
   }
 
@@ -89,14 +92,14 @@ function buildBrowser(browser) {
 
 function main() {
   const targets = process.argv.slice(2);
-  const browsers = targets.length ? targets : ["chrome", "firefox"];
+  const browsers = targets.length ? targets : ['chrome', 'firefox'];
 
   for (const browser of browsers) {
-    if (browser !== "chrome" && browser !== "firefox") {
+    if (browser !== 'chrome' && browser !== 'firefox') {
       console.error(`Unknown target: ${browser}`);
       process.exit(1);
     }
-    buildBrowser(browser);
+    buildBrowser(browser as 'chrome' | 'firefox');
   }
 }
 

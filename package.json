@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "node scripts/build.js",
-    "build:chrome": "node scripts/build.js chrome",
-    "build:firefox": "node scripts/build.js firefox",
+    "build": "tsx scripts/build.ts",
+    "build:chrome": "tsx scripts/build.ts chrome",
+    "build:firefox": "tsx scripts/build.ts firefox",
     "pretest": "npm run build",
     "test": "cd e2e && npx playwright test",
     "lint": "eslint .",
