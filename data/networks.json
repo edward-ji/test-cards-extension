@@ -1,0 +1,75 @@
+[
+    {
+        "id": "amex",
+        "names": [
+            "American Express",
+            "Amex"
+        ]
+    },
+    {
+        "id": "cartebancaire",
+        "names": [
+            "Cartes Bancaires",
+            "CB"
+        ]
+    },
+    {
+        "id": "cup",
+        "names": [
+            "China UnionPay",
+            "CUP"
+        ]
+    },
+    {
+        "id": "dankort",
+        "names": [
+            "Dankort"
+        ]
+    },
+    {
+        "id": "diners",
+        "names": [
+            "Diners Club",
+            "Diners"
+        ]
+    },
+    {
+        "id": "discover",
+        "names": [
+            "Discover"
+        ]
+    },
+    {
+        "id": "jcb",
+        "names": [
+            "Japan Credit Bureau",
+            "JCB"
+        ]
+    },
+    {
+        "id": "maestro",
+        "names": [
+            "Maestro"
+        ]
+    },
+    {
+        "id": "mc",
+        "names": [
+            "Mastercard",
+            "MC"
+        ]
+    },
+    {
+        "id": "visa",
+        "names": [
+            "Visa"
+        ]
+    },
+    {
+        "id": "vpay",
+        "names": [
+            "V Pay",
+            "VPay"
+        ]
+    }
+]

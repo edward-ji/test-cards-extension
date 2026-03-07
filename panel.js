@@ -9,6 +9,7 @@ let gateways = [];
 let currentGatewayId = "adyen";
 let cards = [];
 let favourites = [];
+let networks = [];
 
 $("#search").on("keyup", function () {
   // filter criteria
@@ -16,7 +17,7 @@ $("#search").on("keyup", function () {
 
   $(".searchable").each(function (i, card) {
     // filter: hide rows that don't match the criteria
-    $(card).toggle($(card).text().toLowerCase().indexOf(criteria) > -1)
+    $(card).toggle($(card).attr('data-search').indexOf(criteria) > -1)
     // hide divs containing empty tables (ie don't show empty sections)
     var table = $(card).closest('table');
     var numVisibleRows = table.find('tr').filter(function () {
@@ -39,8 +40,9 @@ async function load() {
     favourites = [];
   }
 
-  // Load gateway definitions
+  // Load gateway definitions and network definitions
   gateways = await loadFromFile("data/gateways.json");
+  networks = await loadFromFile("data/networks.json");
 
   // Set up the Gateway Selector UI
   var selector = $('#gatewaySelector');
@@ -76,23 +78,8 @@ async function loadDataForGateway(gatewayId) {
     $('#docsLink').attr('href', gwInfo.docsLink);
   }
 
-  cards = await loadFromFile(`data/${gatewayId}.json`);
-
-  // Assign a unique ID to each item
-  $.each(cards, function (gIndex, group) {
-    $.each(group.items, function (iIndex, item) {
-      item.id = gatewayId + '-' + gIndex + '-' + iIndex;
-
-      // Handle dynamic future expiry dates
-      if (item.exp.match(/^\+(\d+)Y$/)) {
-        let years = parseInt(item.exp.match(/^\+(\d+)Y$/)[1], 10);
-        let date = new Date();
-        let month = String(date.getMonth() + 1).padStart(2, '0');
-        let year = String(date.getFullYear() + years).slice(-2);
-        item.exp = `${month}/${year}`;
-      }
-    });
-  });
+  const rawCards = await loadFromFile(`data/${gatewayId}.json`);
+  cards = parseGatewayData(gatewayId, rawCards, networks);
 
   renderCards();
 }
@@ -119,7 +106,7 @@ function createCards() {
     var div = $('<div>').addClass("cardnumbers");
     var h3 = $('<h3>').addClass("sectionTitle").text(item.group);
 
-    const cards = createCardsBrandSection(item.group, item.items);
+    const cards = createCardsNetworkSection(item.group, item.items);
     if (cards != undefined) {
       // show section when not empty (i.e. all cards are in the favourites section)
       div.append(h3);
@@ -149,19 +136,19 @@ function createFavourites() {
 
   // We need to collect all favourites first to determine the columns
   let favItems = [];
-  $.each(cards, function (index, item) {
-    $.each(item.items, function (i, item2) {
-      if (isFavourite(item2.id)) {
-        favItems.push({ item: item2, logo: item.logo, group: item.group });
+  $.each(cards, function (index, group) {
+    $.each(group.items, function (i, card) {
+      if (isFavourite(card.id)) {
+        favItems.push(card);
       }
     });
   });
 
   if (favItems.length > 0) {
     let keys = new Set();
-    favItems.forEach(fav => {
-      Object.keys(fav.item).forEach(k => {
-        if (k !== 'id') keys.add(k);
+    favItems.forEach(card => {
+      Object.keys(card.display).forEach(k => {
+        keys.add(k);
       });
     });
 
@@ -177,26 +164,26 @@ function createFavourites() {
     var table = $('<table>').attr("id", "tableFavouritesId");
 
     var tbody = $('<tbody>');
-    favItems.forEach(fav => {
+    favItems.forEach(card => {
       numFavs++;
       var row = $('<tr>');
-      var tdIcon = ($('<td>').append(makeCardUnfavIcon(fav.item.id)));
+      var tdIcon = ($('<td>').append(makeCardUnfavIcon(card.id)));
       row.append(tdIcon);
 
       orderedColumns.forEach(c => {
         var td = $('<td>');
         if (c === 'number') {
-          td.addClass("tdCardNumber").text(fav.item[c] || "");
+          td.addClass("tdCardNumber").text(card.display[c] || "");
         } else if (c === 'exp') {
-          td.addClass("center tdExpiry").text(fav.item[c] || "");
+          td.addClass("center tdExpiry").text(card.display[c] || "");
         } else if (c === 'csc') {
-          td.addClass("center tdCode").text(fav.item[c] || "");
+          td.addClass("center tdCode").text(card.display[c] || "");
         } else {
-          let cellValue = fav.item[c] !== null && fav.item[c] !== undefined ? fav.item[c] : "";
+          let cellValue = card.display[c] !== null && card.display[c] !== undefined ? card.display[c] : "";
           if (typeof cellValue === 'boolean') cellValue = cellValue ? c : "";
           td.addClass("center").text(cellValue);
         }
-        if (fav.item[c] !== null && fav.item[c] !== undefined && fav.item[c] !== "") {
+        if (card.display[c] !== null && card.display[c] !== undefined && card.display[c] !== "") {
           addCopyHandlers(td);
         }
         row.append(td);
@@ -204,12 +191,10 @@ function createFavourites() {
 
       var tdLogo = ($('<td>')
         .addClass("center card-logo")
-        .css("background-image", `url('./images/logos/${fav.logo}.svg')`)
-        .attr('title', fav.group));
+        .css("background-image", `url('./images/logos/${card.network}.svg')`)
+        .attr('title', "Prefill " + (networks.find(n => n.id === card.network)?.names?.join(", ") || card.network)));
+      addPrefillHandler(tdLogo, card);
       row.append(tdLogo);
-
-      var tdLinks = ($('<td>').addClass("center").append(createLinks("card")));
-      row.append(tdLinks);
 
       tbody.append(row);
     });
@@ -266,8 +251,8 @@ function removeFavourite(key) {
   load();
 }
 
-// render brand of cards
-function createCardsBrandSection(brand, cards) {
+// render network of cards
+function createCardsNetworkSection(group, cards) {
 
   let numCards = 0;
 
@@ -275,9 +260,9 @@ function createCardsBrandSection(brand, cards) {
 
   // Extract dynamic columns
   let keys = new Set();
-  $.each(cards, function (index, item) {
-    Object.keys(item).forEach(k => {
-      if (k !== 'id') keys.add(k);
+  $.each(cards, function (index, card) {
+    Object.keys(card.display).forEach(k => {
+      keys.add(k);
     });
   });
   let columns = Array.from(keys);
@@ -290,44 +275,43 @@ function createCardsBrandSection(brand, cards) {
   orderedColumns.push(...dynamicColumns);
 
   var tbody = $('<tbody>');
-  $.each(cards, function (index, item) {
+  $.each(cards, function (index, card) {
 
     // display card only if not in favourites
-    if (!isFavourite(item.id)) {
+    if (!isFavourite(card.id)) {
       numCards++;
 
-      var row = $('<tr>').addClass("searchable");
-      var tdIcon = ($('<td>').append(makeCardFavIcon(item.id)));
+      var row = $('<tr>').addClass("searchable").attr("data-search", card.search);
+      var tdIcon = ($('<td>').append(makeCardFavIcon(card.id)));
 
-      var searchContent = brand + " ";
-      orderedColumns.forEach(c => {
-        if (item[c] !== null && item[c] !== undefined) searchContent += item[c] + " ";
-      });
-      var tdHidden = ($('<td>').addClass("hidden").text(searchContent));
-
-      row.append(tdHidden).append(tdIcon);
+      row.append(tdIcon);
 
       orderedColumns.forEach(c => {
         var td = $('<td>');
         if (c === 'number') {
-          td.addClass("tdCardNumber").text(item[c] || "");
+          td.addClass("tdCardNumber").text(card.display[c] || "");
         } else if (c === 'exp') {
-          td.addClass("center tdExpiry").text(item[c] || "");
+          td.addClass("center tdExpiry").text(card.display[c] || "");
         } else if (c === 'csc') {
-          td.addClass("center tdCode").text(item[c] || "");
+          td.addClass("center tdCode").text(card.display[c] || "");
         } else {
-          let cellValue = item[c] !== null && item[c] !== undefined ? item[c] : "";
+          let cellValue = card.display[c] !== null && card.display[c] !== undefined ? card.display[c] : "";
           if (typeof cellValue === 'boolean') cellValue = cellValue ? c : "";
           td.addClass("center").text(cellValue);
         }
-        if (item[c] !== null && item[c] !== undefined && item[c] !== "") {
+        if (card.display[c] !== null && card.display[c] !== undefined && card.display[c] !== "") {
           addCopyHandlers(td);
         }
         row.append(td);
       });
 
-      var tdLinks = ($('<td>').addClass("center").append(createLinks("card")));
-      row.append(tdLinks);
+      var tdLogo = ($('<td>')
+        .addClass("center card-logo")
+        .css("background-image", `url('./images/logos/${card.network}.svg')`)
+        .attr('title', "Prefill"));
+      addPrefillHandler(tdLogo, card);
+      row.append(tdLogo);
+
       tbody.append(row);
     }
   });
@@ -368,26 +352,17 @@ function makeCardUnfavIcon(id) {
   return div;
 }
 
-// create action links (prefill)   
-function createLinks(type) {
-  return $('<div>').addClass("actionLinks").append(createPrefillLink(type));
-}
-
-
-// create prefill link based on type (card)
-function createPrefillLink(type) {
-  const anchor = $('<a>');
-  anchor.addClass("copyPrefillClick");
-  anchor.attr('href', "a");
-  anchor.text("Prefill");
-  anchor
+// attach prefill click handler
+function addPrefillHandler(element, card) {
+  element.addClass("copyPrefillClick");
+  element
     .click(
       async function (evt) {
         evt.preventDefault();
-        var cardNumberTd = $(this).closest("tr").find("td.tdCardNumber");
-        var cardNumberTdValue = cardNumberTd.text();
-        var expiryTd = $(this).closest("tr").find("td.tdExpiry");
-        var codeTd = $(this).closest("tr").find("td.tdCode");
+        var cardNumberText = card.prefill.number;
+        var expiryText = card.prefill.exp;
+        var codeText = card.prefill.csc;
+        var nameText = card.prefill.name;
 
         api.tabs.query({ active: true, currentWindow: true }, function (tabs) {
           var activeTab = tabs[0];
@@ -399,7 +374,7 @@ function createPrefillLink(type) {
                 api.scripting.executeScript({
                   target: { tabId: activeTab.id, frameIds: [frame.frameId] },
                   func: prefillCardComponent,
-                  args: [cardNumberTdValue, expiryTd.text(), codeTd.text()]
+                  args: [cardNumberText, expiryText, codeText, nameText]
                 }).catch(function (err) {
                   // Ignore missing host permissions for specific frames (e.g. tracking/ads)
                 });
@@ -409,7 +384,6 @@ function createPrefillLink(type) {
         });
       }
     );
-  return anchor
 }
 
 async function copyToClipboard(val) {
@@ -417,9 +391,10 @@ async function copyToClipboard(val) {
 }
 
 // find and prefill form input fields (based on type)
-function prefillCardComponent(cardNumberTd, expiryTd, codeTd) {
+function prefillCardComponent(cardNumberText, expiryText, codeText, nameText) {
 
   function fillField(selector, value) {
+    if (value === undefined) return;
     var element = document.querySelector(selector);
     if (!element) return;
     element.value = value;
@@ -428,12 +403,14 @@ function prefillCardComponent(cardNumberTd, expiryTd, codeTd) {
     element.dispatchEvent(new Event('blur', { bubbles: true }));
   }
 
-  fillField('input[autocomplete="cc-number"]', cardNumberTd);
-  fillField('input[autocomplete="cc-exp"]', expiryTd);
-  fillField('input[autocomplete="cc-csc"]', codeTd);
-  fillField('input[autocomplete="cc-name"]', "J. Smith");
-  fillField('input[autocomplete="cc-exp-month"]', expiryTd.slice(0, 2));
-  fillField('input[autocomplete="cc-exp-year"]', expiryTd.slice(-2));
+  fillField('input[autocomplete="cc-number"]', cardNumberText);
+  fillField('input[autocomplete="cc-exp"]', expiryText);
+  fillField('input[autocomplete="cc-csc"]', codeText);
+  fillField('input[autocomplete="cc-name"]', nameText);
+  if (expiryText) {
+    fillField('input[autocomplete="cc-exp-month"]', expiryText.slice(0, 2));
+    fillField('input[autocomplete="cc-exp-year"]', expiryText.slice(-2));
+  }
 }
 
 // save cards in local storage
