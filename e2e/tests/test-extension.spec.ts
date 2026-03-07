@@ -1,6 +1,6 @@
 import { test, expect } from './fixtures';
 
-const ADD_TO_FAVS_TEXT = "Click \'☆\' to add your favourites here";
+const ADD_TO_FAVS_TEXT = "Click '☆' to add your favourites here";
 
 // verify filter
 test('filter', async ({ page, extensionId }) => {
