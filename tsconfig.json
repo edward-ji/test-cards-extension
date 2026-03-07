@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "target": "es2020",
+        "lib": [
+            "DOM",
+            "ES2020"
+        ],
+        "module": "commonjs",
+        "strict": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "outDir": "./build"
+    },
+    "include": [
+        "panel.ts",
+        "shared/parser.ts"
+    ]
+}

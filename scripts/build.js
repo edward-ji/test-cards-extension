@@ -6,16 +6,16 @@
 
 const fs = require("fs");
 const path = require("path");
+const esbuild = require("esbuild");
 
 const ROOT = path.resolve(__dirname, "..");
 const DIST = path.join(ROOT, "dist");
 
 const SHARED_FILES = [
   "panel.html",
-  "panel.js",
   "panel.css",
 ];
-const SHARED_DIRS = ["data", "images", "third-party", "shared"];
+const SHARED_DIRS = ["data", "images"]; // Removed third-party and shared, they are bundled
 
 function copyFile(src, dest) {
   fs.mkdirSync(path.dirname(dest), { recursive: true });
@@ -58,6 +58,15 @@ function buildBrowser(browser) {
       copyDir(src, path.join(outDir, dir));
     }
   }
+
+  // Bundle TypeScript via ESBuild into the output directory
+  esbuild.buildSync({
+    entryPoints: [path.join(ROOT, "panel.ts")],
+    bundle: true,
+    outfile: path.join(outDir, "panel.js"),
+    target: ["es2020"],
+    minify: process.env.NODE_ENV === "production"
+  });
 
   const manifestSrc = path.join(ROOT, "manifests", `${browser}.json`);
   const manifestDest = path.join(outDir, "manifest.json");

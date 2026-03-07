@@ -3,16 +3,41 @@
  * This file is purely for data transformation and can be used in Node.js (for linting) or the browser.
  */
 
-function parseGatewayData(gatewayId, rawGroups, networksList = []) {
-    const parsedGroups = [];
+export interface NetworkInfo {
+    id: string;
+    names: string[];
+}
+
+export interface PrefillData {
+    number: string;
+    name: string;
+    csc: string;
+    exp: string;
+}
+
+export interface Card {
+    id: string;
+    network: string;
+    prefill: PrefillData;
+    display: Record<string, any>;
+    search: string;
+}
+
+export interface ParsedGroup {
+    group: string;
+    items: Card[];
+}
+
+export function parseGatewayData(gatewayId: string, rawGroups: any[], networksList: NetworkInfo[] = []): ParsedGroup[] {
+    const parsedGroups: ParsedGroup[] = [];
 
     rawGroups.forEach((group, gIndex) => {
-        const parsedGroup = {
+        const parsedGroup: ParsedGroup = {
             group: group.group,
             items: []
         };
 
-        group.items.forEach((item, iIndex) => {
+        group.items.forEach((item: any, iIndex: number) => {
             const id = `${gatewayId}-${gIndex}-${iIndex}`;
 
             // Build the prefill object
@@ -40,7 +65,7 @@ function parseGatewayData(gatewayId, rawGroups, networksList = []) {
             }
 
             // Build the display object
-            const display = {};
+            const display: Record<string, any> = {};
             Object.keys(item).forEach((key) => {
                 // Skip network/logo and our new prefill/display internals
                 if (key !== 'network' && key !== 'id') {
@@ -74,7 +99,4 @@ function parseGatewayData(gatewayId, rawGroups, networksList = []) {
     return parsedGroups;
 }
 
-// Export for Node.js if applicable (e.g. for lint scripts later)
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { parseGatewayData };
-}
+
