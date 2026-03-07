@@ -3,8 +3,22 @@ name: Lint
 on:
   push:
     branches: [ main ]
+    paths:
+      - 'package.json'
+      - 'package-lock.json'
+      - 'tsconfig.json'
+      - 'eslint.config.mjs'
+      - '**/*.ts'
+      - 'data/'
   pull_request:
     branches: [ main ]
+    paths:
+      - 'package.json'
+      - 'package-lock.json'
+      - 'tsconfig.json'
+      - 'eslint.config.mjs'
+      - '**/*.ts'
+      - 'data/'
 
 jobs:
   lint:
@@ -16,3 +30,4 @@ jobs:
           node-version: lts/*
       - run: npm ci
       - run: npm run lint
+      - run: npm run validate-data
