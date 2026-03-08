@@ -1,7 +1,5 @@
+import browser from 'webextension-polyfill';
 import { parseGatewayData, NetworkInfo, Card, ParsedGroup, RawCardItem } from './shared/parser';
-
-// Cross-browser API: Chrome uses chrome.*, Firefox uses browser.*
-const api = typeof browser !== "undefined" ? (browser as unknown as typeof chrome) : chrome;
 
 // name objects on local storage
 const FAVOURITES_LIST = "favourites-list"
@@ -413,24 +411,22 @@ function addPrefillHandler(element: HTMLElement, card: Card) {
     const codeText = card.prefill.csc;
     const nameText = card.prefill.name;
 
-    api.tabs.query({ active: true, currentWindow: true }, function (tabs: chrome.tabs.Tab[]) {
-      const activeTab = tabs[0];
-      // inject js script to be run inside the active tab
-      // must be injected to be able to access/update DOM
-      if (api.webNavigation && api.webNavigation.getAllFrames) {
-        api.webNavigation.getAllFrames({ tabId: activeTab.id! }, function (frames: chrome.webNavigation.GetAllFrameResultDetails[] | null) {
-          frames?.forEach(function (frame) {
-            api.scripting.executeScript({
-              target: { tabId: activeTab.id!, frameIds: [frame.frameId] },
-              func: prefillCardComponent,
-              args: [cardNumberText, expiryText, codeText, nameText]
-            }).catch(function () {
-              // Ignore missing host permissions for specific frames (e.g. tracking/ads)
-            });
-          });
+    const tabs = await browser.tabs.query({ active: true, currentWindow: true });
+    const activeTab = tabs[0];
+    // inject js script to be run inside the active tab
+    // must be injected to be able to access/update DOM
+    if (browser.webNavigation && browser.webNavigation.getAllFrames) {
+      const frames = await browser.webNavigation.getAllFrames({ tabId: activeTab.id! });
+      frames?.forEach(function (frame) {
+        browser.scripting.executeScript({
+          target: { tabId: activeTab.id!, frameIds: [frame.frameId] },
+          func: prefillCardComponent,
+          args: [cardNumberText, expiryText, codeText, nameText]
+        }).catch(function () {
+          // Ignore missing host permissions for specific frames (e.g. tracking/ads)
         });
-      }
-    });
+      });
+    }
   });
 }
 
@@ -462,11 +458,11 @@ function prefillCardComponent(cardNumberText: string, expiryText: string, codeTe
 
 // save cards in local storage
 async function setInStorage(name: string, value: unknown) {
-  await api.storage.local.set({ [name]: value });
+  await browser.storage.local.set({ [name]: value });
 }
 
 async function getFromStorage<T>(name: string): Promise<T | undefined> {
-  const storageResult = await api.storage.local.get([name]);
+  const storageResult = await browser.storage.local.get([name]);
   return storageResult[name] as T | undefined;
 }
 
@@ -474,7 +470,7 @@ async function getFromStorage<T>(name: string): Promise<T | undefined> {
 async function loadFromFile<T>(filename: string): Promise<T | []> {
   console.log("loadFromFile " + filename);
   try {
-    const res = await fetch(api.runtime.getURL(filename));
+    const res = await fetch(browser.runtime.getURL(filename));
     const obj = await res.json() as T;
     return obj;
   } catch {
