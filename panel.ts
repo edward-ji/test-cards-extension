@@ -1,7 +1,7 @@
 import { parseGatewayData, NetworkInfo, Card, ParsedGroup, RawCardItem } from './shared/parser';
 
 // Cross-browser API: Chrome uses chrome.*, Firefox uses browser.*
-const api = typeof browser !== "undefined" ? (browser as typeof chrome) : chrome;
+const api = typeof browser !== "undefined" ? (browser as unknown as typeof chrome) : chrome;
 
 // name objects on local storage
 const FAVOURITES_LIST = "favourites-list"
