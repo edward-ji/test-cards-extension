@@ -1,0 +1,102 @@
+[
+    {
+        "group": "Test card numbers",
+        "items": [
+            {
+                "number": "3434 3434 3434 343",
+                "network": "amex"
+            },
+            {
+                "number": "4150 5809 9651 7927",
+                "network": [
+                    "cartebancaire",
+                    "visa"
+                ]
+            },
+            {
+                "number": "5131 0724 5440 8923",
+                "network": [
+                    "cartebancaire",
+                    "mc"
+                ]
+            },
+            {
+                "number": "5817 0200 0000 0000",
+                "network": [
+                    "cartebancaire",
+                    "maestro"
+                ]
+            },
+            {
+                "number": "6011 0004 0000 0000",
+                "network": "discover"
+            },
+            {
+                "number": "4434 0200 0000 0006",
+                "network": [
+                    "eftpos",
+                    "visa"
+                ]
+            },
+            {
+                "number": "5163 1500 0000 0005",
+                "network": [
+                    "eftpos",
+                    "mc"
+                ]
+            },
+            {
+                "number": "3528 0007 0000 0000",
+                "network": "jcb"
+            },
+            {
+                "number": "6759 6498 2643 8453",
+                "network": "maestro"
+            },
+            {
+                "number": "5555 5555 5555 4444",
+                "network": "mc"
+            },
+            {
+                "number": "5454 5454 5454 5454",
+                "network": "mc"
+            },
+            {
+                "number": "2221 0000 0000 0009",
+                "network": "mc"
+            },
+            {
+                "number": "5163 6136 1361 3613",
+                "network": "mc",
+                "note": "Debit"
+            },
+            {
+                "number": "4444 3333 2222 1111",
+                "network": "visa"
+            },
+            {
+                "number": "4911 8300 0000 0",
+                "network": "visa"
+            },
+            {
+                "number": "4917 6100 0000 0000",
+                "network": "visa"
+            },
+            {
+                "number": "4462 0300 0000 0000",
+                "network": "visa",
+                "note": "Debit"
+            },
+            {
+                "number": "4917 6100 0000 0000 003",
+                "network": "visa",
+                "note": "Debit"
+            },
+            {
+                "number": "4917 3008 0000 0000",
+                "network": "visa",
+                "note": "Electron (UK only)"
+            }
+        ]
+    }
+]

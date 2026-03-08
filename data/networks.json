@@ -7,10 +7,41 @@
         ]
     },
     {
+        "id": "aura",
+        "names": [
+            "Aura"
+        ]
+    },
+    {
+        "id": "bancontact",
+        "names": [
+            "Bancontact",
+            "BCMC"
+        ]
+    },
+    {
+        "id": "cabal",
+        "names": [
+            "Cabal"
+        ]
+    },
+    {
+        "id": "carnet",
+        "names": [
+            "CARNET"
+        ]
+    },
+    {
         "id": "cartebancaire",
         "names": [
             "Cartes Bancaires",
             "CB"
+        ]
+    },
+    {
+        "id": "credimas",
+        "names": [
+            "Credimas"
         ]
     },
     {
@@ -40,6 +71,25 @@
         ]
     },
     {
+        "id": "eftpos",
+        "names": [
+            "eftpos",
+            "EFTPOS"
+        ]
+    },
+    {
+        "id": "elo",
+        "names": [
+            "Elo"
+        ]
+    },
+    {
+        "id": "hipercard",
+        "names": [
+            "Hipercard"
+        ]
+    },
+    {
         "id": "jcb",
         "names": [
             "Japan Credit Bureau",
@@ -53,10 +103,22 @@
         ]
     },
     {
+        "id": "magna",
+        "names": [
+            "Magna"
+        ]
+    },
+    {
         "id": "mc",
         "names": [
             "Mastercard",
             "MC"
+        ]
+    },
+    {
+        "id": "naranja",
+        "names": [
+            "Naranja"
         ]
     },
     {

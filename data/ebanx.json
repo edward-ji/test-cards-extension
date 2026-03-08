@@ -1,0 +1,260 @@
+[
+    {
+        "group": "Test card numbers",
+        "items": [
+            {
+                "number": "3782 8224 6310 005",
+                "network": "amex"
+            },
+            {
+                "number": "3782 8274 9798 722",
+                "network": "amex"
+            },
+            {
+                "number": "5078 6018 7000 0127 985",
+                "network": "aura"
+            },
+            {
+                "number": "3056 9309 0259 04",
+                "network": "diners"
+            },
+            {
+                "number": "6011 1111 1111 1117",
+                "network": "discover"
+            },
+            {
+                "number": "6362 9700 0045 7013",
+                "network": "elo"
+            },
+            {
+                "number": "6362 9717 4712 9170",
+                "network": "elo"
+            },
+            {
+                "number": "6062 8256 2425 4001",
+                "network": "hipercard"
+            },
+            {
+                "number": "6062 8239 3626 8330",
+                "network": "hipercard"
+            },
+            {
+                "number": "4111 1111 1111 1111",
+                "network": "visa"
+            },
+            {
+                "number": "4111 1156 6605 2208",
+                "network": "visa"
+            },
+            {
+                "number": "5555 5555 5555 4444",
+                "network": "mc"
+            },
+            {
+                "number": "5555 5563 5556 4617",
+                "network": "mc"
+            },
+            {
+                "number": "5062 2246 0744 0872",
+                "network": "carnet",
+                "country": "Mexico"
+            },
+            {
+                "number": "5045 2011 7440 2586",
+                "network": "credimas",
+                "country": "Argentina"
+            },
+            {
+                "number": "5895 6262 9299 0446",
+                "network": "naranja",
+                "country": "Argentina"
+            },
+            {
+                "number": "5896 5787 4202 6538",
+                "network": "cabal",
+                "country": "Argentina"
+            },
+            {
+                "number": "5680 0956 6061 0110",
+                "network": "magna",
+                "country": "Chile"
+            }
+        ]
+    },
+    {
+        "group": "Credit Card | Declined",
+        "items": [
+            {
+                "number": "4716 9097 7463 6285",
+                "network": "visa",
+                "response": "insufficientFunds"
+            },
+            {
+                "number": "5102 0268 2734 5142",
+                "network": "mc",
+                "response": "invalidData"
+            },
+            {
+                "number": "6011 0888 9671 5918",
+                "network": "discover",
+                "response": "cardExpired"
+            },
+            {
+                "number": "3785 6877 5709 157",
+                "network": "amex",
+                "response": "notApproved"
+            }
+        ]
+    },
+    {
+        "group": "Debit Card | Brazil",
+        "items": [
+            {
+                "number": "4000 0000 0000 1000",
+                "network": "visa",
+                "note": "Approved",
+                "challenge": false
+            },
+            {
+                "number": "4000 0000 0000 1091",
+                "network": "visa",
+                "note": "Insufficient Funds",
+                "challenge": true
+            },
+            {
+                "number": "4000 0000 0000 1042",
+                "network": "visa",
+                "note": "Invalid Card or Card Type",
+                "challenge": true
+            },
+            {
+                "number": "4000 0000 0000 1109",
+                "network": "visa",
+                "note": "Invalid Card or Card Type",
+                "challenge": false
+            },
+            {
+                "number": "5200 0000 0000 1096",
+                "network": "mc",
+                "note": "Approved",
+                "challenge": true
+            },
+            {
+                "number": "5200 0000 0000 1005",
+                "network": "mc",
+                "note": "Insufficient Funds",
+                "challenge": true
+            },
+            {
+                "number": "5200 0000 0000 1013",
+                "network": "mc",
+                "note": "Invalid Card or Card Type",
+                "challenge": true
+            },
+            {
+                "number": "5200 0000 0000 1104",
+                "network": "mc",
+                "note": "Invalid Card or Card Type",
+                "challenge": false
+            },
+            {
+                "number": "6759 4111 0000 0008",
+                "network": "maestro",
+                "note": "Approved",
+                "challenge": false
+            },
+            {
+                "number": "6505 0500 0000 1000",
+                "network": "elo",
+                "note": "Approved",
+                "challenge": false
+            }
+        ]
+    },
+    {
+        "group": "Debit Cards | Mexico",
+        "items": [
+            {
+                "number": "4242 4242 4242 4242",
+                "network": "visa"
+            },
+            {
+                "number": "4012 8888 8888 1881",
+                "network": "visa"
+            },
+            {
+                "number": "5555 5555 5555 4444",
+                "network": "mc"
+            },
+            {
+                "number": "5105 1051 0510 5100",
+                "network": "mc"
+            }
+        ]
+    },
+    {
+        "group": "Cards with 3DS 2.0",
+        "items": [
+            {
+                "number": "4000 0000 0000 1000",
+                "network": "visa",
+                "note": "Approved",
+                "challenge": true
+            },
+            {
+                "number": "4000 0000 0000 1091",
+                "network": "visa",
+                "note": "Insufficient Funds",
+                "challenge": true
+            },
+            {
+                "number": "4000 0000 0000 1042",
+                "network": "visa",
+                "note": "Invalid Card or Card Type",
+                "challenge": true
+            },
+            {
+                "number": "4000 0000 0000 1109",
+                "network": "visa",
+                "note": "Invalid Card or Card Type",
+                "challenge": false
+            },
+            {
+                "number": "5200 0000 0000 1096",
+                "network": "mc",
+                "note": "Approved",
+                "challenge": true
+            },
+            {
+                "number": "5200 0000 0000 1005",
+                "network": "mc",
+                "note": "Insufficient Funds",
+                "challenge": true
+            },
+            {
+                "number": "5200 0000 0000 1013",
+                "network": "mc",
+                "note": "Invalid Card or Card Type",
+                "challenge": true
+            },
+            {
+                "number": "5200 0000 0000 1104",
+                "network": "mc",
+                "note": "Invalid Card or Card Type",
+                "challenge": false
+            },
+            {
+                "number": "6759 4111 0000 0008",
+                "network": "maestro",
+                "note": "Approved",
+                "challenge": false
+            },
+            {
+                "number": "6505 0500 0000 1000",
+                "network": "elo",
+                "note": "Approved",
+                "challenge": false
+            }
+        ]
+    }
+]

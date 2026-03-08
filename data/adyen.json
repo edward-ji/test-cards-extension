@@ -27,27 +27,39 @@
         ]
     },
     {
-        "group": "Bancontact (BCMC) / Maestro",
+        "group": "Bancontact (BCMC)",
         "items": [
+            {
+                "country": "BE",
+                "number": "5127 8809 9999 9990",
+                "exp": null,
+                "csc": "737",
+                "network": [
+                    "bancontact",
+                    "mc"
+                ]
+            },
             {
                 "country": "BE",
                 "number": "6703 4444 4444 4449",
-                "exp": "03/30",
+                "exp": null,
                 "csc": null,
                 "3DS": true,
-                "network": "maestro"
-            }
-        ]
-    },
-    {
-        "group": "Bancontact (BCMC) / Visa Debit",
-        "items": [
+                "network": [
+                    "bancontact",
+                    "maestro"
+                ]
+            },
             {
                 "country": "BE",
                 "number": "4871 0499 9999 9910",
-                "exp": "03/30",
+                "exp": null,
                 "csc": "737",
-                "network": "visa"
+                "3DS": true,
+                "network": [
+                    "bancontact",
+                    "visa"
+                ]
             }
         ]
     },
@@ -68,19 +80,17 @@
                 "exp": "03/30",
                 "csc": "737",
                 "3DS": true,
-                "network": "cartebancaire"
-            }
-        ]
-    },
-    {
-        "group": "Cartes Bancaires / Visa Debit",
-        "items": [
+                "network": "visa"
+            },
             {
                 "country": "FR",
                 "number": "4035 5010 0000 0008",
                 "exp": "03/30",
                 "csc": "737",
-                "network": "visa"
+                "network": [
+                    "cartebancaire",
+                    "visa"
+                ]
             }
         ]
     },
@@ -127,18 +137,16 @@
                 "exp": "03/30",
                 "csc": "737",
                 "network": "dankort"
-            }
-        ]
-    },
-    {
-        "group": "Dankort / Visa",
-        "items": [
+            },
             {
                 "country": "DK",
                 "number": "4571 0000 0000 0001",
                 "exp": "03/30",
                 "csc": "737",
-                "network": "visa"
+                "network": [
+                    "dankort",
+                    "visa"
+                ]
             }
         ]
     },

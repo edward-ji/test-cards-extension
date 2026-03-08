@@ -3,5 +3,25 @@
         "id": "adyen",
         "name": "Adyen",
         "docsLink": "https://docs.adyen.com/development-resources/testing/test-card-numbers"
+    },
+    {
+        "id": "adyen-3ds",
+        "name": "Adyen (3DS)",
+        "docsLink": "https://docs.adyen.com/development-resources/testing/test-card-numbers#3d-secure-2-authentication"
+    },
+    {
+        "id": "worldpay",
+        "name": "Worldpay",
+        "docsLink": "https://developer.worldpay.com/products/access/card-payments/testing"
+    },
+    {
+        "id": "nab",
+        "name": "NAB Gateway",
+        "docsLink": "https://nabgateway-developer.nab.com.au/hello-world/testing-guide.html"
+    },
+    {
+        "id": "ebanx",
+        "name": "Ebanx",
+        "docsLink": "https://docs.ebanx.com/docs/resources/sandbox-simulation/test-credit-cards"
     }
 ]

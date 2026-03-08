@@ -1,0 +1,125 @@
+[
+    {
+        "group": "Test card numbers",
+        "items": [
+            {
+                "number": "4111 1111 1111 1111",
+                "csc": "123",
+                "network": "visa"
+            },
+            {
+                "number": "4622 9431 2701 3705",
+                "csc": "838",
+                "network": "visa"
+            },
+            {
+                "number": "4622 9431 2701 3713",
+                "csc": "043",
+                "network": "visa"
+            },
+            {
+                "number": "4622 9431 2701 3721",
+                "csc": "258",
+                "network": "visa"
+            },
+            {
+                "number": "4622 9431 2701 3739",
+                "csc": "942",
+                "network": "visa"
+            },
+            {
+                "number": "4622 9431 2701 3747",
+                "csc": "370",
+                "network": "visa"
+            },
+            {
+                "number": "5555 5555 5555 4444",
+                "csc": "123",
+                "network": "mc"
+            },
+            {
+                "number": "2222 4200 0000 1113",
+                "csc": "123",
+                "network": "mc"
+            },
+            {
+                "number": "2222 6300 0000 1125",
+                "csc": "123",
+                "network": "mc"
+            },
+            {
+                "number": "3782 8224 6310 005",
+                "csc": "1234",
+                "network": "amex"
+            },
+            {
+                "number": "6011 1111 1111 1117",
+                "csc": "123",
+                "network": "discover"
+            },
+            {
+                "number": "3566 1111 1111 1113",
+                "csc": "123",
+                "network": "jcb"
+            },
+            {
+                "number": "5033 9619 8909 17",
+                "csc": null,
+                "network": "maestro"
+            },
+            {
+                "number": "5868 2416 0825 5333 38",
+                "csc": null,
+                "network": "maestro"
+            },
+            {
+                "number": "6759 4111 0000 0008",
+                "csc": null,
+                "network": "maestro",
+                "country": "UK"
+            },
+            {
+                "number": "6759 5600 4500 5727 054",
+                "csc": null,
+                "network": "maestro",
+                "country": "UK"
+            },
+            {
+                "number": "5641 8211 1116 6669",
+                "csc": null,
+                "network": "maestro",
+                "country": "UK"
+            }
+        ]
+    },
+    {
+        "group": "Common payment transaction responses",
+        "items": [
+            {
+                "number": "4242 3482 9384 8387 3",
+                "network": "visa",
+                "status": "DECLINE",
+                "information": "Empty credit card number"
+            },
+            {
+                "number": "4111 1111 1111 1111",
+                "expiry": "13/30",
+                "network": "visa",
+                "status": "INVALID REQUEST",
+                "information": "Invalid expiration month"
+            },
+            {
+                "number": "4111 1111 1111 1112",
+                "network": "visa",
+                "status": "DECLINE",
+                "information": "Invalid Luhn Mod 10"
+            },
+            {
+                "number": "4123 4567 8912 3456 7891 4",
+                "network": "visa",
+                "status": "DECLINE",
+                "information": "21-digit credit card number"
+            }
+        ]
+    }
+]
