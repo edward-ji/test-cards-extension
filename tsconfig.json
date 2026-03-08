@@ -10,10 +10,13 @@
         "esModuleInterop": true,
         "skipLibCheck": true,
         "forceConsistentCasingInFileNames": true,
-        "outDir": "./build"
+        "outDir": "./build",
+        "types": [
+            "chrome",
+            "firefox-webext-browser"
+        ]
     },
     "include": [
-        "panel.ts",
-        "shared/parser.ts"
+        "**/*.ts"
     ]
 }

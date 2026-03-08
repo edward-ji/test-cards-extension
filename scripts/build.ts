@@ -75,16 +75,23 @@ function buildBrowser(browser: 'chrome' | 'firefox') {
   const manifestDest = path.join(outDir, 'manifest.json');
   fs.copyFileSync(manifestSrc, manifestDest);
 
+  // Bundle Background Script via ESBuild
   if (browser === 'chrome') {
-    copyFile(
-      path.join(ROOT, 'service-worker.js'),
-      path.join(outDir, 'service-worker.js')
-    );
+    esbuild.buildSync({
+      entryPoints: [path.join(ROOT, 'background-chrome.ts')],
+      bundle: true,
+      outfile: path.join(outDir, 'service-worker.js'),
+      target: ['es2020'],
+      minify: process.env.NODE_ENV === 'production'
+    });
   } else if (browser === 'firefox') {
-    copyFile(
-      path.join(ROOT, 'background-firefox.js'),
-      path.join(outDir, 'background-firefox.js')
-    );
+    esbuild.buildSync({
+      entryPoints: [path.join(ROOT, 'background-firefox.ts')],
+      bundle: true,
+      outfile: path.join(outDir, 'background-firefox.js'),
+      target: ['es2020'],
+      minify: process.env.NODE_ENV === 'production'
+    });
   }
 
   console.log(`Built ${browser} -> ${outDir}`);
