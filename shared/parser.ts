@@ -17,7 +17,7 @@ export interface PrefillData {
 
 export interface Card {
     id: string;
-    network: string;
+    network: string | string[];
     prefill: PrefillData;
     display: Record<string, unknown>;
     search: string;
@@ -33,7 +33,7 @@ export interface RawCardItem {
     name?: string;
     csc?: string | number | null;
     exp?: string;
-    network?: string;
+    network?: string | string[];
     [key: string]: unknown;
 }
 
@@ -84,8 +84,18 @@ export function parseGatewayData(gatewayId: string, rawGroups: { group: string; 
             });
 
             // Compute search content
-            const networkInfo = networksList.find(n => n.id === item.network);
-            const networkNames = networkInfo?.names?.join(" ") || "";
+            const networksArr = Array.isArray(item.network)
+                ? item.network
+                : item.network
+                    ? [item.network]
+                    : ["unknown"];
+
+            const networkNames = networksArr
+                .map(networkId => {
+                    const networkInfo = networksList.find(net => net.id === networkId);
+                    return networkInfo?.names?.join(" ") ?? "";
+                })
+                .join(" ");
             let search = `${group.group} ${networkNames} `;
             Object.values(display).forEach((val) => {
                 if (val !== null && val !== undefined) {
@@ -96,7 +106,7 @@ export function parseGatewayData(gatewayId: string, rawGroups: { group: string; 
 
             parsedGroup.items.push({
                 id: id,
-                network: item.network || "unknown",
+                network: networksArr,
                 prefill: prefill,
                 display: display,
                 search: search

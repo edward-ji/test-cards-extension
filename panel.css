@@ -9,8 +9,6 @@ body {
   display: none;
 }
 
-
-
 a {
   color: #06f;
   cursor: pointer;
@@ -81,13 +79,18 @@ a {
 }
 
 /* Card logos */
-.card-logo {
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 30px 30px;
-  min-width: 30px;
-  width: 30px;
+.card-logo-container {
   cursor: pointer;
+  white-space: nowrap;
+  width: 1%;
+}
+
+.network-icon {
+  height: 24px;
+  width: 40px;
+  object-fit: contain;
+  vertical-align: middle;
+  margin: 0 1px;
 }
 
 .copyable:hover {

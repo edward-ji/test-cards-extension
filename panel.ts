@@ -224,10 +224,17 @@ function createFavourites() {
       });
 
       const tdLogo = document.createElement('td');
-      tdLogo.classList.add("center", "card-logo");
-      tdLogo.style.backgroundImage = `url('./images/logos/${card.network}.svg')`;
-      const networkName = networks.find(n => n.id === card.network)?.names?.join(", ") || card.network;
-      tdLogo.title = "Prefill " + networkName;
+      tdLogo.classList.add("card-logo-container");
+
+      const nets = Array.isArray(card.network) ? card.network : [card.network];
+      tdLogo.title = "Prefill " + nets.map(n => networks.find(net => net.id === n)?.names?.join(", ") || n).join(" / ");
+
+      nets.forEach(net => {
+        const img = document.createElement('img');
+        img.src = `./images/logos/${net}.svg`;
+        img.className = "network-icon";
+        tdLogo.appendChild(img);
+      });
 
       addPrefillHandler(tdLogo, card);
       row.appendChild(tdLogo);
@@ -353,10 +360,17 @@ function createCardsNetworkSection(group: string, gCards: Card[]) {
       });
 
       const tdLogo = document.createElement('td');
-      tdLogo.classList.add("center", "card-logo");
-      tdLogo.style.backgroundImage = `url('./images/logos/${card.network}.svg')`;
-      const networkName = networks.find(n => n.id === card.network)?.names?.join(", ") || card.network;
-      tdLogo.title = "Prefill " + networkName;
+      tdLogo.classList.add("card-logo-container");
+
+      const nets = Array.isArray(card.network) ? card.network : [card.network];
+      tdLogo.title = "Prefill " + nets.map(n => networks.find(net => net.id === n)?.names?.join(", ") || n).join(" / ");
+
+      nets.forEach(net => {
+        const img = document.createElement('img');
+        img.src = `./images/logos/${net}.svg`;
+        img.className = "network-icon";
+        tdLogo.appendChild(img);
+      });
 
       addPrefillHandler(tdLogo, card);
       row.appendChild(tdLogo);
