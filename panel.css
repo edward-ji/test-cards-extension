@@ -34,8 +34,6 @@ a {
   width: 100%;
 }
 
-
-
 .cardnumbers tr:nth-child(even) {
   background-color: white;
 }
@@ -80,7 +78,6 @@ a {
 
 /* Card logos */
 .card-logo-container {
-  cursor: pointer;
   white-space: nowrap;
   width: 1%;
 }
@@ -93,11 +90,17 @@ a {
   margin: 0 1px;
 }
 
+.fill-column {
+  cursor: pointer;
+  width: 1%;
+  white-space: nowrap;
+  font-size: 14px;
+}
+
 .copyable:hover {
   cursor: pointer;
   position: relative;
 }
-
 
 .divFavouritesContainer {
   display: flex;

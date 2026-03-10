@@ -227,17 +227,24 @@ function createFavourites() {
       tdLogo.classList.add("card-logo-container");
 
       const nets = Array.isArray(card.network) ? card.network : [card.network];
-      tdLogo.title = "Prefill " + nets.map(n => networks.find(net => net.id === n)?.names?.join(", ") || n).join(" / ");
-
       nets.forEach(net => {
+        const networkInfo = networks.find(n => n.id === net);
         const img = document.createElement('img');
         img.src = `./images/logos/${net}.svg`;
         img.className = "network-icon";
+        img.title = networkInfo?.names?.[0] || net;
         tdLogo.appendChild(img);
       });
-
-      addPrefillHandler(tdLogo, card);
       row.appendChild(tdLogo);
+
+      const tdFill = document.createElement('td');
+      tdFill.classList.add("center", "fill-column");
+      const fillSpan = document.createElement('span');
+      fillSpan.innerHTML = "⚡";
+      fillSpan.title = "Autofill";
+      tdFill.appendChild(fillSpan);
+      addPrefillHandler(tdFill, card);
+      row.appendChild(tdFill);
 
       tbody.appendChild(row);
     });
@@ -363,17 +370,24 @@ function createCardsNetworkSection(group: string, gCards: Card[]) {
       tdLogo.classList.add("card-logo-container");
 
       const nets = Array.isArray(card.network) ? card.network : [card.network];
-      tdLogo.title = "Prefill " + nets.map(n => networks.find(net => net.id === n)?.names?.join(", ") || n).join(" / ");
-
       nets.forEach(net => {
+        const networkInfo = networks.find(n => n.id === net);
         const img = document.createElement('img');
         img.src = `./images/logos/${net}.svg`;
         img.className = "network-icon";
+        img.title = networkInfo?.names?.[0] || net;
         tdLogo.appendChild(img);
       });
-
-      addPrefillHandler(tdLogo, card);
       row.appendChild(tdLogo);
+
+      const tdFill = document.createElement('td');
+      tdFill.classList.add("center", "fill-column");
+      const fillSpan = document.createElement('span');
+      fillSpan.innerHTML = "⚡";
+      fillSpan.title = "Fill form";
+      tdFill.appendChild(fillSpan);
+      addPrefillHandler(tdFill, card);
+      row.appendChild(tdFill);
 
       tbody.appendChild(row);
     }
