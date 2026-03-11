@@ -1,0 +1,17 @@
+{
+  "name": "test-cards-redirect",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev",
+    "start": "wrangler dev",
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240304.0",
+    "eslint": "^10.0.3",
+    "typescript": "^5.4.2",
+    "wrangler": "^3.32.0"
+  }
+}
