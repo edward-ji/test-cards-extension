@@ -97,9 +97,13 @@ export function parseGatewayData(gatewayId: string, rawGroups: { group: string; 
                 })
                 .join(" ");
             let search = `${group.group} ${networkNames} `;
-            Object.values(display).forEach((val) => {
+            Object.entries(display).forEach(([key, val]) => {
                 if (val !== null && val !== undefined) {
-                    search += val + " ";
+                    if (typeof val === 'boolean') {
+                        if (val) search += key + " ";
+                    } else {
+                        search += val + " ";
+                    }
                 }
             });
             search = search.toLowerCase();
