@@ -46,6 +46,11 @@ a {
   padding-left: 5px;
 }
 
+.fav-column {
+  width: 1%;
+  white-space: nowrap;
+}
+
 .fav-icon {
   width: 15px;
   height: 15px;

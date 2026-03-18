@@ -292,6 +292,7 @@ function renderCardRow(card: Card, orderedColumns: string[], isFavLayout: boolea
   }
 
   const tdIcon = document.createElement('td');
+  tdIcon.classList.add("fav-column");
   tdIcon.appendChild(isFavLayout ? makeCardUnfavIcon(card.id) : makeCardFavIcon(card.id));
   row.appendChild(tdIcon);
 
