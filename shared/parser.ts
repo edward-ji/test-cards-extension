@@ -6,6 +6,7 @@
 export interface NetworkInfo {
     id: string;
     names: string[];
+    logo?: string;
 }
 
 export interface PrefillData {

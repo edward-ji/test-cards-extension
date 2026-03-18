@@ -328,7 +328,7 @@ function renderCardRow(card: Card, orderedColumns: string[], isFavLayout: boolea
   nets.forEach(net => {
     const networkInfo = networks.find(n => n.id === net);
     const img = document.createElement('img');
-    img.src = `./images/logos/${net}.svg`;
+    img.src = networkInfo?.logo ? `./images/logos/${networkInfo.logo}` : './images/logos/nocard.svg';
     img.className = "network-icon";
     img.title = networkInfo?.names?.[0] || net;
     tdLogo.appendChild(img);
