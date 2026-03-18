@@ -176,77 +176,13 @@ function createFavourites() {
       Object.keys(card.display).forEach(k => keys.add(k));
     });
 
-    const columns = Array.from(keys);
-    const standardColumns = ['number', 'exp', 'csc', 'name'];
-    const dynamicColumns = columns.filter(c => !standardColumns.includes(c));
-    const orderedColumns: string[] = [];
-    standardColumns.forEach(c => {
-      if (columns.includes(c)) orderedColumns.push(c);
-    });
-    orderedColumns.push(...dynamicColumns);
-
+    const orderedColumns = getOrderedColumns(favItems);
     const table = document.createElement('table');
     table.id = "tableFavouritesId";
     const tbody = document.createElement('tbody');
 
     favItems.forEach(card => {
-
-      const row = document.createElement('tr');
-
-      const tdIcon = document.createElement('td');
-      tdIcon.appendChild(makeCardUnfavIcon(card.id));
-      row.appendChild(tdIcon);
-
-      orderedColumns.forEach(c => {
-        const td = document.createElement('td');
-        const displayValue = card.display[c];
-
-        if (c === 'number') {
-          td.classList.add("tdCardNumber");
-          td.textContent = displayValue?.toString() || "";
-        } else if (c === 'exp') {
-          td.classList.add("center", "tdExpiry");
-          td.textContent = displayValue?.toString() || "";
-        } else if (c === 'csc') {
-          td.classList.add("center", "tdCode");
-          td.textContent = displayValue?.toString() || "";
-        } else {
-          let cellValue = displayValue !== null && displayValue !== undefined ? displayValue : "";
-          if (typeof cellValue === 'boolean') cellValue = cellValue ? c : "";
-          td.classList.add("center");
-          td.textContent = cellValue.toString();
-        }
-
-        if (displayValue !== null && displayValue !== undefined && displayValue !== "") {
-          addCopyHandlers(td);
-        }
-        row.appendChild(td);
-      });
-
-      const tdLogo = document.createElement('td');
-      tdLogo.classList.add("card-logo-container");
-
-      const nets = Array.isArray(card.network) ? card.network : [card.network];
-      nets.forEach(net => {
-        const networkInfo = networks.find(n => n.id === net);
-        const img = document.createElement('img');
-        img.src = `./images/logos/${net}.svg`;
-        img.className = "network-icon";
-        img.title = networkInfo?.names?.[0] || net;
-        tdLogo.appendChild(img);
-      });
-      row.appendChild(tdLogo);
-
-      const tdFill = document.createElement('td');
-      tdFill.classList.add("center", "fill-column");
-      const fillSpan = document.createElement('span');
-      fillSpan.innerHTML = "⚡";
-      fillSpan.title = "Autofill";
-      tdFill.appendChild(fillSpan);
-      addPrefillHandler(tdFill, card);
-      row.appendChild(tdFill);
-
-      tbody.appendChild(row);
+      tbody.appendChild(renderCardRow(card, orderedColumns, true));
     });
 
     table.appendChild(tbody);
@@ -310,9 +246,30 @@ function createCardsNetworkSection(group: string, gCards: Card[]) {
 
   const table = document.createElement('table');
 
-  // Extract dynamic columns
-  const keys = new Set<string>();
+  const orderedColumns = getOrderedColumns(gCards);
+  const tbody = document.createElement('tbody');
+
   gCards.forEach(card => {
+    // display card only if not in favourites
+    if (!isFavourite(card.id)) {
+      numCards++;
+      tbody.appendChild(renderCardRow(card, orderedColumns, false));
+    }
+  });
+
+  table.appendChild(tbody);
+
+  if (numCards > 0) {
+    return table;
+  } else {
+    return undefined;
+  }
+}
+
+// get ordered columns for the table
+function getOrderedColumns(rowCards: Card[]) {
+  const keys = new Set<string>();
+  rowCards.forEach(card => {
     Object.keys(card.display).forEach(k => keys.add(k));
   });
 
@@ -324,82 +281,70 @@ function createCardsNetworkSection(group: string, gCards: Card[]) {
     if (columns.includes(c)) orderedColumns.push(c);
   });
   orderedColumns.push(...dynamicColumns);
+  return orderedColumns;
+}
 
-  const tbody = document.createElement('tbody');
+function renderCardRow(card: Card, orderedColumns: string[], isFavLayout: boolean): HTMLTableRowElement {
+  const row = document.createElement('tr');
+  if (!isFavLayout) {
+    row.classList.add("searchable");
+    row.setAttribute("data-search", card.search);
+  }
 
-  gCards.forEach(card => {
-    // display card only if not in favourites
-    if (!isFavourite(card.id)) {
-      numCards++;
+  const tdIcon = document.createElement('td');
+  tdIcon.appendChild(isFavLayout ? makeCardUnfavIcon(card.id) : makeCardFavIcon(card.id));
+  row.appendChild(tdIcon);
 
-      const row = document.createElement('tr');
-      row.classList.add("searchable");
-      row.setAttribute("data-search", card.search);
+  orderedColumns.forEach(c => {
+    const td = document.createElement('td');
+    const displayValue = card.display[c];
 
-      const tdIcon = document.createElement('td');
-      tdIcon.appendChild(makeCardFavIcon(card.id));
-      row.appendChild(tdIcon);
-
-      orderedColumns.forEach(c => {
-        const td = document.createElement('td');
-        const displayValue = card.display[c];
-
-        if (c === 'number') {
-          td.classList.add("tdCardNumber");
-          td.textContent = displayValue?.toString() || "";
-        } else if (c === 'exp') {
-          td.classList.add("center", "tdExpiry");
-          td.textContent = displayValue?.toString() || "";
-        } else if (c === 'csc') {
-          td.classList.add("center", "tdCode");
-          td.textContent = displayValue?.toString() || "";
-        } else {
-          let cellValue = displayValue !== null && displayValue !== undefined ? displayValue : "";
-          if (typeof cellValue === 'boolean') cellValue = cellValue ? c : "";
-          td.classList.add("center");
-          td.textContent = cellValue.toString();
-        }
-
-        if (displayValue !== null && displayValue !== undefined && displayValue !== "") {
-          addCopyHandlers(td);
-        }
-        row.appendChild(td);
-      });
-
-      const tdLogo = document.createElement('td');
-      tdLogo.classList.add("card-logo-container");
-
-      const nets = Array.isArray(card.network) ? card.network : [card.network];
-      nets.forEach(net => {
-        const networkInfo = networks.find(n => n.id === net);
-        const img = document.createElement('img');
-        img.src = `./images/logos/${net}.svg`;
-        img.className = "network-icon";
-        img.title = networkInfo?.names?.[0] || net;
-        tdLogo.appendChild(img);
-      });
-      row.appendChild(tdLogo);
-
-      const tdFill = document.createElement('td');
-      tdFill.classList.add("center", "fill-column");
-      const fillSpan = document.createElement('span');
-      fillSpan.innerHTML = "⚡";
-      fillSpan.title = "Fill form";
-      tdFill.appendChild(fillSpan);
-      addPrefillHandler(tdFill, card);
-      row.appendChild(tdFill);
-
-      tbody.appendChild(row);
+    if (c === 'number') {
+      td.classList.add("tdCardNumber");
+      td.textContent = displayValue?.toString() || "";
+    } else if (c === 'exp') {
+      td.classList.add("center", "tdExpiry");
+      td.textContent = displayValue?.toString() || "";
+    } else if (c === 'csc') {
+      td.classList.add("center", "tdCode");
+      td.textContent = displayValue?.toString() || "";
+    } else {
+      let cellValue = displayValue !== null && displayValue !== undefined ? displayValue : "";
+      if (typeof cellValue === 'boolean') cellValue = cellValue ? c : "";
+      td.classList.add("center");
+      td.textContent = cellValue.toString();
     }
+
+    if (displayValue !== null && displayValue !== undefined && displayValue !== "") {
+      addCopyHandlers(td);
+    }
+    row.appendChild(td);
   });
 
-  table.appendChild(tbody);
+  const tdLogo = document.createElement('td');
+  tdLogo.classList.add("card-logo-container");
 
-  if (numCards > 0) {
-    return table;
-  } else {
-    return undefined;
-  }
+  const nets = Array.isArray(card.network) ? card.network : [card.network];
+  nets.forEach(net => {
+    const networkInfo = networks.find(n => n.id === net);
+    const img = document.createElement('img');
+    img.src = `./images/logos/${net}.svg`;
+    img.className = "network-icon";
+    img.title = networkInfo?.names?.[0] || net;
+    tdLogo.appendChild(img);
+  });
+  row.appendChild(tdLogo);
+
+  const tdFill = document.createElement('td');
+  tdFill.classList.add("center", "fill-column");
+  const fillSpan = document.createElement('span');
+  fillSpan.innerHTML = "⚡";
+  fillSpan.title = "Autofill";
+  tdFill.appendChild(fillSpan);
+  addPrefillHandler(tdFill, card);
+  row.appendChild(tdFill);
+
+  return row;
 }
 
 // check if the key (card) is in favourites
