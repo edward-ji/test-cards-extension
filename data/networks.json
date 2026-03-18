@@ -4,134 +4,155 @@
         "names": [
             "American Express",
             "Amex"
-        ]
+        ],
+        "logo": "amex.svg"
     },
     {
         "id": "aura",
         "names": [
             "Aura"
-        ]
+        ],
+        "logo": "aura.webp"
     },
     {
         "id": "bancontact",
         "names": [
             "Bancontact",
             "BCMC"
-        ]
+        ],
+        "logo": "bancontact.svg"
     },
     {
         "id": "cabal",
         "names": [
             "Cabal"
-        ]
+        ],
+        "logo": "cabal.png"
     },
     {
         "id": "carnet",
         "names": [
             "CARNET"
-        ]
+        ],
+        "logo": "carnet.svg"
     },
     {
         "id": "cartebancaire",
         "names": [
             "Cartes Bancaires",
             "CB"
-        ]
+        ],
+        "logo": "cartebancaire.svg"
     },
     {
         "id": "credimas",
         "names": [
             "Credimas"
-        ]
+        ],
+        "logo": "credimas.svg"
     },
     {
         "id": "cup",
         "names": [
             "China UnionPay",
             "CUP"
-        ]
+        ],
+        "logo": "cup.svg"
     },
     {
         "id": "dankort",
         "names": [
             "Dankort"
-        ]
+        ],
+        "logo": "dankort.svg"
     },
     {
         "id": "diners",
         "names": [
             "Diners Club",
             "Diners"
-        ]
+        ],
+        "logo": "diners.svg"
     },
     {
         "id": "discover",
         "names": [
             "Discover"
-        ]
+        ],
+        "logo": "discover.svg"
     },
     {
         "id": "eftpos",
         "names": [
             "eftpos",
             "EFTPOS"
-        ]
+        ],
+        "logo": "eftpos.svg"
     },
     {
         "id": "elo",
         "names": [
             "Elo"
-        ]
+        ],
+        "logo": "elo.svg"
     },
     {
         "id": "hipercard",
         "names": [
             "Hipercard"
-        ]
+        ],
+        "logo": "hipercard.svg"
     },
     {
         "id": "jcb",
         "names": [
             "Japan Credit Bureau",
             "JCB"
-        ]
+        ],
+        "logo": "jcb.svg"
     },
     {
         "id": "maestro",
         "names": [
             "Maestro"
-        ]
+        ],
+        "logo": "maestro.svg"
     },
     {
         "id": "magna",
         "names": [
             "Magna"
-        ]
+        ],
+        "logo": "magna.png"
     },
     {
         "id": "mc",
         "names": [
             "Mastercard",
             "MC"
-        ]
+        ],
+        "logo": "mc.svg"
     },
     {
         "id": "naranja",
         "names": [
             "Naranja"
-        ]
+        ],
+        "logo": "naranja.png"
     },
     {
         "id": "visa",
         "names": [
             "Visa"
-        ]
+        ],
+        "logo": "visa.svg"
     },
     {
         "id": "vpay",
         "names": [
             "V Pay",
             "VPay"
-        ]
+        ],
+        "logo": "vpay.svg"
     }
 ]
