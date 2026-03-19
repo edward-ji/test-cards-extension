@@ -50,11 +50,18 @@ export function parseGatewayData(gatewayId: string, rawGroups: { group: string; 
         group.items.forEach((item: RawCardItem, iIndex: number) => {
             const id = `${gatewayId}-${gIndex}-${iIndex}`;
 
+            const networksArr = Array.isArray(item.network)
+                ? item.network
+                : item.network
+                    ? [item.network]
+                    : ["unknown"];
+            const isAmex = networksArr.includes("amex");
+
             // Build the prefill object
             const prefill = {
                 number: item.number,
                 name: item.name !== undefined ? item.name : "J. Smith",
-                csc: item.csc === undefined || item.csc === null ? "" : String(item.csc),
+                csc: item.csc === null ? "" : item.csc === undefined ? (isAmex ? "1234" : "123") : String(item.csc),
                 exp: ""
             };
 
@@ -85,12 +92,6 @@ export function parseGatewayData(gatewayId: string, rawGroups: { group: string; 
             });
 
             // Compute search content
-            const networksArr = Array.isArray(item.network)
-                ? item.network
-                : item.network
-                    ? [item.network]
-                    : ["unknown"];
-
             const networkNames = networksArr
                 .map(networkId => {
                     const networkInfo = networksList.find(net => net.id === networkId);
