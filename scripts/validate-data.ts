@@ -1,8 +1,8 @@
 import fs from 'fs';
 import path from 'path';
-import { parseGatewayData, NetworkInfo, RawCardItem } from '../shared/parser';
+import { parseGatewayData, NetworkInfo, RawCardItem } from '../src/parser';
 
-const DATA_DIR = path.resolve(__dirname, '../data');
+const DATA_DIR = path.resolve(__dirname, '../src/data');
 
 function loadJSON<T>(filename: string): T {
     const filePath = path.join(DATA_DIR, filename);

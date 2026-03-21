@@ -15,33 +15,33 @@ A multi-browser extension (Chrome & Firefox) that surfaces payment gateway test 
 
 ```
 test-cards-extension/
-├── data/                    # Payment gateway card data (JSON)
-│   ├── adyen.json
-│   ├── adyen-3ds.json
-│   ├── ebanx.json
-│   ├── nab.json
-│   ├── worldpay.json
-│   ├── gateways.json        # Gateway definitions (5 gateways)
-│   └── networks.json        # Payment network metadata (20+ networks)
+├── src/                     # Everything that ships in the extension
+│   ├── data/                # Payment gateway card data (JSON)
+│   │   ├── adyen.json
+│   │   ├── adyen-3ds.json
+│   │   ├── ebanx.json
+│   │   ├── nab.json
+│   │   ├── worldpay.json
+│   │   ├── gateways.json    # Gateway definitions (5 gateways)
+│   │   └── networks.json    # Payment network metadata (20+ networks)
+│   ├── images/logos/        # Payment network SVG/PNG/WebP logos
+│   ├── manifests/
+│   │   ├── chrome.json      # Manifest V3 for Chrome
+│   │   └── firefox.json     # Manifest V3 for Firefox
+│   ├── parser.ts            # Core data transformation (parseGatewayData)
+│   ├── panel.ts             # Main extension UI logic (~460 lines)
+│   ├── panel.html           # Extension panel HTML
+│   ├── panel.css            # Extension styles
+│   ├── background-chrome.ts # Chrome service worker (minimal)
+│   └── background-firefox.ts# Firefox background script (minimal)
 ├── e2e/tests/               # Playwright E2E tests
 │   ├── fixtures.ts          # Chrome extension test fixture setup
 │   └── *.spec.ts            # filter, copy, favorites, gateway, autofill
 ├── .github/workflows/       # CI/CD pipelines
-├── images/logos/            # Payment network SVG/PNG/WebP logos
-├── manifests/
-│   ├── chrome.json          # Manifest V3 for Chrome
-│   └── firefox.json         # Manifest V3 for Firefox
 ├── scripts/
 │   ├── build.ts             # ESBuild orchestration
 │   └── validate-data.ts     # JSON data validation
-├── shared/
-│   └── parser.ts            # Core data transformation (parseGatewayData)
-├── worker/                  # Cloudflare Worker (smart redirect by User-Agent)
-├── panel.ts                 # Main extension UI logic (~460 lines)
-├── panel.html               # Extension panel HTML
-├── panel.css                # Extension styles
-├── background-chrome.ts     # Chrome service worker (minimal)
-└── background-firefox.ts    # Firefox background script (minimal)
+└── worker/                  # Cloudflare Worker (smart redirect by User-Agent)
 ```
 
 ---
@@ -93,7 +93,7 @@ Both `dist/chrome/` and `dist/firefox/` contain:
 ### TypeScript
 - Strict mode is enabled — no implicit `any`
 - Generic storage helpers: `getFromStorage<T>()`, `loadFromFile<T>()`
-- Interfaces in `shared/parser.ts`: `NetworkInfo`, `PrefillData`, `Card`, `ParsedGroup`, `RawCardItem`
+- Interfaces in `src/parser.ts`: `NetworkInfo`, `PrefillData`, `Card`, `ParsedGroup`, `RawCardItem`
 
 ### DOM
 - Manual DOM manipulation via `createElement()` (no framework)
@@ -106,7 +106,7 @@ Both `dist/chrome/` and `dist/firefox/` contain:
 
 ### Adding or Modifying Card Data
 
-Card files in `data/` follow this structure:
+Card files in `src/data/` follow this structure:
 
 ```json
 [
@@ -129,7 +129,7 @@ Card files in `data/` follow this structure:
 
 **Expiry shorthand:** `+XY` where X is a number and Y is `Y` (years), computed relative to the current date at parse time.
 
-**Defaults (applied in `shared/parser.ts`):**
+**Defaults (applied in `src/parser.ts`):**
 - CSC: `1234` for Amex, `123` for all others
 - Name: `J. Smith`
 
@@ -141,14 +141,14 @@ npm run validate-data
 
 ### Adding a New Gateway
 
-1. Create `data/<gateway-id>.json` following the structure above
-2. Add an entry to `data/gateways.json`
+1. Create `src/data/<gateway-id>.json` following the structure above
+2. Add an entry to `src/data/gateways.json`
 3. Run `npm run validate-data` to verify
 4. Run `npm run build` and test in-browser
 
 ### Adding a Network Logo
 
-Place the logo file in `images/logos/` and reference it in `data/networks.json`.
+Place the logo file in `src/images/logos/` and reference it in `src/data/networks.json`.
 
 ---
 
@@ -157,8 +157,8 @@ Place the logo file in `images/logos/` and reference it in `data/networks.json`.
 ### Data Flow
 
 ```
-data/*.json
-   └─► parseGatewayData() [shared/parser.ts]
+src/data/*.json
+   └─► parseGatewayData() [src/parser.ts]
           └─► Card[] (typed, with computed fields)
                  └─► renderCards() [panel.ts]
                         └─► DOM table rows

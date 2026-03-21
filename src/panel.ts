@@ -1,5 +1,5 @@
 import browser from 'webextension-polyfill';
-import { parseGatewayData, NetworkInfo, Card, ParsedGroup, RawCardItem } from './shared/parser';
+import { parseGatewayData, NetworkInfo, Card, ParsedGroup, RawCardItem } from './parser';
 
 // name objects on local storage
 const FAVOURITES_LIST = "favourites-list"

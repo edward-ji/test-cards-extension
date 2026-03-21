@@ -12,6 +12,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const ROOT = path.resolve(__dirname, '..');
+const SRC = path.join(ROOT, 'src');
 const DIST = path.join(ROOT, 'dist');
 
 const SHARED_FILES = [
@@ -53,10 +54,10 @@ function buildBrowser(browser: 'chrome' | 'firefox') {
   fs.mkdirSync(outDir, { recursive: true });
 
   for (const file of SHARED_FILES) {
-    copyFile(path.join(ROOT, file), path.join(outDir, file));
+    copyFile(path.join(SRC, file), path.join(outDir, file));
   }
   for (const dir of SHARED_DIRS) {
-    const src = path.join(ROOT, dir);
+    const src = path.join(SRC, dir);
     if (fs.existsSync(src)) {
       copyDir(src, path.join(outDir, dir));
     }
@@ -64,21 +65,21 @@ function buildBrowser(browser: 'chrome' | 'firefox') {
 
   // Bundle TypeScript via ESBuild into the output directory
   esbuild.buildSync({
-    entryPoints: [path.join(ROOT, 'panel.ts')],
+    entryPoints: [path.join(SRC, 'panel.ts')],
     bundle: true,
     outfile: path.join(outDir, 'panel.js'),
     target: ['es2020'],
     minify: process.env.NODE_ENV === 'production'
   });
 
-  const manifestSrc = path.join(ROOT, 'manifests', `${browser}.json`);
+  const manifestSrc = path.join(SRC, 'manifests', `${browser}.json`);
   const manifestDest = path.join(outDir, 'manifest.json');
   fs.copyFileSync(manifestSrc, manifestDest);
 
   // Bundle Background Script via ESBuild
   if (browser === 'chrome') {
     esbuild.buildSync({
-      entryPoints: [path.join(ROOT, 'background-chrome.ts')],
+      entryPoints: [path.join(SRC, 'background-chrome.ts')],
       bundle: true,
       outfile: path.join(outDir, 'service-worker.js'),
       target: ['es2020'],
@@ -86,7 +87,7 @@ function buildBrowser(browser: 'chrome' | 'firefox') {
     });
   } else if (browser === 'firefox') {
     esbuild.buildSync({
-      entryPoints: [path.join(ROOT, 'background-firefox.ts')],
+      entryPoints: [path.join(SRC, 'background-firefox.ts')],
       bundle: true,
       outfile: path.join(outDir, 'background-firefox.js'),
       target: ['es2020'],

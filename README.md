@@ -2,8 +2,6 @@
 
 A [Chrome] and [Firefox] extension that lets you copy and prefill Adyen test card numbers with a single click.
 
-![Browser extension image](browser-extension.gif)
-
 ## Chrome vs Firefox
 
 The extension is built from one codebase for both browsers. **Chrome** uses a side panel (toolbar icon opens the panel); **Firefox** uses a sidebar (toolbar icon opens the sidebar). The same panel UI, test data, and copy/prefill logic run in both. Build output is separate: `dist/chrome` (Chrome Web Store) and `dist/firefox` (Firefox Add-ons).
@@ -23,9 +21,7 @@ This extension brings those test card numbers directly into your browser where y
 1. Find the extension in the [Chrome Web Store][Chrome]
 2. Click "Add to Chrome"
 
-The installation will warn that the extension can read and write data on all websites:
-
-![Chrome Web Store message](chrome-store-popup.png)
+The installation will warn that the extension can read and write data on all websites.
 
 > **Note**
 This is necessary as we do not know where your integration is hosted. The Test Cards extension only copies (using Javascript) the selected card details into the Credit Card fields. No other data or fields are read or changed. All of the code is Open-Source and there is no telemetry in this extension.
