@@ -90,6 +90,10 @@ export function parseGatewayData(gatewayId: string, rawGroups: { group: string; 
                     display[key] = item[key];
                 }
             });
+            // Display resolved date if set
+            if ('exp' in item) {
+                display.exp = prefill.exp;
+            }
 
             // Compute search content
             const networkNames = networksArr
