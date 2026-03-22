@@ -3,11 +3,103 @@
     "group": "Test card numbers",
     "items": [
       {
+        "number": "1220 0000 0000 003",
+        "exp": true,
+        "csc": true,
+        "name": true,
+        "network": "airplus"
+      },
+      {
         "number": "3434 3434 3434 343",
         "exp": true,
         "csc": true,
         "name": true,
         "network": "amex"
+      },
+      {
+        "number": "4562 6860 0011 7661",
+        "exp": true,
+        "csc": true,
+        "name": true,
+        "network": "cartebancaire"
+      },
+      {
+        "number": "6221 2600 0000 0000",
+        "exp": true,
+        "csc": true,
+        "name": true,
+        "network": "cup"
+      },
+      {
+        "number": "3670 010200 0000",
+        "exp": true,
+        "csc": true,
+        "name": true,
+        "network": "diners"
+      },
+      {
+        "number": "3614 890064 7913",
+        "exp": true,
+        "csc": true,
+        "name": true,
+        "network": "diners"
+      },
+      {
+        "number": "6011 0000 4000 0000",
+        "exp": true,
+        "csc": true,
+        "name": true,
+        "network": "discover"
+      },
+      {
+        "number": "4434 0200 0000 0006",
+        "exp": true,
+        "csc": true,
+        "name": true,
+        "note": "Debit",
+        "network": [
+          "eftpos",
+          "visa"
+        ]
+      },
+      {
+        "number": "5163 1500 0000 0005",
+        "exp": true,
+        "csc": true,
+        "name": true,
+        "network": [
+          "eftpos",
+          "mc"
+        ]
+      },
+      {
+        "number": "9792 0300 0000 0000",
+        "exp": true,
+        "csc": true,
+        "name": true,
+        "network": "troy"
+      },
+      {
+        "number": "9792 0200 0000 0001",
+        "exp": true,
+        "csc": true,
+        "name": true,
+        "note": "Debit",
+        "network": "troy"
+      },
+      {
+        "number": "3528 0007 0000 0000",
+        "exp": true,
+        "csc": true,
+        "name": true,
+        "network": "jcb"
+      },
+      {
+        "number": "6759 6498 2643 8453",
+        "exp": true,
+        "csc": true,
+        "name": true,
+        "network": "maestro"
       },
       {
         "number": "5555 5555 5555 4444",
@@ -75,98 +167,69 @@
         "name": true,
         "note": "Debit",
         "network": "visa"
-      },
-      {
-        "number": "4434 0200 0000 0006",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "note": "Debit",
-        "network": [
-          "eftpos",
-          "visa"
-        ]
-      },
-      {
-        "number": "5163 1500 0000 0005",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": [
-          "eftpos",
-          "mc"
-        ]
-      },
-      {
-        "number": "4562 6860 0011 7661",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "cartebancaire"
-      },
-      {
-        "number": "6221 2600 0000 0000",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "cup"
-      },
-      {
-        "number": "3670 010200 0000",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "diners"
-      },
-      {
-        "number": "3614 890064 7913",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "diners"
-      },
-      {
-        "number": "6011 0000 4000 0000",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "discover"
-      },
-      {
-        "number": "3528 0007 0000 0000",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "jcb"
-      },
-      {
-        "number": "6759 6498 2643 8453",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "maestro"
-      },
-      {
-        "number": "1220 0000 0000 003",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "note": "Airplus"
-      },
-      {
-        "number": "9792 0300 0000 0000",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "note": "Troy"
-      },
-      {
-        "number": "9792 0200 0000 0001",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "note": "Troy Debit"
       }
+    ]
+  },
+  {
+    "group": "Issuer response test values",
+    "items": [
+      { "name": "AUTHORISED",  "note": "AUTHORISED" },
+      { "name": "REFUSED",     "note": "REFUSED" },
+      { "name": "ERROR",       "note": "ERROR" },
+      { "name": "REFUSED4",    "code": "4",   "note": "HOLD CARD" },
+      { "name": "REFUSED5",    "code": "5",   "note": "REFUSED" },
+      { "name": "REFUSED8",    "code": "8",   "note": "APPROVE AFTER IDENTIFICATION" },
+      { "name": "REFUSED13",   "code": "13",  "note": "INVALID AMOUNT" },
+      { "name": "REFUSED15",   "code": "15",  "note": "INVALID CARD ISSUER" },
+      { "name": "REFUSED17",   "code": "17",  "note": "ANNULATION BY CLIENT" },
+      { "name": "REFUSED28",   "code": "28",  "note": "ACCESS DENIED" },
+      { "name": "REFUSED29",   "code": "29",  "note": "IMPOSSIBLE REFERENCE NUMBER" },
+      { "name": "REFUSED33",   "code": "33",  "note": "CARD EXPIRED" },
+      { "name": "REFUSED34",   "code": "34",  "note": "FRAUD SUSPICION" },
+      { "name": "REFUSED38",   "code": "38",  "note": "SECURITY CODE EXPIRED" },
+      { "name": "REFUSED41",   "code": "41",  "note": "LOST CARD" },
+      { "name": "REFUSED43",   "code": "43",  "note": "STOLEN CARD, PICK UP" },
+      { "name": "REFUSED51",   "code": "51",  "note": "LIMIT EXCEEDED" },
+      { "name": "REFUSED55",   "code": "55",  "note": "INVALID SECURITY CODE" },
+      { "name": "REFUSED56",   "code": "56",  "note": "UNKNOWN CARD" },
+      { "name": "REFUSED57",   "code": "57",  "note": "ILLEGAL TRANSACTION" },
+      { "name": "REFUSED62",   "code": "62",  "note": "RESTRICTED CARD" },
+      { "name": "REFUSED63",   "code": "63",  "note": "SECURITY RULES VIOLATED" },
+      { "name": "REFUSED75",   "code": "75",  "note": "SECURITY CODE INVALID" },
+      { "name": "REFUSED76",   "code": "76",  "note": "CARD BLOCKED" },
+      { "name": "REFUSED85",   "code": "85",  "note": "REJECTED BY CARD ISSUER" },
+      { "name": "REFUSEDR1",   "code": "973", "note": "REVOCATION OF AUTHORIZATION ORDER" },
+      { "name": "REFUSEDR3",   "code": "975", "note": "REVOCATION OF ALL AUTHORIZATIONS ORDER" }
+    ]
+  },
+  {
+    "group": "3DS test values",
+    "items": [
+      { "name": "3D",   "note": "Invokes 3DS simulator" },
+      { "name": "NO3D", "note": "Bypasses 3DS simulator" }
+    ]
+  },
+  {
+    "group": "CVC/CVV test values",
+    "items": [
+      { "csc": false,  "code": "B", "note": "NOT SUPPLIED BY SHOPPER" },
+      { "csc": "111", "code": "C", "note": "NOT SENT TO ACQUIRER" },
+      { "csc": "222", "code": "C", "note": "NO RESPONSE FROM ACQUIRER" },
+      { "csc": "333", "code": "C", "note": "NOT CHECKED BY ACQUIRER" },
+      { "csc": "444", "code": "D", "note": "FAILED" },
+      { "csc": "555", "code": "A", "note": "APPROVED" }
+    ]
+  },
+  {
+    "group": "CVC/CVV test values (American Express)",
+    "items": [
+      { "csc": false,   "code": "B", "note": "NOT SUPPLIED BY SHOPPER", "network": "amex" },
+      { "csc": "1111", "code": "C", "note": "NOT SENT TO ACQUIRER", "network": "amex" },
+      { "csc": "2222", "code": "C", "note": "NO RESPONSE FROM ACQUIRER", "network": "amex" },
+      { "csc": "3333", "code": "C", "note": "NOT CHECKED BY ACQUIRER", "network": "amex" },
+      { "csc": "4444", "code": "D", "note": "FAILED", "network": "amex" },
+      { "csc": "5555", "code": "C", "note": "UNKNOWN", "network": "amex" },
+      { "csc": "6666", "code": "A", "note": "APPROVED", "network": "amex" }
     ]
   }
 ]

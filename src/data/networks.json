@@ -8,6 +8,13 @@
         "logo": "amex.svg"
     },
     {
+        "id": "airplus",
+        "names": [
+            "AirPlus"
+        ],
+        "logo": "airplus.svg"
+    },
+    {
         "id": "aura",
         "names": [
             "Aura"
@@ -146,6 +153,13 @@
             "Visa"
         ],
         "logo": "visa.svg"
+    },
+    {
+        "id": "troy",
+        "names": [
+            "Troy"
+        ],
+        "logo": "troy.svg"
     },
     {
         "id": "vpay",
