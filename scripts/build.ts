@@ -19,7 +19,7 @@ const SHARED_FILES = [
   'panel.html',
   'panel.css',
 ];
-const SHARED_DIRS = ['data', 'images'];
+const SHARED_DIRS = ['data', 'images', 'fonts'];
 
 function copyFile(src: string, dest: string) {
   fs.mkdirSync(path.dirname(dest), { recursive: true });

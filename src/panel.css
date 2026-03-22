@@ -1,5 +1,12 @@
+@font-face {
+  font-family: 'Inter';
+  src: url('./fonts/Inter-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
-  font-family: Verdana, Geneva, sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 12px;
   font-weight: 100;
   margin: 4px;
