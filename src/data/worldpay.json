@@ -1,749 +1,1010 @@
 [
-    {
-        "group": "Test card numbers",
-        "items": [
-            {
-                "number": "3434 3434 3434 343",
-                "network": "amex"
-            },
-            {
-                "number": "4150 5809 9651 7927",
-                "network": [
-                    "cartebancaire",
-                    "visa"
-                ]
-            },
-            {
-                "number": "5131 0724 5440 8923",
-                "network": [
-                    "cartebancaire",
-                    "mc"
-                ]
-            },
-            {
-                "number": "5817 0200 0000 0000",
-                "network": [
-                    "cartebancaire",
-                    "maestro"
-                ]
-            },
-            {
-                "number": "6011 0004 0000 0000",
-                "network": "discover"
-            },
-            {
-                "number": "4434 0200 0000 0006",
-                "network": [
-                    "eftpos",
-                    "visa"
-                ]
-            },
-            {
-                "number": "5163 1500 0000 0005",
-                "network": [
-                    "eftpos",
-                    "mc"
-                ]
-            },
-            {
-                "number": "3528 0007 0000 0000",
-                "network": "jcb"
-            },
-            {
-                "number": "6759 6498 2643 8453",
-                "network": "maestro"
-            },
-            {
-                "number": "5555 5555 5555 4444",
-                "network": "mc"
-            },
-            {
-                "number": "5454 5454 5454 5454",
-                "network": "mc"
-            },
-            {
-                "number": "2221 0000 0000 0009",
-                "network": "mc"
-            },
-            {
-                "number": "5163 6136 1361 3613",
-                "network": "mc",
-                "note": "Debit"
-            },
-            {
-                "number": "4444 3333 2222 1111",
-                "network": "visa"
-            },
-            {
-                "number": "4911 8300 0000 0",
-                "network": "visa"
-            },
-            {
-                "number": "4917 6100 0000 0000",
-                "network": "visa"
-            },
-            {
-                "number": "4462 0300 0000 0000",
-                "network": "visa",
-                "note": "Debit"
-            },
-            {
-                "number": "4917 6100 0000 0000 003",
-                "network": "visa",
-                "note": "Debit"
-            },
-            {
-                "number": "4917 3008 0000 0000",
-                "network": "visa",
-                "note": "Electron (UK only)"
-            }
+  {
+    "group": "Test card numbers",
+    "items": [
+      {
+        "number": "3434 3434 3434 343",
+        "exp": true,
+        "csc": true,
+        "name": true,
+        "network": "amex"
+      },
+      {
+        "number": "4150 5809 9651 7927",
+        "exp": true,
+        "csc": true,
+        "name": true,
+        "network": [
+          "cartebancaire",
+          "visa"
         ]
-    },
-    {
-        "group": "Issuer response test values",
-        "items": [
-            {
-                "number": "4444 3333 2222 1111",
-                "network": "visa",
-                "name": "AUTHORISED",
-                "note": "Authorised"
-            },
-            {
-                "number": "4444 3333 2222 1111",
-                "network": "visa",
-                "name": "ERROR",
-                "note": "Error"
-            },
-            {
-                "number": "4444 3333 2222 1111",
-                "network": "visa",
-                "name": "REFUSED",
-                "note": "Refused"
-            },
-            {
-                "number": "4444 3333 2222 1111",
-                "network": "visa",
-                "name": "REFUSED4",
-                "note": "Hold card"
-            },
-            {
-                "number": "4444 3333 2222 1111",
-                "network": "visa",
-                "name": "REFUSED5",
-                "note": "Refused"
-            },
-            {
-                "number": "4444 3333 2222 1111",
-                "network": "visa",
-                "name": "REFUSED8",
-                "note": "Approve after identification"
-            },
-            {
-                "number": "4444 3333 2222 1111",
-                "network": "visa",
-                "name": "REFUSED13",
-                "note": "Invalid amount"
-            },
-            {
-                "number": "4444 3333 2222 1111",
-                "network": "visa",
-                "name": "REFUSED15",
-                "note": "Invalid card issuer"
-            },
-            {
-                "number": "4444 3333 2222 1111",
-                "network": "visa",
-                "name": "REFUSED17",
-                "note": "Annulation by client"
-            },
-            {
-                "number": "4444 3333 2222 1111",
-                "network": "visa",
-                "name": "REFUSED28",
-                "note": "Access denied"
-            },
-            {
-                "number": "4444 3333 2222 1111",
-                "network": "visa",
-                "name": "REFUSED29",
-                "note": "Impossible reference number"
-            },
-            {
-                "number": "4444 3333 2222 1111",
-                "network": "visa",
-                "name": "REFUSED33",
-                "note": "Card expired"
-            },
-            {
-                "number": "4444 3333 2222 1111",
-                "network": "visa",
-                "name": "REFUSED34",
-                "note": "Fraud suspicion"
-            },
-            {
-                "number": "4444 3333 2222 1111",
-                "network": "visa",
-                "name": "REFUSED38",
-                "note": "Security code expired"
-            },
-            {
-                "number": "4444 3333 2222 1111",
-                "network": "visa",
-                "name": "REFUSED41",
-                "note": "Lost card"
-            },
-            {
-                "number": "4444 3333 2222 1111",
-                "network": "visa",
-                "name": "REFUSED43",
-                "note": "Stolen card, pick up"
-            },
-            {
-                "number": "4444 3333 2222 1111",
-                "network": "visa",
-                "name": "REFUSED51",
-                "note": "Limit exceeded"
-            },
-            {
-                "number": "4444 3333 2222 1111",
-                "network": "visa",
-                "name": "REFUSED55",
-                "note": "Invalid security code"
-            },
-            {
-                "number": "4444 3333 2222 1111",
-                "network": "visa",
-                "name": "REFUSED56",
-                "note": "Unknown card"
-            },
-            {
-                "number": "4444 3333 2222 1111",
-                "network": "visa",
-                "name": "REFUSED57",
-                "note": "Illegal transaction"
-            },
-            {
-                "number": "4444 3333 2222 1111",
-                "network": "visa",
-                "name": "REFUSED62",
-                "note": "Restricted card"
-            },
-            {
-                "number": "4444 3333 2222 1111",
-                "network": "visa",
-                "name": "REFUSED63",
-                "note": "Security rules violated"
-            },
-            {
-                "number": "4444 3333 2222 1111",
-                "network": "visa",
-                "name": "REFUSED75",
-                "note": "Security code invalid"
-            },
-            {
-                "number": "4444 3333 2222 1111",
-                "network": "visa",
-                "name": "REFUSED76",
-                "note": "Card blocked"
-            },
-            {
-                "number": "4444 3333 2222 1111",
-                "network": "visa",
-                "name": "REFUSED85",
-                "note": "Rejected by card issuer"
-            },
-            {
-                "number": "4444 3333 2222 1111",
-                "network": "visa",
-                "name": "SOFT_DECLINED",
-                "note": "Authentication requested"
-            }
+      },
+      {
+        "number": "5131 0724 5440 8923",
+        "exp": true,
+        "csc": true,
+        "name": true,
+        "network": [
+          "cartebancaire",
+          "mc"
         ]
-    },
-    {
-        "group": "Raw response code test values",
-        "items": [
-            {
-                "name": "REFUSEDRCN3RAW",
-                "number": "4444 3333 2222 1111",
-                "network": "visa",
-                "note": "Cash service not available"
-            },
-            {
-                "name": "REFUSEDRC62RAW",
-                "number": "4444 3333 2222 1111",
-                "network": "visa",
-                "note": "Restricted card"
-            },
-            {
-                "name": "REFUSEDRC62RAW",
-                "number": "5555 5555 5555 4444",
-                "network": "mc",
-                "note": "Restricted card"
-            },
-            {
-                "name": "REFUSEDRC62RAW",
-                "number": "3434 3434 3434 343",
-                "network": "amex",
-                "note": "Restricted card"
-            },
-            {
-                "name": "REFUSEDRCG7RAW",
-                "number": "5555 5555 5555 4444",
-                "network": "mc",
-                "note": "Amount exceeds daily limit"
-            },
-            {
-                "name": "REFUSEDRC20625RAW",
-                "number": "5555 5555 5555 4444",
-                "network": "mc",
-                "note": "Card maxed out for day"
-            }
+      },
+      {
+        "number": "5817 0200 0000 0000",
+        "exp": true,
+        "csc": true,
+        "name": true,
+        "network": [
+          "cartebancaire",
+          "maestro"
         ]
-    },
-    {
-        "group": "Refusal advice test values",
-        "items": [
-            {
-                "number": "5555 5555 5555 4444",
-                "network": "mc",
-                "name": "REFUSEDRC79MAC01",
-                "note": "Card expired: updated account information available"
-            },
-            {
-                "number": "5555 5555 5555 4444",
-                "network": "mc",
-                "name": "REFUSEDRC82MAC01",
-                "note": "Card expired: updated account information available"
-            },
-            {
-                "number": "5555 5555 5555 4444",
-                "network": "mc",
-                "name": "REFUSEDRC83MAC01",
-                "note": "Card expired: updated account information available"
-            },
-            {
-                "number": "5555 5555 5555 4444",
-                "network": "mc",
-                "name": "REFUSEDRC79MAC02",
-                "note": "Insufficient funds at present"
-            },
-            {
-                "number": "5555 5555 5555 4444",
-                "network": "mc",
-                "name": "REFUSEDRC82MAC02",
-                "note": "Insufficient funds at present"
-            },
-            {
-                "number": "5555 5555 5555 4444",
-                "network": "mc",
-                "name": "REFUSEDRC83MAC02",
-                "note": "Insufficient funds at present"
-            },
-            {
-                "number": "5555 5555 5555 4444",
-                "network": "mc",
-                "name": "REFUSEDRC79MAC03",
-                "note": "Invalid account number"
-            },
-            {
-                "number": "5555 5555 5555 4444",
-                "network": "mc",
-                "name": "REFUSEDRC82MAC03",
-                "note": "Invalid transaction"
-            },
-            {
-                "number": "5555 5555 5555 4444",
-                "network": "mc",
-                "name": "REFUSEDRC83MAC03",
-                "note": "Lost/stolen card"
-            },
-            {
-                "number": "5555 5555 5555 4444",
-                "network": "mc",
-                "name": "REFUSEDRC79MAC04",
-                "note": "Problem with network token authentication value"
-            },
-            {
-                "number": "5555 5555 5555 4444",
-                "network": "mc",
-                "name": "REFUSEDRC82MAC04",
-                "note": "Problem with network token authentication value"
-            },
-            {
-                "number": "5555 5555 5555 4444",
-                "network": "mc",
-                "name": "REFUSEDRC83MAC04",
-                "note": "Problem with network token authentication value"
-            },
-            {
-                "number": "5555 5555 5555 4444",
-                "network": "mc",
-                "name": "REFUSEDRC79MAC21",
-                "note": "Cardholder requested recurring payment be stopped"
-            },
-            {
-                "number": "5555 5555 5555 4444",
-                "network": "mc",
-                "name": "REFUSEDRC82MAC21",
-                "note": "Cardholder requested recurring payment be stopped"
-            },
-            {
-                "number": "5555 5555 5555 4444",
-                "network": "mc",
-                "name": "REFUSEDRC83MAC21",
-                "note": "Cardholder requested recurring payment be stopped"
-            },
-            {
-                "number": "5555 5555 5555 4444",
-                "network": "mc",
-                "name": "REFUSEDRC79MAC22",
-                "note": "Merchant not enrolled in Mastercard instalment program"
-            },
-            {
-                "number": "5555 5555 5555 4444",
-                "network": "mc",
-                "name": "REFUSEDRC82MAC22",
-                "note": "Merchant not enrolled in Mastercard instalment program"
-            },
-            {
-                "number": "5555 5555 5555 4444",
-                "network": "mc",
-                "name": "REFUSEDRC83MAC22",
-                "note": "Merchant not enrolled in Mastercard instalment program"
-            },
-            {
-                "number": "5555 5555 5555 4444",
-                "network": "mc",
-                "name": "REFUSEDRC51MAC24",
-                "note": "Insufficient funds (retry after 1 hour)"
-            },
-            {
-                "number": "5555 5555 5555 4444",
-                "network": "mc",
-                "name": "REFUSEDRC51MAC25",
-                "note": "Insufficient funds (retry after 24 hours)"
-            },
-            {
-                "number": "5555 5555 5555 4444",
-                "network": "mc",
-                "name": "REFUSEDRC51MAC26",
-                "note": "Insufficient funds (retry after 2 days)"
-            },
-            {
-                "number": "5555 5555 5555 4444",
-                "network": "mc",
-                "name": "REFUSEDRC51MAC27",
-                "note": "Insufficient funds (retry after 4 days)"
-            },
-            {
-                "number": "5555 5555 5555 4444",
-                "network": "mc",
-                "name": "REFUSEDRC51MAC28",
-                "note": "Insufficient funds (retry after 6 days)"
-            },
-            {
-                "number": "5555 5555 5555 4444",
-                "network": "mc",
-                "name": "REFUSEDRC51MAC29",
-                "note": "Insufficient funds (retry after 8 days)"
-            },
-            {
-                "number": "5555 5555 5555 4444",
-                "network": "mc",
-                "name": "REFUSEDRC51MAC30",
-                "note": "Insufficient funds (retry after 10 days)"
-            }
+      },
+      {
+        "number": "6011 0004 0000 0000",
+        "exp": true,
+        "csc": true,
+        "name": true,
+        "network": "discover"
+      },
+      {
+        "number": "4434 0200 0000 0006",
+        "exp": true,
+        "csc": true,
+        "name": true,
+        "network": [
+          "eftpos",
+          "visa"
         ]
-    },
-    {
-        "group": "CVC test values",
-        "items": [
-            {
-                "number": "4444 3333 2222 1111",
-                "network": "visa",
-                "csc": null,
-                "note": "Not supplied by shopper"
-            },
-            {
-                "number": "4444 3333 2222 1111",
-                "network": "visa",
-                "csc": "111",
-                "note": "Not sent to acquirer"
-            },
-            {
-                "number": "4444 3333 2222 1111",
-                "network": "visa",
-                "csc": "222",
-                "note": "No response from acquirer"
-            },
-            {
-                "number": "4444 3333 2222 1111",
-                "network": "visa",
-                "csc": "333",
-                "note": "Not checked by acquirer"
-            },
-            {
-                "number": "4444 3333 2222 1111",
-                "network": "visa",
-                "csc": "444",
-                "note": "Failed"
-            },
-            {
-                "number": "4444 3333 2222 1111",
-                "network": "visa",
-                "csc": "555",
-                "note": "Approved"
-            }
+      },
+      {
+        "number": "5163 1500 0000 0005",
+        "exp": true,
+        "csc": true,
+        "name": true,
+        "network": [
+          "eftpos",
+          "mc"
         ]
-    },
-    {
-        "group": "CVC test values (American Express)",
-        "items": [
-            {
-                "number": "3434 3434 3434 343",
-                "network": "amex",
-                "csc": null,
-                "note": "Not supplied by shopper"
-            },
-            {
-                "number": "3434 3434 3434 343",
-                "network": "amex",
-                "csc": "1111",
-                "note": "Not sent to acquirer"
-            },
-            {
-                "number": "3434 3434 3434 343",
-                "network": "amex",
-                "csc": "2222",
-                "note": "No response from acquirer"
-            },
-            {
-                "number": "3434 3434 3434 343",
-                "network": "amex",
-                "csc": "3333",
-                "note": "Not checked by acquirer"
-            },
-            {
-                "number": "3434 3434 3434 343",
-                "network": "amex",
-                "csc": "4444",
-                "note": "Failed"
-            },
-            {
-                "number": "3434 3434 3434 343",
-                "network": "amex",
-                "csc": "5555",
-                "note": "Unknown"
-            },
-            {
-                "number": "3434 3434 3434 343",
-                "network": "amex",
-                "csc": "6666",
-                "note": "Approved"
-            }
-        ]
-    },
-    {
-        "group": "Exemption test values",
-        "items": [
-            {
-                "number": "4444 3333 2222 1111",
-                "network": "visa",
-                "name": "EE.HON_ISSUER_HONOURED.AUTHRD",
-                "note": "Authorized: issuer honoured exemption"
-            },
-            {
-                "number": "4444 3333 2222 1111",
-                "network": "visa",
-                "name": "EE.REJ_ISSUER_REJECTED.SD",
-                "note": "Refused (soft decline): issuer rejected"
-            },
-            {
-                "number": "4444 3333 2222 1111",
-                "network": "visa",
-                "name": "EE.REJ_NOT_SUBSCRIBED.AUTHRD",
-                "note": "Authorized: exemptions not enabled"
-            },
-            {
-                "number": "4444 3333 2222 1111",
-                "network": "visa",
-                "name": "EE.REJ_NOT_SUBSCRIBED.SD",
-                "note": "Refused (soft decline): exemptions not enabled"
-            },
-            {
-                "number": "4444 3333 2222 1111",
-                "network": "visa",
-                "name": "EE.REJ_UNSUPPTD_SCHEME.AUTHRD",
-                "note": "Authorized: unsupported scheme"
-            },
-            {
-                "number": "4444 3333 2222 1111",
-                "network": "visa",
-                "name": "EE.REJ_UNSUPPTD_SCHEME.SD",
-                "note": "Refused (soft decline): unsupported scheme"
-            },
-            {
-                "number": "4444 3333 2222 1111",
-                "network": "visa",
-                "name": "EE.OOS_OLO.SD",
-                "note": "Refused (soft decline): One-Leg-Out"
-            }
-        ]
-    },
-    {
-        "group": "Real-time Account Updater test values",
-        "items": [
-            {
-                "number": "4444 3333 2222 1111",
-                "network": "visa",
-                "name": "ACCOUNTUPDATER.VI.500",
-                "note": "Account number changed"
-            },
-            {
-                "number": "4444 3333 2222 1111",
-                "network": "visa",
-                "name": "ACCOUNTUPDATER.VI.501",
-                "note": "Account closed"
-            },
-            {
-                "number": "4444 3333 2222 1111",
-                "network": "visa",
-                "name": "ACCOUNTUPDATER.VI.502",
-                "note": "Expiration date changed"
-            },
-            {
-                "number": "4444 3333 2222 1111",
-                "network": "visa",
-                "name": "ACCOUNTUPDATER.VI.503",
-                "note": "Issuer not in update program"
-            },
-            {
-                "number": "4444 3333 2222 1111",
-                "network": "visa",
-                "name": "ACCOUNTUPDATER.VI.504",
-                "note": "Contact cardholder for updated info"
-            },
-            {
-                "number": "5555 5555 5555 4444",
-                "network": "mc",
-                "name": "ACCOUNTUPDATER.MC.500",
-                "note": "Account number changed"
-            },
-            {
-                "number": "5555 5555 5555 4444",
-                "network": "mc",
-                "name": "ACCOUNTUPDATER.MC.501",
-                "note": "Account closed"
-            },
-            {
-                "number": "5555 5555 5555 4444",
-                "network": "mc",
-                "name": "ACCOUNTUPDATER.MC.502",
-                "note": "Expiration date changed"
-            },
-            {
-                "number": "5555 5555 5555 4444",
-                "network": "mc",
-                "name": "ACCOUNTUPDATER.MC.503",
-                "note": "Issuer not in update program"
-            },
-            {
-                "number": "5555 5555 5555 4444",
-                "network": "mc",
-                "name": "ACCOUNTUPDATER.MC.504",
-                "note": "Contact cardholder for updated info"
-            },
-            {
-                "number": "3434 3434 3434 343",
-                "network": "amex",
-                "name": "ACCOUNTUPDATER.AX.500",
-                "note": "Account number changed"
-            },
-            {
-                "number": "3434 3434 3434 343",
-                "network": "amex",
-                "name": "ACCOUNTUPDATER.AX.501",
-                "note": "Account closed"
-            },
-            {
-                "number": "3434 3434 3434 343",
-                "network": "amex",
-                "name": "ACCOUNTUPDATER.AX.502",
-                "note": "Expiration date changed"
-            },
-            {
-                "number": "3434 3434 3434 343",
-                "network": "amex",
-                "name": "ACCOUNTUPDATER.AX.503",
-                "note": "Issuer not in update program"
-            },
-            {
-                "number": "3434 3434 3434 343",
-                "network": "amex",
-                "name": "ACCOUNTUPDATER.AX.504",
-                "note": "Contact cardholder for updated info"
-            },
-            {
-                "number": "6011 0004 0000 0000",
-                "network": "discover",
-                "name": "ACCOUNTUPDATER.DC.500",
-                "note": "Account number changed"
-            },
-            {
-                "number": "6011 0004 0000 0000",
-                "network": "discover",
-                "name": "ACCOUNTUPDATER.DC.501",
-                "note": "Account closed"
-            },
-            {
-                "number": "6011 0004 0000 0000",
-                "network": "discover",
-                "name": "ACCOUNTUPDATER.DC.502",
-                "note": "Expiration date changed"
-            },
-            {
-                "number": "6011 0004 0000 0000",
-                "network": "discover",
-                "name": "ACCOUNTUPDATER.DC.503",
-                "note": "Issuer not in update program"
-            },
-            {
-                "number": "6011 0004 0000 0000",
-                "network": "discover",
-                "name": "ACCOUNTUPDATER.DC.504",
-                "note": "Contact cardholder for updated info"
-            },
-            {
-                "number": "6011 0004 0000 0000",
-                "network": "discover",
-                "name": "ACCOUNTUPDATER.DI.500",
-                "note": "Account number changed"
-            },
-            {
-                "number": "6011 0004 0000 0000",
-                "network": "discover",
-                "name": "ACCOUNTUPDATER.DI.501",
-                "note": "Account closed"
-            },
-            {
-                "number": "6011 0004 0000 0000",
-                "network": "discover",
-                "name": "ACCOUNTUPDATER.DI.502",
-                "note": "Expiration date changed"
-            },
-            {
-                "number": "6011 0004 0000 0000",
-                "network": "discover",
-                "name": "ACCOUNTUPDATER.DI.503",
-                "note": "Issuer not in update program"
-            },
-            {
-                "number": "6011 0004 0000 0000",
-                "network": "discover",
-                "name": "ACCOUNTUPDATER.DI.504",
-                "note": "Contact cardholder for updated info"
-            }
-        ]
-    }
+      },
+      {
+        "number": "3528 0007 0000 0000",
+        "exp": true,
+        "csc": true,
+        "name": true,
+        "network": "jcb"
+      },
+      {
+        "number": "6759 6498 2643 8453",
+        "exp": true,
+        "csc": true,
+        "name": true,
+        "network": "maestro"
+      },
+      {
+        "number": "5555 5555 5555 4444",
+        "exp": true,
+        "csc": true,
+        "name": true,
+        "network": "mc"
+      },
+      {
+        "number": "5454 5454 5454 5454",
+        "exp": true,
+        "csc": true,
+        "name": true,
+        "network": "mc"
+      },
+      {
+        "number": "2221 0000 0000 0009",
+        "exp": true,
+        "csc": true,
+        "name": true,
+        "network": "mc"
+      },
+      {
+        "number": "5163 6136 1361 3613",
+        "exp": true,
+        "csc": true,
+        "name": true,
+        "note": "Debit",
+        "network": "mc"
+      },
+      {
+        "number": "4444 3333 2222 1111",
+        "exp": true,
+        "csc": true,
+        "name": true,
+        "network": "visa"
+      },
+      {
+        "number": "4911 8300 0000 0",
+        "exp": true,
+        "csc": true,
+        "name": true,
+        "network": "visa"
+      },
+      {
+        "number": "4917 6100 0000 0000",
+        "exp": true,
+        "csc": true,
+        "name": true,
+        "network": "visa"
+      },
+      {
+        "number": "4462 0300 0000 0000",
+        "exp": true,
+        "csc": true,
+        "name": true,
+        "note": "Debit",
+        "network": "visa"
+      },
+      {
+        "number": "4917 6100 0000 0000 003",
+        "exp": true,
+        "csc": true,
+        "name": true,
+        "note": "Debit",
+        "network": "visa"
+      },
+      {
+        "number": "4917 3008 0000 0000",
+        "exp": true,
+        "csc": true,
+        "name": true,
+        "note": "Electron (UK only)",
+        "network": "visa"
+      }
+    ]
+  },
+  {
+    "group": "Issuer response test values",
+    "items": [
+      {
+        "number": "4444 3333 2222 1111",
+        "exp": true,
+        "csc": true,
+        "name": "AUTHORISED",
+        "note": "Authorised",
+        "network": "visa"
+      },
+      {
+        "number": "4444 3333 2222 1111",
+        "exp": true,
+        "csc": true,
+        "name": "ERROR",
+        "note": "Error",
+        "network": "visa"
+      },
+      {
+        "number": "4444 3333 2222 1111",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED",
+        "note": "Refused",
+        "network": "visa"
+      },
+      {
+        "number": "4444 3333 2222 1111",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED4",
+        "note": "Hold card",
+        "network": "visa"
+      },
+      {
+        "number": "4444 3333 2222 1111",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED5",
+        "note": "Refused",
+        "network": "visa"
+      },
+      {
+        "number": "4444 3333 2222 1111",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED8",
+        "note": "Approve after identification",
+        "network": "visa"
+      },
+      {
+        "number": "4444 3333 2222 1111",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED13",
+        "note": "Invalid amount",
+        "network": "visa"
+      },
+      {
+        "number": "4444 3333 2222 1111",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED15",
+        "note": "Invalid card issuer",
+        "network": "visa"
+      },
+      {
+        "number": "4444 3333 2222 1111",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED17",
+        "note": "Annulation by client",
+        "network": "visa"
+      },
+      {
+        "number": "4444 3333 2222 1111",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED28",
+        "note": "Access denied",
+        "network": "visa"
+      },
+      {
+        "number": "4444 3333 2222 1111",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED29",
+        "note": "Impossible reference number",
+        "network": "visa"
+      },
+      {
+        "number": "4444 3333 2222 1111",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED33",
+        "note": "Card expired",
+        "network": "visa"
+      },
+      {
+        "number": "4444 3333 2222 1111",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED34",
+        "note": "Fraud suspicion",
+        "network": "visa"
+      },
+      {
+        "number": "4444 3333 2222 1111",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED38",
+        "note": "Security code expired",
+        "network": "visa"
+      },
+      {
+        "number": "4444 3333 2222 1111",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED41",
+        "note": "Lost card",
+        "network": "visa"
+      },
+      {
+        "number": "4444 3333 2222 1111",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED43",
+        "note": "Stolen card, pick up",
+        "network": "visa"
+      },
+      {
+        "number": "4444 3333 2222 1111",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED51",
+        "note": "Limit exceeded",
+        "network": "visa"
+      },
+      {
+        "number": "4444 3333 2222 1111",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED55",
+        "note": "Invalid security code",
+        "network": "visa"
+      },
+      {
+        "number": "4444 3333 2222 1111",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED56",
+        "note": "Unknown card",
+        "network": "visa"
+      },
+      {
+        "number": "4444 3333 2222 1111",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED57",
+        "note": "Illegal transaction",
+        "network": "visa"
+      },
+      {
+        "number": "4444 3333 2222 1111",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED62",
+        "note": "Restricted card",
+        "network": "visa"
+      },
+      {
+        "number": "4444 3333 2222 1111",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED63",
+        "note": "Security rules violated",
+        "network": "visa"
+      },
+      {
+        "number": "4444 3333 2222 1111",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED75",
+        "note": "Security code invalid",
+        "network": "visa"
+      },
+      {
+        "number": "4444 3333 2222 1111",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED76",
+        "note": "Card blocked",
+        "network": "visa"
+      },
+      {
+        "number": "4444 3333 2222 1111",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED85",
+        "note": "Rejected by card issuer",
+        "network": "visa"
+      },
+      {
+        "number": "4444 3333 2222 1111",
+        "exp": true,
+        "csc": true,
+        "name": "SOFT_DECLINED",
+        "note": "Authentication requested",
+        "network": "visa"
+      }
+    ]
+  },
+  {
+    "group": "Raw response code test values",
+    "items": [
+      {
+        "number": "4444 3333 2222 1111",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSEDRCN3RAW",
+        "note": "Cash service not available",
+        "network": "visa"
+      },
+      {
+        "number": "4444 3333 2222 1111",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSEDRC62RAW",
+        "note": "Restricted card",
+        "network": "visa"
+      },
+      {
+        "number": "5555 5555 5555 4444",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSEDRC62RAW",
+        "note": "Restricted card",
+        "network": "mc"
+      },
+      {
+        "number": "3434 3434 3434 343",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSEDRC62RAW",
+        "note": "Restricted card",
+        "network": "amex"
+      },
+      {
+        "number": "5555 5555 5555 4444",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSEDRCG7RAW",
+        "note": "Amount exceeds daily limit",
+        "network": "mc"
+      },
+      {
+        "number": "5555 5555 5555 4444",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSEDRC20625RAW",
+        "note": "Card maxed out for day",
+        "network": "mc"
+      }
+    ]
+  },
+  {
+    "group": "Refusal advice test values",
+    "items": [
+      {
+        "number": "5555 5555 5555 4444",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSEDRC79MAC01",
+        "note": "Card expired: updated account information available",
+        "network": "mc"
+      },
+      {
+        "number": "5555 5555 5555 4444",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSEDRC82MAC01",
+        "note": "Card expired: updated account information available",
+        "network": "mc"
+      },
+      {
+        "number": "5555 5555 5555 4444",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSEDRC83MAC01",
+        "note": "Card expired: updated account information available",
+        "network": "mc"
+      },
+      {
+        "number": "5555 5555 5555 4444",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSEDRC79MAC02",
+        "note": "Insufficient funds at present",
+        "network": "mc"
+      },
+      {
+        "number": "5555 5555 5555 4444",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSEDRC82MAC02",
+        "note": "Insufficient funds at present",
+        "network": "mc"
+      },
+      {
+        "number": "5555 5555 5555 4444",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSEDRC83MAC02",
+        "note": "Insufficient funds at present",
+        "network": "mc"
+      },
+      {
+        "number": "5555 5555 5555 4444",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSEDRC79MAC03",
+        "note": "Invalid account number",
+        "network": "mc"
+      },
+      {
+        "number": "5555 5555 5555 4444",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSEDRC82MAC03",
+        "note": "Invalid transaction",
+        "network": "mc"
+      },
+      {
+        "number": "5555 5555 5555 4444",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSEDRC83MAC03",
+        "note": "Lost/stolen card",
+        "network": "mc"
+      },
+      {
+        "number": "5555 5555 5555 4444",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSEDRC79MAC04",
+        "note": "Problem with network token authentication value",
+        "network": "mc"
+      },
+      {
+        "number": "5555 5555 5555 4444",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSEDRC82MAC04",
+        "note": "Problem with network token authentication value",
+        "network": "mc"
+      },
+      {
+        "number": "5555 5555 5555 4444",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSEDRC83MAC04",
+        "note": "Problem with network token authentication value",
+        "network": "mc"
+      },
+      {
+        "number": "5555 5555 5555 4444",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSEDRC79MAC21",
+        "note": "Cardholder requested recurring payment be stopped",
+        "network": "mc"
+      },
+      {
+        "number": "5555 5555 5555 4444",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSEDRC82MAC21",
+        "note": "Cardholder requested recurring payment be stopped",
+        "network": "mc"
+      },
+      {
+        "number": "5555 5555 5555 4444",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSEDRC83MAC21",
+        "note": "Cardholder requested recurring payment be stopped",
+        "network": "mc"
+      },
+      {
+        "number": "5555 5555 5555 4444",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSEDRC79MAC22",
+        "note": "Merchant not enrolled in Mastercard instalment program",
+        "network": "mc"
+      },
+      {
+        "number": "5555 5555 5555 4444",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSEDRC82MAC22",
+        "note": "Merchant not enrolled in Mastercard instalment program",
+        "network": "mc"
+      },
+      {
+        "number": "5555 5555 5555 4444",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSEDRC83MAC22",
+        "note": "Merchant not enrolled in Mastercard instalment program",
+        "network": "mc"
+      },
+      {
+        "number": "5555 5555 5555 4444",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSEDRC51MAC24",
+        "note": "Insufficient funds (retry after 1 hour)",
+        "network": "mc"
+      },
+      {
+        "number": "5555 5555 5555 4444",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSEDRC51MAC25",
+        "note": "Insufficient funds (retry after 24 hours)",
+        "network": "mc"
+      },
+      {
+        "number": "5555 5555 5555 4444",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSEDRC51MAC26",
+        "note": "Insufficient funds (retry after 2 days)",
+        "network": "mc"
+      },
+      {
+        "number": "5555 5555 5555 4444",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSEDRC51MAC27",
+        "note": "Insufficient funds (retry after 4 days)",
+        "network": "mc"
+      },
+      {
+        "number": "5555 5555 5555 4444",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSEDRC51MAC28",
+        "note": "Insufficient funds (retry after 6 days)",
+        "network": "mc"
+      },
+      {
+        "number": "5555 5555 5555 4444",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSEDRC51MAC29",
+        "note": "Insufficient funds (retry after 8 days)",
+        "network": "mc"
+      },
+      {
+        "number": "5555 5555 5555 4444",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSEDRC51MAC30",
+        "note": "Insufficient funds (retry after 10 days)",
+        "network": "mc"
+      }
+    ]
+  },
+  {
+    "group": "CVC test values",
+    "items": [
+      {
+        "number": "4444 3333 2222 1111",
+        "exp": true,
+        "csc": false,
+        "name": true,
+        "note": "Not supplied by shopper",
+        "network": "visa"
+      },
+      {
+        "number": "4444 3333 2222 1111",
+        "exp": true,
+        "csc": "111",
+        "name": true,
+        "note": "Not sent to acquirer",
+        "network": "visa"
+      },
+      {
+        "number": "4444 3333 2222 1111",
+        "exp": true,
+        "csc": "222",
+        "name": true,
+        "note": "No response from acquirer",
+        "network": "visa"
+      },
+      {
+        "number": "4444 3333 2222 1111",
+        "exp": true,
+        "csc": "333",
+        "name": true,
+        "note": "Not checked by acquirer",
+        "network": "visa"
+      },
+      {
+        "number": "4444 3333 2222 1111",
+        "exp": true,
+        "csc": "444",
+        "name": true,
+        "note": "Failed",
+        "network": "visa"
+      },
+      {
+        "number": "4444 3333 2222 1111",
+        "exp": true,
+        "csc": "555",
+        "name": true,
+        "note": "Approved",
+        "network": "visa"
+      }
+    ]
+  },
+  {
+    "group": "CVC test values (American Express)",
+    "items": [
+      {
+        "number": "3434 3434 3434 343",
+        "exp": true,
+        "csc": false,
+        "name": true,
+        "note": "Not supplied by shopper",
+        "network": "amex"
+      },
+      {
+        "number": "3434 3434 3434 343",
+        "exp": true,
+        "csc": "1111",
+        "name": true,
+        "note": "Not sent to acquirer",
+        "network": "amex"
+      },
+      {
+        "number": "3434 3434 3434 343",
+        "exp": true,
+        "csc": "2222",
+        "name": true,
+        "note": "No response from acquirer",
+        "network": "amex"
+      },
+      {
+        "number": "3434 3434 3434 343",
+        "exp": true,
+        "csc": "3333",
+        "name": true,
+        "note": "Not checked by acquirer",
+        "network": "amex"
+      },
+      {
+        "number": "3434 3434 3434 343",
+        "exp": true,
+        "csc": "4444",
+        "name": true,
+        "note": "Failed",
+        "network": "amex"
+      },
+      {
+        "number": "3434 3434 3434 343",
+        "exp": true,
+        "csc": "5555",
+        "name": true,
+        "note": "Unknown",
+        "network": "amex"
+      },
+      {
+        "number": "3434 3434 3434 343",
+        "exp": true,
+        "csc": "6666",
+        "name": true,
+        "note": "Approved",
+        "network": "amex"
+      }
+    ]
+  },
+  {
+    "group": "Exemption test values",
+    "items": [
+      {
+        "number": "4444 3333 2222 1111",
+        "exp": true,
+        "csc": true,
+        "name": "EE.HON_ISSUER_HONOURED.AUTHRD",
+        "note": "Authorized: issuer honoured exemption",
+        "network": "visa"
+      },
+      {
+        "number": "4444 3333 2222 1111",
+        "exp": true,
+        "csc": true,
+        "name": "EE.REJ_ISSUER_REJECTED.SD",
+        "note": "Refused (soft decline): issuer rejected",
+        "network": "visa"
+      },
+      {
+        "number": "4444 3333 2222 1111",
+        "exp": true,
+        "csc": true,
+        "name": "EE.REJ_NOT_SUBSCRIBED.AUTHRD",
+        "note": "Authorized: exemptions not enabled",
+        "network": "visa"
+      },
+      {
+        "number": "4444 3333 2222 1111",
+        "exp": true,
+        "csc": true,
+        "name": "EE.REJ_NOT_SUBSCRIBED.SD",
+        "note": "Refused (soft decline): exemptions not enabled",
+        "network": "visa"
+      },
+      {
+        "number": "4444 3333 2222 1111",
+        "exp": true,
+        "csc": true,
+        "name": "EE.REJ_UNSUPPTD_SCHEME.AUTHRD",
+        "note": "Authorized: unsupported scheme",
+        "network": "visa"
+      },
+      {
+        "number": "4444 3333 2222 1111",
+        "exp": true,
+        "csc": true,
+        "name": "EE.REJ_UNSUPPTD_SCHEME.SD",
+        "note": "Refused (soft decline): unsupported scheme",
+        "network": "visa"
+      },
+      {
+        "number": "4444 3333 2222 1111",
+        "exp": true,
+        "csc": true,
+        "name": "EE.OOS_OLO.SD",
+        "note": "Refused (soft decline): One-Leg-Out",
+        "network": "visa"
+      }
+    ]
+  },
+  {
+    "group": "Real-time Account Updater test values",
+    "items": [
+      {
+        "number": "4444 3333 2222 1111",
+        "exp": true,
+        "csc": true,
+        "name": "ACCOUNTUPDATER.VI.500",
+        "note": "Account number changed",
+        "network": "visa"
+      },
+      {
+        "number": "4444 3333 2222 1111",
+        "exp": true,
+        "csc": true,
+        "name": "ACCOUNTUPDATER.VI.501",
+        "note": "Account closed",
+        "network": "visa"
+      },
+      {
+        "number": "4444 3333 2222 1111",
+        "exp": true,
+        "csc": true,
+        "name": "ACCOUNTUPDATER.VI.502",
+        "note": "Expiration date changed",
+        "network": "visa"
+      },
+      {
+        "number": "4444 3333 2222 1111",
+        "exp": true,
+        "csc": true,
+        "name": "ACCOUNTUPDATER.VI.503",
+        "note": "Issuer not in update program",
+        "network": "visa"
+      },
+      {
+        "number": "4444 3333 2222 1111",
+        "exp": true,
+        "csc": true,
+        "name": "ACCOUNTUPDATER.VI.504",
+        "note": "Contact cardholder for updated info",
+        "network": "visa"
+      },
+      {
+        "number": "5555 5555 5555 4444",
+        "exp": true,
+        "csc": true,
+        "name": "ACCOUNTUPDATER.MC.500",
+        "note": "Account number changed",
+        "network": "mc"
+      },
+      {
+        "number": "5555 5555 5555 4444",
+        "exp": true,
+        "csc": true,
+        "name": "ACCOUNTUPDATER.MC.501",
+        "note": "Account closed",
+        "network": "mc"
+      },
+      {
+        "number": "5555 5555 5555 4444",
+        "exp": true,
+        "csc": true,
+        "name": "ACCOUNTUPDATER.MC.502",
+        "note": "Expiration date changed",
+        "network": "mc"
+      },
+      {
+        "number": "5555 5555 5555 4444",
+        "exp": true,
+        "csc": true,
+        "name": "ACCOUNTUPDATER.MC.503",
+        "note": "Issuer not in update program",
+        "network": "mc"
+      },
+      {
+        "number": "5555 5555 5555 4444",
+        "exp": true,
+        "csc": true,
+        "name": "ACCOUNTUPDATER.MC.504",
+        "note": "Contact cardholder for updated info",
+        "network": "mc"
+      },
+      {
+        "number": "3434 3434 3434 343",
+        "exp": true,
+        "csc": true,
+        "name": "ACCOUNTUPDATER.AX.500",
+        "note": "Account number changed",
+        "network": "amex"
+      },
+      {
+        "number": "3434 3434 3434 343",
+        "exp": true,
+        "csc": true,
+        "name": "ACCOUNTUPDATER.AX.501",
+        "note": "Account closed",
+        "network": "amex"
+      },
+      {
+        "number": "3434 3434 3434 343",
+        "exp": true,
+        "csc": true,
+        "name": "ACCOUNTUPDATER.AX.502",
+        "note": "Expiration date changed",
+        "network": "amex"
+      },
+      {
+        "number": "3434 3434 3434 343",
+        "exp": true,
+        "csc": true,
+        "name": "ACCOUNTUPDATER.AX.503",
+        "note": "Issuer not in update program",
+        "network": "amex"
+      },
+      {
+        "number": "3434 3434 3434 343",
+        "exp": true,
+        "csc": true,
+        "name": "ACCOUNTUPDATER.AX.504",
+        "note": "Contact cardholder for updated info",
+        "network": "amex"
+      },
+      {
+        "number": "6011 0004 0000 0000",
+        "exp": true,
+        "csc": true,
+        "name": "ACCOUNTUPDATER.DC.500",
+        "note": "Account number changed",
+        "network": "discover"
+      },
+      {
+        "number": "6011 0004 0000 0000",
+        "exp": true,
+        "csc": true,
+        "name": "ACCOUNTUPDATER.DC.501",
+        "note": "Account closed",
+        "network": "discover"
+      },
+      {
+        "number": "6011 0004 0000 0000",
+        "exp": true,
+        "csc": true,
+        "name": "ACCOUNTUPDATER.DC.502",
+        "note": "Expiration date changed",
+        "network": "discover"
+      },
+      {
+        "number": "6011 0004 0000 0000",
+        "exp": true,
+        "csc": true,
+        "name": "ACCOUNTUPDATER.DC.503",
+        "note": "Issuer not in update program",
+        "network": "discover"
+      },
+      {
+        "number": "6011 0004 0000 0000",
+        "exp": true,
+        "csc": true,
+        "name": "ACCOUNTUPDATER.DC.504",
+        "note": "Contact cardholder for updated info",
+        "network": "discover"
+      },
+      {
+        "number": "6011 0004 0000 0000",
+        "exp": true,
+        "csc": true,
+        "name": "ACCOUNTUPDATER.DI.500",
+        "note": "Account number changed",
+        "network": "discover"
+      },
+      {
+        "number": "6011 0004 0000 0000",
+        "exp": true,
+        "csc": true,
+        "name": "ACCOUNTUPDATER.DI.501",
+        "note": "Account closed",
+        "network": "discover"
+      },
+      {
+        "number": "6011 0004 0000 0000",
+        "exp": true,
+        "csc": true,
+        "name": "ACCOUNTUPDATER.DI.502",
+        "note": "Expiration date changed",
+        "network": "discover"
+      },
+      {
+        "number": "6011 0004 0000 0000",
+        "exp": true,
+        "csc": true,
+        "name": "ACCOUNTUPDATER.DI.503",
+        "note": "Issuer not in update program",
+        "network": "discover"
+      },
+      {
+        "number": "6011 0004 0000 0000",
+        "exp": true,
+        "csc": true,
+        "name": "ACCOUNTUPDATER.DI.504",
+        "note": "Contact cardholder for updated info",
+        "network": "discover"
+      }
+    ]
+  }
 ]

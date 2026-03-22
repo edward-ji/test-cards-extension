@@ -75,7 +75,7 @@ test.describe('autofill', () => {
         await formPage.close();
     });
 
-    test('null csc: cc-csc field is cleared', async ({ page }) => {
+    test('false csc: cc-csc field is cleared', async ({ page }) => {
         const formPage = await openFormPage(page);
         // Pre-populate csc so we can confirm it was overwritten with empty string.
         await formPage.locator('#cc-csc').fill('pre-existing');
@@ -89,13 +89,13 @@ test.describe('autofill', () => {
         await formPage.close();
     });
 
-    test('null exp: cc-exp is filled with a computed date', async ({ page }) => {
+    test('explicit exp: cc-exp is filled with given date', async ({ page }) => {
         const formPage = await openFormPage(page);
 
         await clickFill(page, '5127 8809 9999 9990');
 
         await expect(formPage.locator('#cc-number')).toHaveValue('5127 8809 9999 9990');
-        await expect(formPage.locator('#cc-exp')).toHaveValue(/^\d{2}\/\d{2}$/);
+        await expect(formPage.locator('#cc-exp')).toHaveValue('03/30');
         await expect(formPage.locator('#cc-csc')).toHaveValue('737');
 
         await formPage.close();

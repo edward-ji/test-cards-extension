@@ -10,10 +10,10 @@ export interface NetworkInfo {
 }
 
 export interface PrefillData {
-    number: string;
-    name: string;
-    csc: string;
-    exp: string;
+    number: string | undefined;
+    name: string | undefined;
+    csc: string | undefined;
+    exp: string | undefined;
 }
 
 export interface Card {
@@ -30,12 +30,24 @@ export interface ParsedGroup {
 }
 
 export interface RawCardItem {
-    number: string;
-    name?: string;
-    csc?: string | number | null;
-    exp?: string;
+    number?: string | boolean | null;
+    name?: string | boolean | null;
+    csc?: string | number | boolean | null;
+    exp?: string | boolean | null;
     network?: string | string[];
     [key: string]: unknown;
+}
+
+// Resolves a raw autofill field value into a prefill string or undefined.
+// - null/undefined: skip autofill
+// - false or "": explicitly clear the field
+// - true: field default)
+// - otherwise, use as-is
+function resolveField(value: string | number | boolean | null | undefined, defaultValue: string | undefined): string | undefined {
+    if (value == null) return undefined;
+    if (value === false || value === "") return "";
+    if (value === true) return defaultValue;
+    return String(value);
 }
 
 export function parseGatewayData(gatewayId: string, rawGroups: { group: string; items: RawCardItem[] }[], networksList: NetworkInfo[] = []): ParsedGroup[] {
@@ -57,42 +69,43 @@ export function parseGatewayData(gatewayId: string, rawGroups: { group: string; 
                     : ["unknown"];
             const isAmex = networksArr.includes("amex");
 
-            // Build the prefill object
-            const prefill = {
-                number: item.number,
-                name: item.name !== undefined ? item.name : "J. Smith",
-                csc: item.csc === null ? "" : item.csc === undefined ? (isAmex ? "1234" : "123") : String(item.csc),
-                exp: ""
+            // Resolve expiry: apply +XY shorthand if present
+            const rawExp = resolveField(item.exp, "+3Y");
+            let resolvedExp: string | undefined;
+            if (rawExp !== undefined) {
+                const expMatch = /^\+(\d+)Y$/.exec(rawExp);
+                if (expMatch) {
+                    const years = parseInt(expMatch[1], 10);
+                    const date = new Date();
+                    const month = String(date.getMonth() + 1).padStart(2, '0');
+                    const year = String(date.getFullYear() + years).slice(-2);
+                    resolvedExp = `${month}/${year}`;
+                } else {
+                    resolvedExp = rawExp;
+                }
+            }
+
+            const prefill: PrefillData = {
+                number: resolveField(item.number, undefined),
+                name:   resolveField(item.name, "J. Smith"),
+                csc:    resolveField(item.csc, isAmex ? "1234" : "123"),
+                exp:    resolvedExp,
             };
 
-            // Resolve dynamic expiry for prefill
-            let rawExp = item.exp;
-            if (!rawExp) {
-                rawExp = "+3Y"; // default if empty or missing
-            }
-
-            const expMatch = /^\+(\d+)Y$/.exec(rawExp);
-            if (expMatch) {
-                const years = parseInt(expMatch[1], 10);
-                const date = new Date();
-                const month = String(date.getMonth() + 1).padStart(2, '0');
-                const year = String(date.getFullYear() + years).slice(-2);
-                prefill.exp = `${month}/${year}`;
-            } else {
-                prefill.exp = rawExp;
-            }
-
             // Build the display object
+            const AUTOFILL_KEYS = new Set(['number', 'name', 'csc', 'exp']);
             const display: Record<string, unknown> = {};
             Object.keys(item).forEach((key) => {
-                // Skip network/logo and our new prefill/display internals
                 if (key !== 'network' && key !== 'id') {
-                    display[key] = item[key];
+                    const val = item[key];
+                    // For autofill fields, only display explicit non-empty string values
+                    if (AUTOFILL_KEYS.has(key) && (typeof val !== 'string' || val === '')) return;
+                    display[key] = val;
                 }
             });
-            // Display resolved date if set
-            if ('exp' in item) {
-                display.exp = prefill.exp;
+            // Display resolved date only if exp was an explicit string
+            if ('exp' in item && typeof item.exp === 'string' && item.exp !== '') {
+                display.exp = resolvedExp;
             }
 
             // Compute search content
@@ -128,5 +141,3 @@ export function parseGatewayData(gatewayId: string, rawGroups: { group: string; 
 
     return parsedGroups;
 }
-
-

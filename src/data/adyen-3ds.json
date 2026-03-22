@@ -1,274 +1,308 @@
 [
-    {
-        "group": "Test Cards",
-        "items": [
-            {
-                "number": "3714 4963 5398 431",
-                "exp": "03/30",
-                "csc": "7373",
-                "network": "amex"
-            },
-            {
-                "number": "6703 4444 4444 4449",
-                "exp": "03/30",
-                "csc": null,
-                "network": [
-                    "bancontact",
-                    "maestro"
-                ]
-            },
-            {
-                "number": "4871 0499 9999 9910",
-                "exp": "03/30",
-                "csc": "737",
-                "network": [
-                    "bancontact",
-                    "visa"
-                ]
-            },
-            {
-                "number": "4035 5014 2814 6300",
-                "exp": "03/30",
-                "csc": "737",
-                "network": [
-                    "cartebancaire",
-                    "visa"
-                ],
-                "note": "Debit"
-            },
-            {
-                "number": "4360 0000 0100 0005",
-                "exp": "03/30",
-                "csc": "737",
-                "network": "cartebancaire"
-            },
-            {
-                "number": "6250 9470 0000 0014",
-                "exp": "03/30",
-                "csc": "123",
-                "network": "cup",
-                "note": "Credit"
-            },
-            {
-                "number": "6250 9460 0000 0016",
-                "exp": "03/30",
-                "csc": "123",
-                "network": "cup",
-                "note": "Debit"
-            },
-            {
-                "number": "3056 9309 0259 04",
-                "exp": "03/30",
-                "csc": "737",
-                "network": "diners"
-            },
-            {
-                "number": "6011 1111 1111 1117",
-                "exp": "03/30",
-                "csc": "737",
-                "network": "discover"
-            },
-            {
-                "number": "3566 1111 1111 1113",
-                "exp": "03/30",
-                "csc": "737",
-                "network": [
-                    "jcb",
-                    "mc"
-                ]
-            },
-            {
-                "number": "5000 5500 0000 0029",
-                "exp": "03/30",
-                "csc": null,
-                "network": "maestro"
-            },
-            {
-                "number": "5454 5454 5454 5454",
-                "exp": "03/30",
-                "csc": "737",
-                "network": "mc"
-            },
-            {
-                "number": "2222 4000 1000 0008",
-                "exp": "03/30",
-                "csc": "737",
-                "network": "mc",
-                "note": "Credit"
-            },
-            {
-                "number": "4917 6100 0000 0000",
-                "exp": "03/30",
-                "csc": "737",
-                "network": "visa"
-            },
-            {
-                "number": "4166 6766 6766 6746",
-                "exp": "03/30",
-                "csc": "737",
-                "network": "visa",
-                "note": "Classic"
-            }
+  {
+    "group": "Test Cards",
+    "items": [
+      {
+        "number": "3714 4963 5398 431",
+        "exp": "03/30",
+        "csc": "7373",
+        "name": true,
+        "network": "amex"
+      },
+      {
+        "number": "6703 4444 4444 4449",
+        "exp": "03/30",
+        "csc": false,
+        "name": true,
+        "network": [
+          "bancontact",
+          "maestro"
         ]
-    },
-    {
-        "group": "3D Secure 2 challenge action",
-        "items": [
-            {
-                "number": "4212 3456 7891 0006",
-                "exp": "03/30",
-                "csc": "737",
-                "network": "visa"
-            }
+      },
+      {
+        "number": "4871 0499 9999 9910",
+        "exp": "03/30",
+        "csc": "737",
+        "name": true,
+        "network": [
+          "bancontact",
+          "visa"
         ]
-    },
-    {
-        "group": "Frictionless flow",
-        "items": [
-            {
-                "number": "5201 2815 0512 9736",
-                "exp": "03/30",
-                "csc": "737",
-                "network": "mc"
-            }
+      },
+      {
+        "number": "4035 5014 2814 6300",
+        "exp": "03/30",
+        "csc": "737",
+        "name": true,
+        "note": "Debit",
+        "network": [
+          "cartebancaire",
+          "visa"
         ]
-    },
-    {
-        "group": "Mobile app integration",
-        "items": [
-            {
-                "number": "5201 2855 6567 2311",
-                "exp": "03/30",
-                "csc": "737",
-                "network": "mc",
-                "note": "Basic text authentication"
-            },
-            {
-                "number": "5201 2874 9905 2008",
-                "exp": "03/30",
-                "csc": "737",
-                "network": "mc",
-                "note": "Basic single select"
-            },
-            {
-                "number": "5201 2815 9233 1633",
-                "exp": "03/30",
-                "csc": "737",
-                "network": "mc",
-                "note": "Basic multi select"
-            },
-            {
-                "number": "5201 2888 2269 6974",
-                "exp": "03/30",
-                "csc": "737",
-                "network": "mc",
-                "note": "Basic OOB"
-            },
-            {
-                "number": "5201 2895 0084 3268",
-                "exp": "03/30",
-                "csc": "737",
-                "network": "mc",
-                "note": "HTML OOB"
-            },
-            {
-                "number": "5201 2861 5377 1465",
-                "exp": "03/30",
-                "csc": "737",
-                "network": "mc",
-                "note": "App single select and text"
-            }
+      },
+      {
+        "number": "4360 0000 0100 0005",
+        "exp": "03/30",
+        "csc": "737",
+        "name": true,
+        "network": "cartebancaire"
+      },
+      {
+        "number": "6250 9470 0000 0014",
+        "exp": "03/30",
+        "csc": "123",
+        "name": true,
+        "note": "Credit",
+        "network": "cup"
+      },
+      {
+        "number": "6250 9460 0000 0016",
+        "exp": "03/30",
+        "csc": "123",
+        "name": true,
+        "note": "Debit",
+        "network": "cup"
+      },
+      {
+        "number": "3056 9309 0259 04",
+        "exp": "03/30",
+        "csc": "737",
+        "name": true,
+        "network": "diners"
+      },
+      {
+        "number": "6011 1111 1111 1117",
+        "exp": "03/30",
+        "csc": "737",
+        "name": true,
+        "network": "discover"
+      },
+      {
+        "number": "3566 1111 1111 1113",
+        "exp": "03/30",
+        "csc": "737",
+        "name": true,
+        "network": [
+          "jcb",
+          "mc"
         ]
-    },
-    {
-        "group": "ACS scenarios",
-        "items": [
-            {
-                "number": "4917 6100 0000 0042",
-                "exp": "03/30",
-                "csc": "737",
-                "network": "visa",
-                "note": "Empty CRes"
-            },
-            {
-                "number": "4917 6100 0000 0067",
-                "exp": "03/30",
-                "csc": "737",
-                "network": "visa",
-                "note": "Invalid acsSignedContent"
-            },
-            {
-                "number": "4917 6100 0000 0059",
-                "exp": "03/30",
-                "csc": "737",
-                "network": "visa",
-                "note": "CRes timeout"
-            }
-        ]
-    },
-    {
-        "group": "Authentication without liability shift",
-        "items": [
-            {
-                "number": "4917 6100 0000 0000",
-                "exp": "03/30",
-                "csc": "737",
-                "network": "visa"
-            }
-        ]
-    },
-    {
-        "group": "Advanced scenarios",
-        "items": [
-            {
-                "number": "5201 2815 0512 9736",
-                "exp": "03/30",
-                "csc": "737",
-                "network": "mc",
-                "note": "Authentication successful"
-            },
-            {
-                "number": "5201 2812 6243 5268",
-                "exp": "03/30",
-                "csc": "737",
-                "network": "mc",
-                "note": "Not authenticated"
-            },
-            {
-                "number": "5201 2850 9382 3592",
-                "exp": "03/30",
-                "csc": "737",
-                "network": "mc",
-                "note": "Attempted, not verified"
-            },
-            {
-                "number": "5201 2828 2836 6351",
-                "exp": "03/30",
-                "csc": "737",
-                "network": "mc",
-                "note": "Could not be performed"
-            },
-            {
-                "number": "5201 2864 9681 6589",
-                "exp": "03/30",
-                "csc": "737",
-                "network": "mc",
-                "note": "Rejected by issuer"
-            },
-            {
-                "number": "5201 2829 9900 5515",
-                "exp": "03/30",
-                "csc": "737",
-                "network": "mc",
-                "note": "Timeout error"
-            },
-            {
-                "number": "5201 2886 9531 5843",
-                "exp": "03/30",
-                "csc": "737",
-                "network": "mc",
-                "note": "Connection failure"
-            }
-        ]
-    }
+      },
+      {
+        "number": "5000 5500 0000 0029",
+        "exp": "03/30",
+        "csc": false,
+        "name": true,
+        "network": "maestro"
+      },
+      {
+        "number": "5454 5454 5454 5454",
+        "exp": "03/30",
+        "csc": "737",
+        "name": true,
+        "network": "mc"
+      },
+      {
+        "number": "2222 4000 1000 0008",
+        "exp": "03/30",
+        "csc": "737",
+        "name": true,
+        "note": "Credit",
+        "network": "mc"
+      },
+      {
+        "number": "4917 6100 0000 0000",
+        "exp": "03/30",
+        "csc": "737",
+        "name": true,
+        "network": "visa"
+      },
+      {
+        "number": "4166 6766 6766 6746",
+        "exp": "03/30",
+        "csc": "737",
+        "name": true,
+        "note": "Classic",
+        "network": "visa"
+      }
+    ]
+  },
+  {
+    "group": "3D Secure 2 challenge action",
+    "items": [
+      {
+        "number": "4212 3456 7891 0006",
+        "exp": "03/30",
+        "csc": "737",
+        "name": true,
+        "network": "visa"
+      }
+    ]
+  },
+  {
+    "group": "Frictionless flow",
+    "items": [
+      {
+        "number": "5201 2815 0512 9736",
+        "exp": "03/30",
+        "csc": "737",
+        "name": true,
+        "network": "mc"
+      }
+    ]
+  },
+  {
+    "group": "Mobile app integration",
+    "items": [
+      {
+        "number": "5201 2855 6567 2311",
+        "exp": "03/30",
+        "csc": "737",
+        "name": true,
+        "note": "Basic text authentication",
+        "network": "mc"
+      },
+      {
+        "number": "5201 2874 9905 2008",
+        "exp": "03/30",
+        "csc": "737",
+        "name": true,
+        "note": "Basic single select",
+        "network": "mc"
+      },
+      {
+        "number": "5201 2815 9233 1633",
+        "exp": "03/30",
+        "csc": "737",
+        "name": true,
+        "note": "Basic multi select",
+        "network": "mc"
+      },
+      {
+        "number": "5201 2888 2269 6974",
+        "exp": "03/30",
+        "csc": "737",
+        "name": true,
+        "note": "Basic OOB",
+        "network": "mc"
+      },
+      {
+        "number": "5201 2895 0084 3268",
+        "exp": "03/30",
+        "csc": "737",
+        "name": true,
+        "note": "HTML OOB",
+        "network": "mc"
+      },
+      {
+        "number": "5201 2861 5377 1465",
+        "exp": "03/30",
+        "csc": "737",
+        "name": true,
+        "note": "App single select and text",
+        "network": "mc"
+      }
+    ]
+  },
+  {
+    "group": "ACS scenarios",
+    "items": [
+      {
+        "number": "4917 6100 0000 0042",
+        "exp": "03/30",
+        "csc": "737",
+        "name": true,
+        "note": "Empty CRes",
+        "network": "visa"
+      },
+      {
+        "number": "4917 6100 0000 0067",
+        "exp": "03/30",
+        "csc": "737",
+        "name": true,
+        "note": "Invalid acsSignedContent",
+        "network": "visa"
+      },
+      {
+        "number": "4917 6100 0000 0059",
+        "exp": "03/30",
+        "csc": "737",
+        "name": true,
+        "note": "CRes timeout",
+        "network": "visa"
+      }
+    ]
+  },
+  {
+    "group": "Authentication without liability shift",
+    "items": [
+      {
+        "number": "4917 6100 0000 0000",
+        "exp": "03/30",
+        "csc": "737",
+        "name": true,
+        "network": "visa"
+      }
+    ]
+  },
+  {
+    "group": "Advanced scenarios",
+    "items": [
+      {
+        "number": "5201 2815 0512 9736",
+        "exp": "03/30",
+        "csc": "737",
+        "name": true,
+        "note": "Authentication successful",
+        "network": "mc"
+      },
+      {
+        "number": "5201 2812 6243 5268",
+        "exp": "03/30",
+        "csc": "737",
+        "name": true,
+        "note": "Not authenticated",
+        "network": "mc"
+      },
+      {
+        "number": "5201 2850 9382 3592",
+        "exp": "03/30",
+        "csc": "737",
+        "name": true,
+        "note": "Attempted, not verified",
+        "network": "mc"
+      },
+      {
+        "number": "5201 2828 2836 6351",
+        "exp": "03/30",
+        "csc": "737",
+        "name": true,
+        "note": "Could not be performed",
+        "network": "mc"
+      },
+      {
+        "number": "5201 2864 9681 6589",
+        "exp": "03/30",
+        "csc": "737",
+        "name": true,
+        "note": "Rejected by issuer",
+        "network": "mc"
+      },
+      {
+        "number": "5201 2829 9900 5515",
+        "exp": "03/30",
+        "csc": "737",
+        "name": true,
+        "note": "Timeout error",
+        "network": "mc"
+      },
+      {
+        "number": "5201 2886 9531 5843",
+        "exp": "03/30",
+        "csc": "737",
+        "name": true,
+        "note": "Connection failure",
+        "network": "mc"
+      }
+    ]
+  }
 ]

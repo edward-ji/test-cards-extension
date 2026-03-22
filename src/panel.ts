@@ -380,11 +380,6 @@ function addPrefillHandler(element: HTMLElement, card: Card) {
   element.classList.add("copyPrefillClick");
   element.addEventListener('click', async function (evt) {
     evt.preventDefault();
-    const cardNumberText = card.prefill.number;
-    const expiryText = card.prefill.exp;
-    const codeText = card.prefill.csc;
-    const nameText = card.prefill.name;
-
     const tabs = await browser.tabs.query({ active: true, currentWindow: true });
     const activeTab = tabs[0];
     // inject js script to be run inside the active tab
@@ -395,7 +390,7 @@ function addPrefillHandler(element: HTMLElement, card: Card) {
         browser.scripting.executeScript({
           target: { tabId: activeTab.id!, frameIds: [frame.frameId] },
           func: prefillCardComponent,
-          args: [cardNumberText, expiryText, codeText, nameText]
+          args: [card.prefill.number, card.prefill.exp, card.prefill.csc, card.prefill.name]
         }).catch(function () {
           // Ignore missing host permissions for specific frames (e.g. tracking/ads)
         });
@@ -409,9 +404,9 @@ async function copyToClipboard(val: string) {
 }
 
 // find and prefill form input fields (based on type)
-function prefillCardComponent(cardNumberText: string, expiryText: string, codeText: string, nameText: string) {
-  function fillField(selector: string, value: string) {
-    if (value === undefined) return;
+function prefillCardComponent(number: string | undefined, exp: string | undefined, csc: string | undefined, name: string | undefined) {
+  function fillField(selector: string, value: string | undefined) {
+    if (value == null) return;
     const element = document.querySelector(selector) as HTMLInputElement;
     if (!element) return;
     element.value = value;
@@ -420,13 +415,13 @@ function prefillCardComponent(cardNumberText: string, expiryText: string, codeTe
     element.dispatchEvent(new Event('blur', { bubbles: true }));
   }
 
-  fillField('input[autocomplete="cc-number"]', cardNumberText);
-  fillField('input[autocomplete="cc-exp"]', expiryText);
-  fillField('input[autocomplete="cc-csc"]', codeText);
-  fillField('input[autocomplete="cc-name"]', nameText);
-  if (expiryText) {
-    fillField('input[autocomplete="cc-exp-month"]', expiryText.slice(0, 2));
-    fillField('input[autocomplete="cc-exp-year"]', expiryText.slice(-2));
+  fillField('input[autocomplete="cc-number"]', number);
+  fillField('input[autocomplete="cc-exp"]', exp);
+  fillField('input[autocomplete="cc-csc"]', csc);
+  fillField('input[autocomplete="cc-name"]', name);
+  if (exp) {
+    fillField('input[autocomplete="cc-exp-month"]', exp.slice(0, 2));
+    fillField('input[autocomplete="cc-exp-year"]', exp.slice(-2));
   }
 }
 

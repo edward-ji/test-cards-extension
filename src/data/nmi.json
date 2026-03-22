@@ -1,216 +1,290 @@
 [
-    {
-        "group": "Generic card scheme PANs",
-        "items": [
-            {
-                "number": "3711 1111 1111 114",
-                "network": "amex",
-                "csc": "3711"
-            },
-            {
-                "number": "3001 1111 1111 1116",
-                "network": "diners",
-                "csc": "300"
-            },
-            {
-                "number": "6011 1111 1111 1117",
-                "network": "discover",
-                "csc": "601"
-            },
-            {
-                "number": "3528 1111 1111 1111 9",
-                "network": "jcb",
-                "csc": "352"
-            },
-            {
-                "number": "5641 0411 1111 1111 3",
-                "network": "maestro",
-                "csc": "564"
-            },
-            {
-                "number": "5411 1111 1111 1115",
-                "network": "mc",
-                "csc": "541"
-            },
-            {
-                "number": "5511 1111 1111 1114",
-                "network": "mc",
-                "csc": "551",
-                "note": "Debit"
-            },
-            {
-                "number": "4532 1111 1111 1112",
-                "network": "visa",
-                "csc": "453"
-            },
-            {
-                "number": "4751 2711 1111 1118",
-                "network": "visa",
-                "csc": "475",
-                "note": "Debit"
-            }
-        ]
-    },
-    {
-        "group": "Transit / PAR test cards",
-        "items": [
-            {
-                "number": "3742 4500 1751 006",
-                "network": "amex",
-                "par": "NMI10455671263869368367653569"
-            },
-            {
-                "number": "3742 4500 2771 003",
-                "network": "amex",
-                "par": "NMI10245818393736928367283545"
-            },
-            {
-                "number": "3745 3234 5234 322",
-                "network": "amex",
-                "par": "NMI10013017278048573457614052"
-            },
-            {
-                "number": "3767 5654 1235 167",
-                "network": "amex",
-                "par": "NMI10013017278048573457614052"
-            },
-            {
-                "number": "4023 0632 6323 5353",
-                "network": "visa",
-                "par": "NMI10013817305361759490045086"
-            },
-            {
-                "number": "4023 0685 9536 0563",
-                "network": "visa",
-                "par": "NMI10013817305361759490045086"
-            },
-            {
-                "number": "4038 5854 3234 6235",
-                "network": "visa",
-                "par": "NMI10015819260824338567883428"
-            },
-            {
-                "number": "4038 5953 6056 3651",
-                "network": "visa",
-                "par": "NMI10015819260824338567883428"
-            },
-            {
-                "number": "4761 7390 0101 0010",
-                "network": "visa",
-                "par": "NMI10017817225433759440047809"
-            },
-            {
-                "number": "4761 7390 0101 0119",
-                "network": "visa",
-                "par": "NMI10015519667829328567889111"
-            },
-            {
-                "number": "6510 0000 0000 0133",
-                "network": "discover",
-                "par": "NMI10663679004336954361283095"
-            },
-            {
-                "number": "6510 0000 0000 0216",
-                "network": "discover",
-                "par": "NMI10619753728380317937942684"
-            },
-            {
-                "number": "5413 3300 8960 0036",
-                "network": "mc",
-                "par": "NMI10019662689345797536909754"
-            },
-            {
-                "number": "4532 2612 4944 4958",
-                "network": "visa",
-                "par": "NMI10017817225433759440047809"
-            },
-            {
-                "number": "5312 2701 6485 8764",
-                "network": "mc",
-                "par": "NMI10019662689345797536909754"
-            }
-        ]
-    },
-    {
-        "group": "3DS2 test cards",
-        "items": [
-            {
-                "number": "4000 0000 0000 2701",
-                "network": "visa",
-                "exp": "08/30",
-                "csc": "999",
-                "note": "Successful Frictionless Flow"
-            },
-            {
-                "number": "4000 0000 0000 2925",
-                "network": "visa",
-                "exp": "08/30",
-                "csc": "999",
-                "note": "Failed Frictionless"
-            },
-            {
-                "number": "4000 0000 0000 2719",
-                "network": "visa",
-                "exp": "08/30",
-                "csc": "999",
-                "note": "Attempted Frictionless Flow"
-            },
-            {
-                "number": "4000 0000 0000 2313",
-                "network": "visa",
-                "exp": "08/30",
-                "csc": "999",
-                "note": "Unavailable Authentication"
-            },
-            {
-                "number": "4000 0000 0000 2537",
-                "network": "visa",
-                "exp": "08/30",
-                "csc": "999",
-                "note": "Rejected Authentication"
-            },
-            {
-                "number": "4000 0000 0000 2990",
-                "network": "visa",
-                "exp": "08/30",
-                "csc": "999",
-                "note": "Unknown Error"
-            },
-            {
-                "number": "4000 0000 0000 2354",
-                "network": "visa",
-                "exp": "08/30",
-                "csc": "999",
-                "note": "Timeout Error"
-            },
-            {
-                "number": "4000 0000 0000 2503",
-                "network": "visa",
-                "exp": "08/30",
-                "csc": "999",
-                "note": "Successful Step Up"
-            },
-            {
-                "number": "4000 0000 0000 2370",
-                "network": "visa",
-                "exp": "08/30",
-                "csc": "999",
-                "note": "Failed Step Up"
-            },
-            {
-                "number": "4000 0000 0000 2420",
-                "network": "visa",
-                "exp": "08/30",
-                "csc": "999",
-                "note": "Unavailable Step Up"
-            },
-            {
-                "number": "4000 0000 0000 2644",
-                "network": "visa",
-                "exp": "08/30",
-                "csc": "999",
-                "note": "Error on Authentication"
-            }
-        ]
-    }
+  {
+    "group": "Generic card scheme PANs",
+    "items": [
+      {
+        "number": "3711 1111 1111 114",
+        "exp": true,
+        "csc": "3711",
+        "name": true,
+        "network": "amex"
+      },
+      {
+        "number": "3001 1111 1111 1116",
+        "exp": true,
+        "csc": "300",
+        "name": true,
+        "network": "diners"
+      },
+      {
+        "number": "6011 1111 1111 1117",
+        "exp": true,
+        "csc": "601",
+        "name": true,
+        "network": "discover"
+      },
+      {
+        "number": "3528 1111 1111 1111 9",
+        "exp": true,
+        "csc": "352",
+        "name": true,
+        "network": "jcb"
+      },
+      {
+        "number": "5641 0411 1111 1111 3",
+        "exp": true,
+        "csc": "564",
+        "name": true,
+        "network": "maestro"
+      },
+      {
+        "number": "5411 1111 1111 1115",
+        "exp": true,
+        "csc": "541",
+        "name": true,
+        "network": "mc"
+      },
+      {
+        "number": "5511 1111 1111 1114",
+        "exp": true,
+        "csc": "551",
+        "name": true,
+        "note": "Debit",
+        "network": "mc"
+      },
+      {
+        "number": "4532 1111 1111 1112",
+        "exp": true,
+        "csc": "453",
+        "name": true,
+        "network": "visa"
+      },
+      {
+        "number": "4751 2711 1111 1118",
+        "exp": true,
+        "csc": "475",
+        "name": true,
+        "note": "Debit",
+        "network": "visa"
+      }
+    ]
+  },
+  {
+    "group": "Transit / PAR test cards",
+    "items": [
+      {
+        "number": "3742 4500 1751 006",
+        "exp": true,
+        "csc": true,
+        "name": true,
+        "par": "NMI10455671263869368367653569",
+        "network": "amex"
+      },
+      {
+        "number": "3742 4500 2771 003",
+        "exp": true,
+        "csc": true,
+        "name": true,
+        "par": "NMI10245818393736928367283545",
+        "network": "amex"
+      },
+      {
+        "number": "3745 3234 5234 322",
+        "exp": true,
+        "csc": true,
+        "name": true,
+        "par": "NMI10013017278048573457614052",
+        "network": "amex"
+      },
+      {
+        "number": "3767 5654 1235 167",
+        "exp": true,
+        "csc": true,
+        "name": true,
+        "par": "NMI10013017278048573457614052",
+        "network": "amex"
+      },
+      {
+        "number": "4023 0632 6323 5353",
+        "exp": true,
+        "csc": true,
+        "name": true,
+        "par": "NMI10013817305361759490045086",
+        "network": "visa"
+      },
+      {
+        "number": "4023 0685 9536 0563",
+        "exp": true,
+        "csc": true,
+        "name": true,
+        "par": "NMI10013817305361759490045086",
+        "network": "visa"
+      },
+      {
+        "number": "4038 5854 3234 6235",
+        "exp": true,
+        "csc": true,
+        "name": true,
+        "par": "NMI10015819260824338567883428",
+        "network": "visa"
+      },
+      {
+        "number": "4038 5953 6056 3651",
+        "exp": true,
+        "csc": true,
+        "name": true,
+        "par": "NMI10015819260824338567883428",
+        "network": "visa"
+      },
+      {
+        "number": "4761 7390 0101 0010",
+        "exp": true,
+        "csc": true,
+        "name": true,
+        "par": "NMI10017817225433759440047809",
+        "network": "visa"
+      },
+      {
+        "number": "4761 7390 0101 0119",
+        "exp": true,
+        "csc": true,
+        "name": true,
+        "par": "NMI10015519667829328567889111",
+        "network": "visa"
+      },
+      {
+        "number": "6510 0000 0000 0133",
+        "exp": true,
+        "csc": true,
+        "name": true,
+        "par": "NMI10663679004336954361283095",
+        "network": "discover"
+      },
+      {
+        "number": "6510 0000 0000 0216",
+        "exp": true,
+        "csc": true,
+        "name": true,
+        "par": "NMI10619753728380317937942684",
+        "network": "discover"
+      },
+      {
+        "number": "5413 3300 8960 0036",
+        "exp": true,
+        "csc": true,
+        "name": true,
+        "par": "NMI10019662689345797536909754",
+        "network": "mc"
+      },
+      {
+        "number": "4532 2612 4944 4958",
+        "exp": true,
+        "csc": true,
+        "name": true,
+        "par": "NMI10017817225433759440047809",
+        "network": "visa"
+      },
+      {
+        "number": "5312 2701 6485 8764",
+        "exp": true,
+        "csc": true,
+        "name": true,
+        "par": "NMI10019662689345797536909754",
+        "network": "mc"
+      }
+    ]
+  },
+  {
+    "group": "3DS2 test cards",
+    "items": [
+      {
+        "number": "4000 0000 0000 2701",
+        "exp": "08/30",
+        "csc": "999",
+        "name": true,
+        "note": "Successful Frictionless Flow",
+        "network": "visa"
+      },
+      {
+        "number": "4000 0000 0000 2925",
+        "exp": "08/30",
+        "csc": "999",
+        "name": true,
+        "note": "Failed Frictionless",
+        "network": "visa"
+      },
+      {
+        "number": "4000 0000 0000 2719",
+        "exp": "08/30",
+        "csc": "999",
+        "name": true,
+        "note": "Attempted Frictionless Flow",
+        "network": "visa"
+      },
+      {
+        "number": "4000 0000 0000 2313",
+        "exp": "08/30",
+        "csc": "999",
+        "name": true,
+        "note": "Unavailable Authentication",
+        "network": "visa"
+      },
+      {
+        "number": "4000 0000 0000 2537",
+        "exp": "08/30",
+        "csc": "999",
+        "name": true,
+        "note": "Rejected Authentication",
+        "network": "visa"
+      },
+      {
+        "number": "4000 0000 0000 2990",
+        "exp": "08/30",
+        "csc": "999",
+        "name": true,
+        "note": "Unknown Error",
+        "network": "visa"
+      },
+      {
+        "number": "4000 0000 0000 2354",
+        "exp": "08/30",
+        "csc": "999",
+        "name": true,
+        "note": "Timeout Error",
+        "network": "visa"
+      },
+      {
+        "number": "4000 0000 0000 2503",
+        "exp": "08/30",
+        "csc": "999",
+        "name": true,
+        "note": "Successful Step Up",
+        "network": "visa"
+      },
+      {
+        "number": "4000 0000 0000 2370",
+        "exp": "08/30",
+        "csc": "999",
+        "name": true,
+        "note": "Failed Step Up",
+        "network": "visa"
+      },
+      {
+        "number": "4000 0000 0000 2420",
+        "exp": "08/30",
+        "csc": "999",
+        "name": true,
+        "note": "Unavailable Step Up",
+        "network": "visa"
+      },
+      {
+        "number": "4000 0000 0000 2644",
+        "exp": "08/30",
+        "csc": "999",
+        "name": true,
+        "note": "Error on Authentication",
+        "network": "visa"
+      }
+    ]
+  }
 ]
