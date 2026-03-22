@@ -1,0 +1,106 @@
+[
+    {
+        "group": "Test card numbers",
+        "items": [
+            {
+                "number": "3434 3434 3434 343",
+                "network": "amex"
+            },
+            {
+                "number": "5555 5555 5555 4444",
+                "network": "mc"
+            },
+            {
+                "number": "5454 5454 5454 5454",
+                "network": "mc"
+            },
+            {
+                "number": "2221 0000 0000 0009",
+                "network": "mc"
+            },
+            {
+                "number": "5163 6136 1361 3613",
+                "network": "mc",
+                "note": "Debit"
+            },
+            {
+                "number": "4444 3333 2222 1111",
+                "network": "visa"
+            },
+            {
+                "number": "4911 8300 0000",
+                "network": "visa"
+            },
+            {
+                "number": "4462 0300 0000 0000",
+                "network": "visa",
+                "note": "Debit"
+            },
+            {
+                "number": "4917 6100 0000 0000 003",
+                "network": "visa",
+                "note": "Debit (19-digit)"
+            },
+            {
+                "number": "4917 6100 0000 0000",
+                "network": "visa",
+                "note": "Debit"
+            },
+            {
+                "number": "4434 0200 0000 0006",
+                "network": [
+                    "eftpos",
+                    "visa"
+                ],
+                "note": "Debit"
+            },
+            {
+                "number": "5163 1500 0000 0005",
+                "network": [
+                    "eftpos",
+                    "mc"
+                ]
+            },
+            {
+                "number": "4562 6860 0011 7661",
+                "network": "cartebancaire"
+            },
+            {
+                "number": "6221 2600 0000 0000",
+                "network": "cup"
+            },
+            {
+                "number": "3670 010200 0000",
+                "network": "diners"
+            },
+            {
+                "number": "3614 890064 7913",
+                "network": "diners"
+            },
+            {
+                "number": "6011 0000 4000 0000",
+                "network": "discover"
+            },
+            {
+                "number": "3528 0007 0000 0000",
+                "network": "jcb"
+            },
+            {
+                "number": "6759 6498 2643 8453",
+                "network": "maestro"
+            },
+            {
+                "number": "1220 0000 0000 003",
+                "note": "Airplus"
+            },
+            {
+                "number": "9792 0300 0000 0000",
+                "note": "Troy"
+            },
+            {
+                "number": "9792 0200 0000 0001",
+                "note": "Troy Debit"
+            }
+        ]
+    }
+]

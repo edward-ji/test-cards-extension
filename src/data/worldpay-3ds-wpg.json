@@ -1,0 +1,259 @@
+[
+    {
+        "group": "Successful Frictionless Authentication",
+        "items": [
+            {
+                "number": "4000 0000 0000 1000",
+                "network": "visa"
+            },
+            {
+                "number": "5200 0000 0000 1005",
+                "network": "mc"
+            },
+            {
+                "number": "3400 0000 0001 007",
+                "network": "amex"
+            },
+            {
+                "number": "6200 0100 0020 0000",
+                "network": "cup"
+            }
+        ]
+    },
+    {
+        "group": "Failed Frictionless Authentication",
+        "items": [
+            {
+                "number": "4000 0000 0000 1018",
+                "network": "visa"
+            },
+            {
+                "number": "5200 0000 0000 1013",
+                "network": "mc"
+            },
+            {
+                "number": "3400 0000 0001 015",
+                "network": "amex"
+            },
+            {
+                "number": "6200 0100 0010 0010",
+                "network": "cup"
+            }
+        ]
+    },
+    {
+        "group": "Attempts Stand-In Frictionless Authentication",
+        "items": [
+            {
+                "number": "4000 0000 0000 1026",
+                "network": "visa"
+            },
+            {
+                "number": "5200 0000 0000 1021",
+                "network": "mc"
+            },
+            {
+                "number": "3400 0000 0001 023",
+                "network": "amex"
+            },
+            {
+                "number": "6200 0100 0000 0020",
+                "network": "cup"
+            }
+        ]
+    },
+    {
+        "group": "Unavailable Frictionless Authentication (Issuer)",
+        "items": [
+            {
+                "number": "4000 0000 0000 1034",
+                "network": "visa"
+            },
+            {
+                "number": "5200 0000 0000 1039",
+                "network": "mc"
+            },
+            {
+                "number": "3400 0000 0001 031",
+                "network": "amex"
+            },
+            {
+                "number": "6200 0100 0040 0030",
+                "network": "cup"
+            }
+        ]
+    },
+    {
+        "group": "Rejected Frictionless Authentication (Issuer)",
+        "items": [
+            {
+                "number": "4000 0000 0000 1042",
+                "network": "visa"
+            },
+            {
+                "number": "5200 0000 0000 1047",
+                "network": "mc"
+            },
+            {
+                "number": "3400 0000 0001 049",
+                "network": "amex"
+            },
+            {
+                "number": "6200 0100 0030 0040",
+                "network": "cup"
+            }
+        ]
+    },
+    {
+        "group": "Authentication Not Available on Lookup",
+        "items": [
+            {
+                "number": "4000 0000 0000 1059",
+                "network": "visa"
+            },
+            {
+                "number": "5200 0000 0000 1054",
+                "network": "mc"
+            },
+            {
+                "number": "3400 0000 0001 056",
+                "network": "amex"
+            },
+            {
+                "number": "6200 0100 0060 0050",
+                "network": "cup"
+            }
+        ]
+    },
+    {
+        "group": "Error on Lookup",
+        "items": [
+            {
+                "number": "4000 0000 0000 1067",
+                "network": "visa"
+            },
+            {
+                "number": "5200 0000 0000 1062",
+                "network": "mc"
+            },
+            {
+                "number": "3400 0000 0001 064",
+                "network": "amex"
+            },
+            {
+                "number": "6200 0100 0050 0060",
+                "network": "cup"
+            }
+        ]
+    },
+    {
+        "group": "Timeout on Lookup",
+        "items": [
+            {
+                "number": "4000 0000 0000 1075",
+                "network": "visa"
+            },
+            {
+                "number": "5200 0000 0000 1070",
+                "network": "mc"
+            },
+            {
+                "number": "3400 0000 0001 072",
+                "network": "amex"
+            },
+            {
+                "number": "6200 0100 0090 0070",
+                "network": "cup"
+            }
+        ]
+    },
+    {
+        "group": "Bypassed Authentication",
+        "items": [
+            {
+                "number": "4000 0000 0000 1083",
+                "network": "visa"
+            },
+            {
+                "number": "5200 0000 0000 1088",
+                "network": "mc"
+            },
+            {
+                "number": "3400 0000 0001 080",
+                "network": "amex"
+            },
+            {
+                "number": "6200 0100 0080 0080",
+                "network": "cup"
+            }
+        ]
+    },
+    {
+        "group": "Successful Step Up Authentication",
+        "items": [
+            {
+                "number": "4000 0000 0000 1091",
+                "network": "visa"
+            },
+            {
+                "number": "5200 0000 0000 1096",
+                "network": "mc"
+            },
+            {
+                "number": "3400 0000 0001 098",
+                "network": "amex"
+            }
+        ]
+    },
+    {
+        "group": "Failed Step Up Authentication",
+        "items": [
+            {
+                "number": "4000 0000 0000 1109",
+                "network": "visa"
+            },
+            {
+                "number": "5200 0000 0000 1104",
+                "network": "mc"
+            },
+            {
+                "number": "3400 0000 0001 106",
+                "network": "amex"
+            }
+        ]
+    },
+    {
+        "group": "Step Up Authentication Unavailable",
+        "items": [
+            {
+                "number": "4000 0000 0000 1117",
+                "network": "visa"
+            },
+            {
+                "number": "5200 0000 0000 1112",
+                "network": "mc"
+            },
+            {
+                "number": "3400 0000 0001 114",
+                "network": "amex"
+            }
+        ]
+    },
+    {
+        "group": "Error on Authentication",
+        "items": [
+            {
+                "number": "4000 0000 0000 1125",
+                "network": "visa"
+            },
+            {
+                "number": "5200 0000 0000 1120",
+                "network": "mc"
+            },
+            {
+                "number": "3400 0000 0001 122",
+                "network": "amex"
+            }
+        ]
+    }
+]

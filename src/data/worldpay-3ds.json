@@ -1,0 +1,548 @@
+[
+    {
+        "group": "Successful Authentication (Frictionless)",
+        "items": [
+            {
+                "number": "4000 0000 0000 2701",
+                "network": "visa"
+            },
+            {
+                "number": "5200 0000 0000 2235",
+                "network": "mc"
+            },
+            {
+                "number": "3400 0000 0002 708",
+                "network": "amex"
+            },
+            {
+                "number": "6011 0000 0000 2117",
+                "network": [
+                    "discover",
+                    "diners"
+                ]
+            },
+            {
+                "number": "3338 0000 0000 0296",
+                "network": "jcb"
+            },
+            {
+                "number": "4000 0000 0000 4970",
+                "network": [
+                    "cartebancaire",
+                    "visa"
+                ]
+            },
+            {
+                "number": "5200 0000 0000 4801",
+                "network": [
+                    "cartebancaire",
+                    "mc"
+                ]
+            }
+        ]
+    },
+    {
+        "group": "Failed Frictionless Authentication",
+        "items": [
+            {
+                "number": "4000 0000 0000 2925",
+                "network": "visa"
+            },
+            {
+                "number": "5200 0000 0000 2276",
+                "network": "mc"
+            },
+            {
+                "number": "3400 0000 0002 096",
+                "network": "amex"
+            },
+            {
+                "number": "6011 0000 0000 2364",
+                "network": [
+                    "discover",
+                    "diners"
+                ]
+            },
+            {
+                "number": "3338 0000 0000 0361",
+                "network": "jcb"
+            },
+            {
+                "number": "4000 0000 0000 4574",
+                "network": [
+                    "cartebancaire",
+                    "visa"
+                ]
+            },
+            {
+                "number": "5200 0000 0000 4538",
+                "network": [
+                    "cartebancaire",
+                    "mc"
+                ]
+            }
+        ]
+    },
+    {
+        "group": "Attempts Stand-In Frictionless Authentication",
+        "items": [
+            {
+                "number": "4000 0000 0000 2719",
+                "network": "visa"
+            },
+            {
+                "number": "5200 0000 0000 2482",
+                "network": "mc"
+            },
+            {
+                "number": "3400 0000 0002 872",
+                "network": "amex"
+            },
+            {
+                "number": "6011 0000 0000 2646",
+                "network": [
+                    "discover",
+                    "diners"
+                ]
+            },
+            {
+                "number": "3338 0000 0000 0585",
+                "network": "jcb"
+            },
+            {
+                "number": "4000 0000 0000 4111",
+                "network": [
+                    "cartebancaire",
+                    "visa"
+                ]
+            },
+            {
+                "number": "5200 0000 0000 4587",
+                "network": [
+                    "cartebancaire",
+                    "mc"
+                ]
+            }
+        ]
+    },
+    {
+        "group": "Authentication Unavailable (Issuer)",
+        "items": [
+            {
+                "number": "4000 0000 0000 2313",
+                "network": "visa"
+            },
+            {
+                "number": "5200 0000 0000 2268",
+                "network": "mc"
+            },
+            {
+                "number": "3400 0000 0002 922",
+                "network": "amex"
+            },
+            {
+                "number": "6011 0000 0000 2612",
+                "network": [
+                    "discover",
+                    "diners"
+                ]
+            },
+            {
+                "number": "3338 0000 0000 0221",
+                "network": "jcb"
+            },
+            {
+                "number": "4000 0000 0000 4160",
+                "network": [
+                    "cartebancaire",
+                    "visa"
+                ]
+            },
+            {
+                "number": "5200 0000 0000 4306",
+                "network": [
+                    "cartebancaire",
+                    "mc"
+                ]
+            }
+        ]
+    },
+    {
+        "group": "Authentication Rejected",
+        "items": [
+            {
+                "number": "4000 0000 0000 2537",
+                "network": "visa"
+            },
+            {
+                "number": "5200 0000 0000 2185",
+                "network": "mc"
+            },
+            {
+                "number": "3400 0000 0002 062",
+                "network": "amex"
+            },
+            {
+                "number": "6011 0000 0000 2711",
+                "network": [
+                    "discover",
+                    "diners"
+                ]
+            },
+            {
+                "number": "3338 0000 0000 0734",
+                "network": "jcb"
+            },
+            {
+                "number": "4000 0000 0000 4517",
+                "network": [
+                    "cartebancaire",
+                    "visa"
+                ]
+            },
+            {
+                "number": "5200 0000 0000 4405",
+                "network": [
+                    "cartebancaire",
+                    "mc"
+                ]
+            }
+        ]
+    },
+    {
+        "group": "Authentication Unavailable (System Error)",
+        "items": [
+            {
+                "number": "4000 0000 0000 2990",
+                "network": "visa"
+            },
+            {
+                "number": "5200 0000 0000 2409",
+                "network": "mc"
+            },
+            {
+                "number": "3400 0000 0002 468",
+                "network": "amex"
+            },
+            {
+                "number": "6011 0000 0000 2836",
+                "network": [
+                    "discover",
+                    "diners"
+                ]
+            },
+            {
+                "number": "3338 0000 0000 0940",
+                "network": "jcb"
+            },
+            {
+                "number": "4000 0000 0000 4285",
+                "network": [
+                    "cartebancaire",
+                    "visa"
+                ]
+            },
+            {
+                "number": "5200 0000 0000 4090",
+                "network": [
+                    "cartebancaire",
+                    "mc"
+                ]
+            }
+        ]
+    },
+    {
+        "group": "Authentication Error",
+        "items": [
+            {
+                "number": "4000 0000 0000 2446",
+                "network": "visa"
+            },
+            {
+                "number": "5200 0000 0000 2037",
+                "network": "mc"
+            },
+            {
+                "number": "3400 0000 0002 732",
+                "network": "amex"
+            },
+            {
+                "number": "6011 0000 0000 2315",
+                "network": [
+                    "discover",
+                    "diners"
+                ]
+            },
+            {
+                "number": "3338 0000 0000 0650",
+                "network": "jcb"
+            },
+            {
+                "number": "4000 0000 0000 4194",
+                "network": [
+                    "cartebancaire",
+                    "visa"
+                ]
+            },
+            {
+                "number": "5200 0000 0000 4058",
+                "network": [
+                    "cartebancaire",
+                    "mc"
+                ]
+            }
+        ]
+    },
+    {
+        "group": "Authentication Timeout / Outage",
+        "items": [
+            {
+                "number": "4000 0000 0000 2354",
+                "network": "visa"
+            },
+            {
+                "number": "5200 0000 0000 2326",
+                "network": "mc"
+            },
+            {
+                "number": "3400 0000 0002 047",
+                "network": "amex"
+            },
+            {
+                "number": "6011 0000 0000 2869",
+                "network": [
+                    "discover",
+                    "diners"
+                ]
+            },
+            {
+                "number": "3338 0000 0000 0577",
+                "network": "jcb"
+            },
+            {
+                "number": "4000 0000 0000 4277",
+                "network": [
+                    "cartebancaire",
+                    "visa"
+                ]
+            },
+            {
+                "number": "5200 0000 0000 4694",
+                "network": [
+                    "cartebancaire",
+                    "mc"
+                ]
+            }
+        ]
+    },
+    {
+        "group": "Successful Authentication (Challenged)",
+        "items": [
+            {
+                "number": "4000 0000 0000 2503",
+                "network": "visa"
+            },
+            {
+                "number": "5200 0000 0000 2151",
+                "network": "mc"
+            },
+            {
+                "number": "3400 0000 0002 534",
+                "network": "amex"
+            },
+            {
+                "number": "6011 0000 0000 2265",
+                "network": [
+                    "discover",
+                    "diners"
+                ]
+            },
+            {
+                "number": "3338 0000 0000 0569",
+                "network": "jcb"
+            },
+            {
+                "number": "4000 0000 0000 4855",
+                "network": [
+                    "cartebancaire",
+                    "visa"
+                ]
+            },
+            {
+                "number": "5200 0000 0000 4074",
+                "network": [
+                    "cartebancaire",
+                    "mc"
+                ]
+            }
+        ]
+    },
+    {
+        "group": "Failed Challenged Authentication",
+        "items": [
+            {
+                "number": "4000 0000 0000 2370",
+                "network": "visa"
+            },
+            {
+                "number": "5200 0000 0000 2490",
+                "network": "mc"
+            },
+            {
+                "number": "3400 0000 0002 237",
+                "network": "amex"
+            },
+            {
+                "number": "6011 0000 0000 2695",
+                "network": [
+                    "discover",
+                    "diners"
+                ]
+            },
+            {
+                "number": "3338 0000 0000 0874",
+                "network": "jcb"
+            },
+            {
+                "number": "4000 0000 0000 4293",
+                "network": [
+                    "cartebancaire",
+                    "visa"
+                ]
+            },
+            {
+                "number": "5200 0000 0000 4041",
+                "network": [
+                    "cartebancaire",
+                    "mc"
+                ]
+            }
+        ]
+    },
+    {
+        "group": "Verification Unavailable",
+        "items": [
+            {
+                "number": "4000 0000 0000 2420",
+                "network": "visa"
+            },
+            {
+                "number": "5200 0000 0000 2664",
+                "network": "mc"
+            },
+            {
+                "number": "3400 0000 0002 484",
+                "network": "amex"
+            },
+            {
+                "number": "6011 0000 0000 2851",
+                "network": [
+                    "discover",
+                    "diners"
+                ]
+            },
+            {
+                "number": "3338 0000 0000 0981",
+                "network": "jcb"
+            },
+            {
+                "number": "4000 0000 0000 4640",
+                "network": [
+                    "cartebancaire",
+                    "visa"
+                ]
+            },
+            {
+                "number": "5200 0000 0000 4124",
+                "network": [
+                    "cartebancaire",
+                    "mc"
+                ]
+            }
+        ]
+    },
+    {
+        "group": "Verification Error",
+        "items": [
+            {
+                "number": "4000 0000 0000 2644",
+                "network": "visa"
+            },
+            {
+                "number": "5200 0000 0000 2656",
+                "network": "mc"
+            },
+            {
+                "number": "3400 0000 0002 351",
+                "network": "amex"
+            },
+            {
+                "number": "6011 0000 0000 2570",
+                "network": [
+                    "discover",
+                    "diners"
+                ]
+            },
+            {
+                "number": "3338 0000 0000 0676",
+                "network": "jcb"
+            },
+            {
+                "number": "4000 0000 0000 4913",
+                "network": [
+                    "cartebancaire",
+                    "visa"
+                ]
+            },
+            {
+                "number": "5200 0000 0000 4611",
+                "network": [
+                    "cartebancaire",
+                    "mc"
+                ]
+            }
+        ]
+    },
+    {
+        "group": "Bypass",
+        "items": [
+            {
+                "number": "4000 0000 0000 2560",
+                "network": "visa"
+            },
+            {
+                "number": "5200 0000 0000 2508",
+                "network": "mc"
+            },
+            {
+                "number": "3400 0000 0002 948",
+                "network": "amex"
+            },
+            {
+                "number": "6011 0000 0000 2976",
+                "network": [
+                    "discover",
+                    "diners"
+                ]
+            },
+            {
+                "number": "3338 0000 0000 0122",
+                "network": "jcb"
+            },
+            {
+                "number": "4000 0000 0000 4400",
+                "network": [
+                    "cartebancaire",
+                    "visa"
+                ]
+            },
+            {
+                "number": "5200 0000 0000 4991",
+                "network": [
+                    "cartebancaire",
+                    "mc"
+                ]
+            }
+        ]
+    }
+]
