@@ -8,6 +8,8 @@
     "build:firefox": "tsx scripts/build.ts firefox",
     "pretest": "npm run build",
     "test": "playwright test",
+    "test:container": "bash scripts/test-in-container.sh",
+    "test:container:update-snapshots": "bash scripts/test-in-container.sh --update-snapshots",
     "lint": "eslint .",
     "validate-data": "tsx scripts/validate-data.ts"
   },

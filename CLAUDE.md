@@ -194,10 +194,17 @@ E2E tests use Playwright with a real Chrome extension loaded from `dist/chrome/`
 - `autofill.spec.ts` — form prefill via autocomplete attributes
 
 **Running tests:**
+
+Screenshot tests are pixel-sensitive and must run in an environment matching CI (Ubuntu 24.04 + Chromium). Use the container script unless you are already on Ubuntu 24.04:
+
 ```bash
-npm test            # full run
-npx playwright test --ui   # interactive UI mode
+npm run test:container                   # preferred — runs inside Ubuntu 24.04 container
+npm run test:container:update-snapshots  # regenerate screenshot baselines in container
+npm test                                 # only use directly if already on Ubuntu 24.04
+npx playwright test --ui                 # interactive UI mode (Ubuntu 24.04 only)
 ```
+
+The container script (`scripts/test-in-container.sh`) auto-detects Docker or Podman and uses the official `mcr.microsoft.com/playwright` image matching the installed `@playwright/test` version, so Chromium is pre-installed and no separate download is needed.
 
 Tests require a built extension in `dist/chrome/`. The fixture in `fixtures.ts` loads it and grants `clipboard-read`/`clipboard-write` permissions.
 
