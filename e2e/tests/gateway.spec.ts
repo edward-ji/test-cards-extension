@@ -5,7 +5,7 @@ test.describe('gateway', () => {
         await page.goto(`chrome-extension://${extensionId}/panel.html`);
     });
 
-    test('default is adyen', async ({ page }) => {
+    test('default is Adyen', async ({ page }) => {
         await expect(page.locator('#gatewaySelector')).toHaveValue('adyen');
         await expect(page.locator('text="2222 4000 7000 0005"')).toBeVisible();
     });
@@ -15,7 +15,7 @@ test.describe('gateway', () => {
         await expect(page.locator('text="3434 3434 3434 343"').first()).toBeVisible();
     });
 
-    test('switch to Adyen-3DS', async ({ page }) => {
+    test('switch to Adyen (3DS)', async ({ page }) => {
         await page.locator('#gatewaySelector').selectOption('adyen-3ds');
         await expect(page.locator('text="3714 4963 5398 431"')).toBeVisible();
     });
@@ -25,10 +25,9 @@ test.describe('gateway', () => {
         await expect(page.locator('text="4111 1111 1111 1111"').first()).toBeVisible();
     });
 
-    test('switch to Ebanx', async ({ page }) => {
+    test('switch to EBANX', async ({ page }) => {
         await page.locator('#gatewaySelector').selectOption('ebanx');
-        // Ebanx data loads asynchronously; use #cards scope + longer timeout.
-        await expect(page.locator('#cards')).toContainText('6362 9700 0045 7013', { timeout: 10000 });
+        await expect(page.locator('#cards')).toContainText('6362 9700 0045 7013');
     });
 
     test('docs link updates on gateway switch', async ({ page }) => {
