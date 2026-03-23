@@ -11,10 +11,10 @@ if [ -f /etc/os-release ]; then
 fi
 
 # Otherwise, run inside a container matching the CI environment
-if command -v docker &>/dev/null; then
-    RUNTIME=docker
-elif command -v podman &>/dev/null; then
+if command -v podman &>/dev/null; then
     RUNTIME=podman
+elif command -v docker &>/dev/null; then
+    RUNTIME=docker
 else
     echo "Error: neither docker nor podman found" >&2
     exit 1
