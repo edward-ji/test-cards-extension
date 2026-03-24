@@ -4,7 +4,7 @@
 
 A multi-browser extension (Chrome & Firefox) that surfaces payment gateway test card numbers directly in the browser for easy copying and form prefilling. Supports Adyen, Adyen 3DS, Worldpay, NAB Gateway, and Ebanx.
 
-- **Version:** 0.3.0
+- **Version:** 0.3.1
 - **Manifest:** V3 on both browsers
 - **Chrome:** Side panel (`side_panel`)
 - **Firefox:** Sidebar (`sidebar_action`)
