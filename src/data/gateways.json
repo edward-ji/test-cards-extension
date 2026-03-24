@@ -25,7 +25,7 @@
         "docsLink": "https://docs.worldpay.com/apis/wpg/reference/testvalues"
     },
     {
-        "id": "worldpay-3ds-wpg",
+        "id": "worldpay-wpg-3ds",
         "name": "Worldpay WPG (3DS)",
         "docsLink": "https://docs.worldpay.com/apis/wpg/directintegration/cardinalsecuretest#testing"
     },

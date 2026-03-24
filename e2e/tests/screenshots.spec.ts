@@ -6,7 +6,7 @@ const gateways: { id: string; readyText: string }[] = [
     { id: 'worldpay', readyText: '3434 3434 3434 343' },
     { id: 'worldpay-3ds', readyText: '4000 0000 0000 2701' },
     { id: 'worldpay-wpg', readyText: '3434 3434 3434 343' },
-    { id: 'worldpay-3ds-wpg', readyText: '4000 0000 0000 1000' },
+    { id: 'worldpay-wpg-3ds', readyText: '4000 0000 0000 1000' },
     { id: 'nab', readyText: '4111 1111 1111 1111' },
     { id: 'ebanx', readyText: '6362 9700 0045 7013' },
     { id: 'nmi', readyText: '3711 1111 1111 114' },
