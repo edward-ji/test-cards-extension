@@ -5,11 +5,72 @@
   font-style: normal;
 }
 
+:root {
+  --bg: #ffffff;
+  --text: #000000;
+  --link: #0066ff;
+  --border-table: #33b964;
+  --row-even: #ffffff;
+  --row-hover: #dddddd;
+  --header-bg: #ffffff;
+  --input-border: #d1d5db;
+  --input-bg: #ffffff;
+  --input-text: #000000;
+  --star-empty-url: url('./images/star-empty.svg');
+  --star-filled-url: url('./images/star-filled.svg');
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1a1a1a;
+    --text: #e0e0e0;
+    --link: #4da6ff;
+    --border-table: #2a9a54;
+    --row-even: #1a1a1a;
+    --row-hover: #2d2d2d;
+    --header-bg: #121212;
+    --input-border: #555555;
+    --input-bg: #2a2a2a;
+    --input-text: #e0e0e0;
+    --star-empty-url: url('./images/star-empty-dark.svg');
+  }
+}
+
+html[data-theme="light"] {
+  --bg: #ffffff;
+  --text: #000000;
+  --link: #0066ff;
+  --border-table: #33b964;
+  --row-even: #ffffff;
+  --row-hover: #dddddd;
+  --header-bg: #ffffff;
+  --input-border: #d1d5db;
+  --input-bg: #ffffff;
+  --input-text: #000000;
+  --star-empty-url: url('./images/star-empty.svg');
+}
+
+html[data-theme="dark"] {
+  --bg: #1a1a1a;
+  --text: #e0e0e0;
+  --link: #4da6ff;
+  --border-table: #2a9a54;
+  --row-even: #1a1a1a;
+  --row-hover: #2d2d2d;
+  --header-bg: #121212;
+  --input-border: #555555;
+  --input-bg: #2a2a2a;
+  --input-text: #e0e0e0;
+  --star-empty-url: url('./images/star-empty-dark.svg');
+}
+
 body {
   font-family: 'Inter', sans-serif;
   font-size: 12px;
   font-weight: 100;
   margin: 4px;
+  background-color: var(--bg);
+  color: var(--text);
 }
 
 .hidden {
@@ -17,7 +78,7 @@ body {
 }
 
 a {
-  color: #06f;
+  color: var(--link);
   cursor: pointer;
   text-decoration: none;
 }
@@ -34,7 +95,7 @@ a {
 
 .cardnumbers td {
   padding: 3px;
-  border-bottom: 1pt solid #33b964;
+  border-bottom: 1pt solid var(--border-table);
 }
 
 .cardnumbers table {
@@ -42,11 +103,11 @@ a {
 }
 
 .cardnumbers tr:nth-child(even) {
-  background-color: white;
+  background-color: var(--row-even);
 }
 
 .cardnumbers tr:hover {
-  background-color: #ddd;
+  background-color: var(--row-hover);
 }
 
 .sectionTitle {
@@ -58,34 +119,28 @@ a {
   white-space: nowrap;
 }
 
-.fav-icon {
-  width: 15px;
-  height: 15px;
-  background-image: url('./images/empty-star.png');
-  background-size: cover;
-  /* Adjust the image size to fit the container */
-  transition: background-image 0.2s;
-  /* Add a smooth transition effect for background image */
-  cursor: pointer;
-}
-
-.fav-icon:hover {
-  background-image: url('./images/yellow-star.png');
-}
-
+.fav-icon,
 .unfav-icon {
   width: 15px;
   height: 15px;
-  background-image: url('./images/yellow-star.png');
   background-size: cover;
-  /* Adjust the image size to fit the container */
-  transition: background-image 0.2s;
-  /* Add a smooth transition effect for background image */
   cursor: pointer;
 }
 
+.fav-icon {
+  background-image: var(--star-empty-url);
+}
+
+.fav-icon:hover {
+  background-image: var(--star-filled-url);
+}
+
+.unfav-icon {
+  background-image: var(--star-filled-url);
+}
+
 .unfav-icon:hover {
-  background-image: url('./images/empty-star.png');
+  background-image: var(--star-empty-url);
 }
 
 /* Card logos */
@@ -125,8 +180,8 @@ header {
   top: 0;
   left: 0;
   width: 100%;
-  background-color: #fff;
-  color: black;
+  background-color: var(--header-bg);
+  color: var(--text);
   padding: 10px;
   text-align: center;
 }
@@ -148,10 +203,12 @@ main {
   box-sizing: border-box;
   padding: 8px 12px;
   font-size: 13px;
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--input-border);
   border-radius: 6px;
   outline: none;
   font-family: inherit;
+  background-color: var(--input-bg);
+  color: var(--input-text);
 }
 
 .gateway-select {
