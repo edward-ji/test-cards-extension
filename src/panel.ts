@@ -67,7 +67,7 @@ function applyTheme(mode: ThemeMode) {
 function updateThemeToggleLabel(mode: ThemeMode) {
   if (!themeToggle) return;
   themeToggle.title = `${mode.charAt(0).toUpperCase() + mode.slice(1)} theme`;
-  themeToggle.innerHTML = `<img src="images/theme-${mode}.svg" width="16" height="16" alt="">`;
+  (themeToggle.querySelector('img') as HTMLImageElement).src = `images/theme-${mode}.svg`;
 }
 
 async function loadTheme() {
