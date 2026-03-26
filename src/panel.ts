@@ -4,6 +4,9 @@ import { parseGatewayData, NetworkInfo, Card, ParsedGroup, RawCardItem } from '.
 // name objects on local storage
 const FAVOURITES_LIST = "favourites-list"
 const SELECTED_GATEWAY = "selected-gateway"
+const COLOR_SCHEME = "color-scheme"
+
+type ThemeMode = 'light' | 'dark' | 'system';
 
 let gateways: { id: string, name: string, docsLink?: string }[] = [];
 let currentGatewayId = "adyen";
@@ -17,6 +20,7 @@ const gatewaySelector = document.getElementById("gatewaySelector") as HTMLSelect
 const cardsContainer = document.getElementById("cards") as HTMLDivElement;
 const docsLink = document.getElementById("docsLink") as HTMLAnchorElement;
 const header = document.getElementById("header") as HTMLElement;
+const themeToggle = document.getElementById("themeToggle") as HTMLButtonElement;
 
 if (searchInput) {
   searchInput.addEventListener("keyup", function () {
@@ -47,6 +51,40 @@ if (searchInput) {
         }
       }
     });
+  });
+}
+
+function applyTheme(mode: ThemeMode) {
+  if (mode === 'light') {
+    document.documentElement.setAttribute('data-theme', 'light');
+  } else if (mode === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  } else {
+    document.documentElement.removeAttribute('data-theme');
+  }
+}
+
+function updateThemeToggleLabel(mode: ThemeMode) {
+  if (!themeToggle) return;
+  themeToggle.title = `${mode.charAt(0).toUpperCase() + mode.slice(1)} theme`;
+  themeToggle.innerHTML = `<img src="images/theme-${mode}.svg" width="16" height="16" alt="">`;
+}
+
+async function loadTheme() {
+  const stored = await getFromStorage<ThemeMode>(COLOR_SCHEME);
+  const mode: ThemeMode = stored || 'system';
+  applyTheme(mode);
+  updateThemeToggleLabel(mode);
+}
+
+if (themeToggle) {
+  themeToggle.addEventListener('click', async function () {
+    const stored = await getFromStorage<ThemeMode>(COLOR_SCHEME);
+    const current: ThemeMode = stored || 'system';
+    const next: ThemeMode = current === 'system' ? 'light' : current === 'light' ? 'dark' : 'system';
+    await setInStorage(COLOR_SCHEME, next);
+    applyTheme(next);
+    updateThemeToggleLabel(next);
   });
 }
 
@@ -453,5 +491,6 @@ function sanitize(str: string) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
+  loadTheme();
   load();
 });
