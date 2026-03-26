@@ -24,7 +24,13 @@ PW_VERSION=$(node -e "console.log(require('./node_modules/@playwright/test/packa
 IMAGE="mcr.microsoft.com/playwright:v${PW_VERSION}-noble"
 
 $RUNTIME run --rm \
-    -v "$(pwd):/work:z" \
+    -v "$(pwd)/src:/work/src:ro,z" \
+    -v "$(pwd)/e2e:/work/e2e:rw,z" \
+    -v "$(pwd)/scripts:/work/scripts:ro,z" \
+    -v "$(pwd)/package.json:/work/package.json:ro,z" \
+    -v "$(pwd)/package-lock.json:/work/package-lock.json:ro,z" \
+    -v "$(pwd)/tsconfig.json:/work/tsconfig.json:ro,z" \
+    -v "$(pwd)/playwright.config.ts:/work/playwright.config.ts:ro,z" \
     -w /work \
     --shm-size=1gb \
     "$IMAGE" \
