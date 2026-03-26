@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Test Cards",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "Copy and prefill test card numbers and other payment methods with a single click.",
   "action": {
     "default_title": "Test Cards"
