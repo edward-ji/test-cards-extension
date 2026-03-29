@@ -39,7 +39,7 @@ async function openFormPage(page: import('@playwright/test').Page) {
 }
 
 async function clickFill(page: import('@playwright/test').Page, cardNumber: string) {
-    await page.locator('tr').filter({ hasText: cardNumber }).locator('.fill-column')
+    await page.locator('.card-item').filter({ hasText: cardNumber }).locator('.fill-column')
         .dispatchEvent('click');
 }
 
@@ -58,7 +58,7 @@ test.describe('autofill', () => {
     });
 
     test('autofill button present in favorites', async ({ page }) => {
-        await page.locator('tr').filter({ hasText: '4871 0499 9999 9910' }).locator('.fav-icon').click();
+        await page.locator('.card-item').filter({ hasText: '4871 0499 9999 9910' }).locator('.fav-icon').click();
         await expect(page.locator('#tableFavouritesId .fill-column')).toBeVisible();
     });
 

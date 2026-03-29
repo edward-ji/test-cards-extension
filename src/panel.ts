@@ -24,32 +24,19 @@ const themeToggle = document.getElementById("themeToggle") as HTMLButtonElement;
 
 if (searchInput) {
   searchInput.addEventListener("keyup", function () {
-    // filter criteria
     const criteria = this.value.toLowerCase();
 
-    const searchables = document.querySelectorAll(".searchable");
-    searchables.forEach(function (card) {
-      const el = card as HTMLElement;
+    document.querySelectorAll<HTMLElement>(".searchable").forEach(el => {
       const searchAttr = el.getAttribute('data-search') || "";
+      el.style.display = searchAttr.includes(criteria) ? "" : "none";
+    });
 
-      // filter: hide rows that don't match the criteria
-      const isMatch = searchAttr.indexOf(criteria) > -1;
-      el.style.display = isMatch ? "" : "none";
-
-      // hide divs containing empty tables (ie don't show empty sections)
-      const table = el.closest('table');
-      if (table) {
-        const rows = table.querySelectorAll('tr');
-        let numVisibleRows = 0;
-        rows.forEach(r => {
-          if (r.style.display !== 'none') numVisibleRows++;
-        });
-
-        const cardNumbersDiv = table.closest('.cardnumbers') as HTMLElement;
-        if (cardNumbersDiv) {
-          cardNumbersDiv.style.display = numVisibleRows === 0 ? "none" : "";
-        }
-      }
+    // Hide sections where all searchable cards are hidden
+    document.querySelectorAll<HTMLElement>('.cards-section').forEach(section => {
+      const sectionCards = section.querySelectorAll<HTMLElement>('.searchable');
+      if (sectionCards.length === 0) return; // favourites section — always visible
+      const anyVisible = Array.from(sectionCards).some(c => c.style.display !== 'none');
+      section.style.display = anyVisible ? "" : "none";
     });
   });
 }
@@ -147,8 +134,7 @@ function renderCards() {
   outerdiv.appendChild(createFavourites());
 
   // cards section
-  const cardDivs = createCards();
-  cardDivs.forEach(div => outerdiv.appendChild(div));
+  createCards().forEach(div => outerdiv.appendChild(div));
 
   if (cardsContainer) {
     cardsContainer.innerHTML = '';
@@ -156,26 +142,24 @@ function renderCards() {
   }
 }
 
-// render cards section
+// render all card sections
 function createCards() {
   const divs: HTMLElement[] = [];
 
-  // all cards section
-  cards.forEach(function (item) {
-    const div = document.createElement('div');
-    div.classList.add("cardnumbers");
+  cards.forEach(item => {
+    const nonFavCards = item.items.filter(card => !isFavourite(card.id));
+    if (nonFavCards.length === 0) return;
+
+    const section = document.createElement('div');
+    section.classList.add('cards-section');
 
     const h3 = document.createElement('h3');
-    h3.classList.add("sectionTitle");
+    h3.classList.add('section-title');
     h3.textContent = item.group;
+    section.appendChild(h3);
 
-    const cardsTable = createCardsNetworkSection(item.group, item.items);
-    if (cardsTable) {
-      // show section when not empty (i.e. all cards are in the favourites section)
-      div.appendChild(h3);
-      div.appendChild(cardsTable);
-      divs.push(div);
-    }
+    nonFavCards.forEach(card => section.appendChild(renderCardDiv(card, false)));
+    divs.push(section);
   });
 
   return divs;
@@ -183,63 +167,157 @@ function createCards() {
 
 // render favourites section
 function createFavourites() {
-  const divFavourites = document.createElement('div');
-  divFavourites.classList.add("cardnumbers");
+  const section = document.createElement('div');
+  section.classList.add('cards-section');
 
-  // Favourites title and helper messages
-  const divFavouritesContainer = document.createElement('div');
-  divFavouritesContainer.classList.add("divFavouritesContainer");
   const h3 = document.createElement('h3');
-  h3.classList.add("sectionTitle");
-  h3.textContent = "Favourites";
-  divFavouritesContainer.appendChild(h3);
+  h3.classList.add('section-title');
+  h3.textContent = 'Favourites';
+  section.appendChild(h3);
 
-  divFavourites.appendChild(divFavouritesContainer);
+  const favContainer = document.createElement('div');
+  favContainer.id = 'tableFavouritesId';
 
-
-
-  // We need to collect all favourites first to determine the columns
   const favItems: Card[] = [];
   cards.forEach(group => {
     group.items.forEach(card => {
-      if (isFavourite(card.id)) {
-        favItems.push(card);
-      }
+      if (isFavourite(card.id)) favItems.push(card);
     });
   });
 
   if (favItems.length > 0) {
-    const keys = new Set<string>();
-    favItems.forEach(card => {
-      Object.keys(card.display).forEach(k => keys.add(k));
-    });
-
-    const orderedColumns = getOrderedColumns(favItems);
-    const table = document.createElement('table');
-    table.id = "tableFavouritesId";
-    const tbody = document.createElement('tbody');
-
-    favItems.forEach(card => {
-      tbody.appendChild(renderCardRow(card, orderedColumns, true));
-    });
-
-    table.appendChild(tbody);
-    divFavourites.appendChild(table);
+    favItems.forEach(card => favContainer.appendChild(renderCardDiv(card, true)));
   } else {
-    // empty section
-    const text = document.createElement('span');
-    text.innerHTML = "Click '&#9734' to add your favourites here";
-    divFavourites.appendChild(text);
+    const text = document.createElement('p');
+    text.classList.add('empty-favs');
+    text.innerHTML = "Click '&#9734;' to add your favourites here";
+    favContainer.appendChild(text);
   }
 
-  return divFavourites;
+  section.appendChild(favContainer);
+  return section;
+}
+
+// render a single card as a styled div
+function renderCardDiv(card: Card, isFavLayout: boolean): HTMLElement {
+  const div = document.createElement('div');
+  div.classList.add('card-item');
+  if (!isFavLayout) {
+    div.classList.add('searchable');
+    div.setAttribute('data-search', card.search);
+  }
+
+  // Column 1: network logos stacked vertically
+  const logosDiv = document.createElement('div');
+  logosDiv.classList.add('card-logos');
+  const nets = Array.isArray(card.network) ? card.network : [card.network];
+  nets.forEach(net => {
+    const networkInfo = networks.find(n => n.id === net);
+    const img = document.createElement('img');
+    img.src = networkInfo?.logo ? `./images/logos/${networkInfo.logo}` : './images/logos/nocard.svg';
+    img.className = 'network-icon';
+    img.title = networkInfo?.names?.[0] || net;
+    logosDiv.appendChild(img);
+  });
+
+  // Column 2: card info rows
+  const contentDiv = document.createElement('div');
+  contentDiv.classList.add('card-content');
+
+  // Row a: card number
+  const numVal = card.display['number'];
+  if (numVal != null && numVal !== '') {
+    const numDiv = document.createElement('div');
+    numDiv.classList.add('card-number');
+    numDiv.textContent = numVal.toString();
+    addCopyHandlers(numDiv);
+    contentDiv.appendChild(numDiv);
+  }
+
+  // Row b: exp, csc, name
+  const standardFields: { key: string; label: string }[] = [
+    { key: 'exp', label: 'Exp' },
+    { key: 'csc', label: 'CSC' },
+    { key: 'name', label: 'Name' },
+  ];
+
+  const fieldsDiv = document.createElement('div');
+  fieldsDiv.classList.add('card-fields');
+
+  standardFields.forEach(({ key, label }) => {
+    const val = card.display[key];
+    if (val == null || val === '') return;
+
+    const fieldDiv = document.createElement('div');
+    fieldDiv.classList.add('card-field');
+    if (key === 'name') fieldDiv.classList.add('card-field--name');
+
+    const labelEl = document.createElement('span');
+    labelEl.classList.add('field-label');
+    labelEl.textContent = label;
+
+    const valueEl = document.createElement('span');
+    valueEl.classList.add('field-value');
+    valueEl.textContent = val.toString();
+    addCopyHandlers(valueEl);
+
+    fieldDiv.appendChild(labelEl);
+    fieldDiv.appendChild(valueEl);
+    fieldsDiv.appendChild(fieldDiv);
+  });
+
+  if (fieldsDiv.childElementCount > 0) {
+    contentDiv.appendChild(fieldsDiv);
+  }
+
+  // Row c: extra fields as pills
+  const standardKeys = new Set(['number', 'exp', 'csc', 'name']);
+  const extrasDiv = document.createElement('div');
+  extrasDiv.classList.add('card-extras');
+
+  Object.entries(card.display).forEach(([key, val]) => {
+    if (standardKeys.has(key)) return;
+    if (val === null || val === undefined || val === '') return;
+
+    const badge = document.createElement('span');
+    badge.classList.add('card-badge');
+
+    badge.textContent = typeof val === 'boolean' ? key : val.toString();
+    addCopyHandlers(badge);
+
+    extrasDiv.appendChild(badge);
+  });
+
+  if (extrasDiv.childElementCount > 0) {
+    contentDiv.appendChild(extrasDiv);
+  }
+
+  // Column 3: action buttons stacked vertically
+  const actionsDiv = document.createElement('div');
+  actionsDiv.classList.add('card-actions');
+  actionsDiv.appendChild(isFavLayout ? makeCardUnfavIcon(card.id) : makeCardFavIcon(card.id));
+
+  const fillSpan = document.createElement('span');
+  fillSpan.classList.add('fill-column');
+  fillSpan.title = 'Autofill';
+  const fillImg = document.createElement('img');
+  fillImg.src = './images/autofill.svg';
+  fillImg.className = 'action-icon';
+  fillImg.alt = '';
+  fillSpan.appendChild(fillImg);
+  addPrefillHandler(fillSpan, card);
+  actionsDiv.appendChild(fillSpan);
+
+  div.appendChild(logosDiv);
+  div.appendChild(contentDiv);
+  div.appendChild(actionsDiv);
+
+  return div;
 }
 
 // add handlers (hover, click, etc..)
 function addCopyHandlers(element: HTMLElement) {
-  // make it copyable
   element.classList.add("copyable");
-  // set handlers
   element.addEventListener('click', copyToClipboardHandler);
 }
 
@@ -261,129 +339,17 @@ function copyToClipboardHandler(this: HTMLElement) {
 // add to favourites
 function addFavourite(key: string) {
   if (!favourites.includes(key)) {
-    // add key
     favourites.push(key);
-    // save to storage and reload
     setInStorage(FAVOURITES_LIST, favourites);
-    load();
+    renderCards();
   }
 }
 
 // remove from favourites
 function removeFavourite(key: string) {
-  // remove key
   favourites = favourites.filter(fav => fav !== key);
-  // save to storage and reload
   setInStorage(FAVOURITES_LIST, favourites);
-  load();
-}
-
-// render network of cards
-function createCardsNetworkSection(group: string, gCards: Card[]) {
-  let numCards = 0;
-
-  const table = document.createElement('table');
-
-  const orderedColumns = getOrderedColumns(gCards);
-  const tbody = document.createElement('tbody');
-
-  gCards.forEach(card => {
-    // display card only if not in favourites
-    if (!isFavourite(card.id)) {
-      numCards++;
-      tbody.appendChild(renderCardRow(card, orderedColumns, false));
-    }
-  });
-
-  table.appendChild(tbody);
-
-  if (numCards > 0) {
-    return table;
-  } else {
-    return undefined;
-  }
-}
-
-// get ordered columns for the table
-function getOrderedColumns(rowCards: Card[]) {
-  const keys = new Set<string>();
-  rowCards.forEach(card => {
-    Object.keys(card.display).forEach(k => keys.add(k));
-  });
-
-  const columns = Array.from(keys);
-  const standardColumns = ['number', 'exp', 'csc', 'name'];
-  const dynamicColumns = columns.filter(c => !standardColumns.includes(c));
-  const orderedColumns: string[] = [];
-  standardColumns.forEach(c => {
-    if (columns.includes(c)) orderedColumns.push(c);
-  });
-  orderedColumns.push(...dynamicColumns);
-  return orderedColumns;
-}
-
-function renderCardRow(card: Card, orderedColumns: string[], isFavLayout: boolean): HTMLTableRowElement {
-  const row = document.createElement('tr');
-  if (!isFavLayout) {
-    row.classList.add("searchable");
-    row.setAttribute("data-search", card.search);
-  }
-
-  const tdIcon = document.createElement('td');
-  tdIcon.classList.add("fav-column");
-  tdIcon.appendChild(isFavLayout ? makeCardUnfavIcon(card.id) : makeCardFavIcon(card.id));
-  row.appendChild(tdIcon);
-
-  orderedColumns.forEach(c => {
-    const td = document.createElement('td');
-    const displayValue = card.display[c];
-
-    if (c === 'number') {
-      td.classList.add("tdCardNumber");
-      td.textContent = displayValue?.toString() || "";
-    } else if (c === 'exp') {
-      td.classList.add("center", "tdExpiry");
-      td.textContent = displayValue?.toString() || "";
-    } else if (c === 'csc') {
-      td.classList.add("center", "tdCode");
-      td.textContent = displayValue?.toString() || "";
-    } else {
-      let cellValue = displayValue !== null && displayValue !== undefined ? displayValue : "";
-      if (typeof cellValue === 'boolean') cellValue = cellValue ? c : "";
-      td.classList.add("center");
-      td.textContent = cellValue.toString();
-    }
-
-    if (displayValue !== null && displayValue !== undefined && displayValue !== "") {
-      addCopyHandlers(td);
-    }
-    row.appendChild(td);
-  });
-
-  const tdLogo = document.createElement('td');
-  tdLogo.classList.add("card-logo-container");
-
-  const nets = Array.isArray(card.network) ? card.network : [card.network];
-  nets.forEach(net => {
-    const networkInfo = networks.find(n => n.id === net);
-    const img = document.createElement('img');
-    img.src = networkInfo?.logo ? `./images/logos/${networkInfo.logo}` : './images/logos/nocard.svg';
-    img.className = "network-icon";
-    img.title = networkInfo?.names?.[0] || net;
-    tdLogo.appendChild(img);
-  });
-  row.appendChild(tdLogo);
-
-  const tdFill = document.createElement('td');
-  tdFill.classList.add("center", "fill-column");
-  const fillSpan = document.createElement('span');
-  fillSpan.innerHTML = "⚡";
-  fillSpan.title = "Autofill";
-  tdFill.appendChild(fillSpan);
-  addPrefillHandler(tdFill, card);
-  row.appendChild(tdFill);
-
-  return row;
+  renderCards();
 }
 
 // check if the key (card) is in favourites
@@ -415,7 +381,6 @@ function makeCardUnfavIcon(id: string) {
 
 // attach prefill click handler
 function addPrefillHandler(element: HTMLElement, card: Card) {
-  element.classList.add("copyPrefillClick");
   element.addEventListener('click', async function (evt) {
     evt.preventDefault();
     const tabs = await browser.tabs.query({ active: true, currentWindow: true });
@@ -475,7 +440,6 @@ async function getFromStorage<T>(name: string): Promise<T | undefined> {
 
 // load from json file
 async function loadFromFile<T>(filename: string): Promise<T | []> {
-  console.log("loadFromFile " + filename);
   try {
     const res = await fetch(browser.runtime.getURL(filename));
     const obj = await res.json() as T;

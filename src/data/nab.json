@@ -140,10 +140,9 @@
       },
       {
         "number": "4111 1111 1111 1111",
-        "exp": true,
+        "exp": "13/30",
         "csc": true,
         "name": true,
-        "expiry": "13/30",
         "status": "INVALID REQUEST",
         "information": "Invalid expiration month",
         "network": "visa"

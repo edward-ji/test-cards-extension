@@ -5,17 +5,26 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Roboto Mono';
+  src: url('./fonts/RobotoMono-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
   --bg: #ffffff;
   --text: #000000;
   --link: #0066ff;
-  --border-table: #33b964;
-  --row-even: #ffffff;
-  --row-hover: #dddddd;
+  --row-hover: #f0f0f0;
   --header-bg: #ffffff;
   --input-border: #d1d5db;
   --input-bg: #ffffff;
   --input-text: #000000;
+  --text-muted: #9ca3af;
+  --card-border: #e5e7eb;
+  --badge-bg: #f3f4f6;
+  --badge-text: #4b5563;
   --star-empty-url: url('./images/star-empty.svg');
   --star-filled-url: url('./images/star-filled.svg');
 }
@@ -25,13 +34,15 @@
     --bg: #1a1a1a;
     --text: #e0e0e0;
     --link: #4da6ff;
-    --border-table: #2a9a54;
-    --row-even: #1a1a1a;
     --row-hover: #2d2d2d;
     --header-bg: #121212;
     --input-border: #555555;
     --input-bg: #2a2a2a;
     --input-text: #e0e0e0;
+    --text-muted: #6b7280;
+    --card-border: #333333;
+    --badge-bg: #2a2a2a;
+    --badge-text: #9ca3af;
     --star-empty-url: url('./images/star-empty-dark.svg');
   }
 }
@@ -40,13 +51,15 @@ html[data-theme="light"] {
   --bg: #ffffff;
   --text: #000000;
   --link: #0066ff;
-  --border-table: #33b964;
-  --row-even: #ffffff;
-  --row-hover: #dddddd;
+  --row-hover: #f0f0f0;
   --header-bg: #ffffff;
   --input-border: #d1d5db;
   --input-bg: #ffffff;
   --input-text: #000000;
+  --text-muted: #9ca3af;
+  --card-border: #e5e7eb;
+  --badge-bg: #f3f4f6;
+  --badge-text: #4b5563;
   --star-empty-url: url('./images/star-empty.svg');
 }
 
@@ -54,20 +67,22 @@ html[data-theme="dark"] {
   --bg: #1a1a1a;
   --text: #e0e0e0;
   --link: #4da6ff;
-  --border-table: #2a9a54;
-  --row-even: #1a1a1a;
   --row-hover: #2d2d2d;
   --header-bg: #121212;
   --input-border: #555555;
   --input-bg: #2a2a2a;
   --input-text: #e0e0e0;
+  --text-muted: #6b7280;
+  --card-border: #333333;
+  --badge-bg: #2a2a2a;
+  --badge-text: #9ca3af;
   --star-empty-url: url('./images/star-empty-dark.svg');
 }
 
 body {
   font-family: 'Inter', sans-serif;
   font-size: 12px;
-  font-weight: 100;
+  font-weight: normal;
   margin: 4px;
   background-color: var(--bg);
   color: var(--text);
@@ -83,97 +98,7 @@ a {
   text-decoration: none;
 }
 
-.center {
-  text-align: center;
-}
-
-.cardnumbers {
-  border-collapse: collapse;
-  width: 100%;
-  font-size: 12px;
-}
-
-.cardnumbers td {
-  padding: 3px;
-  border-bottom: 1pt solid var(--border-table);
-}
-
-.cardnumbers table {
-  width: 100%;
-}
-
-.cardnumbers tr:nth-child(even) {
-  background-color: var(--row-even);
-}
-
-.cardnumbers tr:hover {
-  background-color: var(--row-hover);
-}
-
-.sectionTitle {
-  padding-left: 5px;
-}
-
-.fav-column {
-  width: 1%;
-  white-space: nowrap;
-}
-
-.fav-icon,
-.unfav-icon {
-  width: 15px;
-  height: 15px;
-  background-size: cover;
-  cursor: pointer;
-}
-
-.fav-icon {
-  background-image: var(--star-empty-url);
-}
-
-.fav-icon:hover {
-  background-image: var(--star-filled-url);
-}
-
-.unfav-icon {
-  background-image: var(--star-filled-url);
-}
-
-.unfav-icon:hover {
-  background-image: var(--star-empty-url);
-}
-
-/* Card logos */
-.card-logo-container {
-  white-space: nowrap;
-  width: 1%;
-}
-
-.network-icon {
-  height: 24px;
-  width: 40px;
-  object-fit: contain;
-  vertical-align: middle;
-  margin: 0 1px;
-}
-
-.fill-column {
-  cursor: pointer;
-  width: 1%;
-  white-space: nowrap;
-  font-size: 14px;
-}
-
-.copyable:hover {
-  cursor: pointer;
-  position: relative;
-}
-
-.divFavouritesContainer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+/* ── Header ──────────────────────────────── */
 
 header {
   position: fixed;
@@ -189,6 +114,8 @@ header {
 main {
   margin-top: 25px;
 }
+
+/* ── Top controls ────────────────────────── */
 
 .header-controls {
   display: flex;
@@ -247,3 +174,202 @@ html[data-theme="dark"] .theme-toggle img {
 html[data-theme="light"] .theme-toggle img {
   filter: none;
 }
+
+/* ── Section ─────────────────────────────── */
+
+.cards-section {
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text);
+  opacity: 0.6;
+  margin: 0 0 6px 2px;
+  padding: 0;
+}
+
+/* ── Card item ───────────────────────────── */
+
+.card-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 8px;
+}
+
+/* ── Left column: logos stacked vertically ─ */
+
+.card-logos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  flex-shrink: 0;
+}
+
+.network-icon {
+  height: 20px;
+  width: 36px;
+  object-fit: contain;
+}
+
+/* ── Right column: content ───────────────── */
+
+.card-content {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ── Column 3: action buttons ────────────── */
+
+.card-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.fav-icon,
+.unfav-icon {
+  width: 15px;
+  height: 15px;
+  background-size: cover;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.fav-icon {
+  background-image: var(--star-empty-url);
+}
+
+.fav-icon:hover {
+  background-image: var(--star-filled-url);
+}
+
+.unfav-icon {
+  background-image: var(--star-filled-url);
+}
+
+.unfav-icon:hover {
+  background-image: var(--star-empty-url);
+}
+
+.fill-column {
+  cursor: pointer;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+.action-icon {
+  width: 15px;
+  height: 15px;
+}
+
+/* ── Card number ─────────────────────────── */
+
+.card-number {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  padding: 2px 4px;
+  margin: 0 -4px;
+  border-radius: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-number:hover {
+  background: var(--row-hover);
+}
+
+/* ── Standard fields (exp, csc, name) ────── */
+
+.card-fields {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+}
+
+.card-field {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.field-label {
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  user-select: none;
+}
+
+.field-value {
+  font-size: 12px;
+  padding: 1px 3px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.field-value:hover {
+  background: var(--row-hover);
+}
+
+.card-field--name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.card-field--name .field-value {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Extra fields (country, flags, etc.) ─── */
+
+.card-extras {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.card-badge {
+  font-size: 10px;
+  padding: 2px 7px;
+  border-radius: 10px;
+  background: var(--badge-bg);
+  color: var(--badge-text);
+  line-height: 1.5;
+}
+
+.card-badge.copyable {
+  cursor: pointer;
+}
+
+.card-badge.copyable:hover {
+  filter: brightness(0.92);
+}
+
+/* ── Favourites empty state ──────────────── */
+
+.empty-favs {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin: 4px 0 0;
+}
+
