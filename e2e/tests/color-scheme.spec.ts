@@ -6,7 +6,7 @@ const READY_TEXT = '2222 4000 7000 0005'; // adyen default gateway first card
 
 test.describe('color scheme - dark via system preference', () => {
     test('dark theme matches snapshot', async () => {
-        const pathToExtension = path.join(__dirname, '../../dist/chrome');
+        const pathToExtension = path.join(__dirname, '../../.output/chrome-mv3');
         const darkContext = await chromium.launchPersistentContext('', {
             headless: false,
             args: [
@@ -22,7 +22,7 @@ test.describe('color scheme - dark via system preference', () => {
             const extensionId = background.url().split('/')[2];
 
             const page = await darkContext.newPage();
-            await page.goto(`chrome-extension://${extensionId}/panel.html`);
+            await page.goto(`chrome-extension://${extensionId}/sidepanel.html`);
             await expect(page.locator('#cards')).toContainText(READY_TEXT);
             await expect(page).toHaveScreenshot('dark-system-adyen.png');
         } finally {
@@ -33,7 +33,7 @@ test.describe('color scheme - dark via system preference', () => {
 
 test.describe('color scheme - dark via toggle', () => {
     test.beforeEach(async ({ page, extensionId }) => {
-        await page.goto(`chrome-extension://${extensionId}/panel.html`);
+        await page.goto(`chrome-extension://${extensionId}/sidepanel.html`);
     });
 
     test('dark theme matches snapshot', async ({ page }) => {

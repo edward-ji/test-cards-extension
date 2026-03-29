@@ -7,18 +7,18 @@ on:
       - 'package.json'
       - 'package-lock.json'
       - 'tsconfig.json'
+      - 'wxt.config.ts'
       - 'eslint.config.mjs'
       - '**/*.ts'
-      - 'src/data/'
   pull_request:
     branches: [ main ]
     paths:
       - 'package.json'
       - 'package-lock.json'
       - 'tsconfig.json'
+      - 'wxt.config.ts'
       - 'eslint.config.mjs'
       - '**/*.ts'
-      - 'src/data/'
 
 jobs:
   lint:
@@ -30,4 +30,3 @@ jobs:
           node-version: lts/*
       - run: npm ci
       - run: npm run lint
-      - run: npm run validate-data

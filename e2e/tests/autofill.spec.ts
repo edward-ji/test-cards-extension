@@ -45,7 +45,7 @@ async function clickFill(page: import('@playwright/test').Page, cardNumber: stri
 
 test.describe('autofill', () => {
     test.beforeEach(async ({ page, extensionId }) => {
-        await page.goto(`chrome-extension://${extensionId}/panel.html`);
+        await page.goto(`chrome-extension://${extensionId}/sidepanel.html`);
         await page.locator('#gatewaySelector').selectOption('adyen');
     });
 

@@ -14,7 +14,7 @@ const gateways: { id: string; readyText: string }[] = [
 
 test.describe('gateway screenshots', () => {
     test.beforeEach(async ({ page, extensionId }) => {
-        await page.goto(`chrome-extension://${extensionId}/panel.html`);
+        await page.goto(`chrome-extension://${extensionId}/sidepanel.html`);
     });
 
     for (const { id, readyText } of gateways) {
@@ -28,7 +28,7 @@ test.describe('gateway screenshots', () => {
 
 test.describe('gateway', () => {
     test.beforeEach(async ({ page, extensionId }) => {
-        await page.goto(`chrome-extension://${extensionId}/panel.html`);
+        await page.goto(`chrome-extension://${extensionId}/sidepanel.html`);
     });
 
     test('default is Adyen', async ({ page }) => {
@@ -48,7 +48,7 @@ test.describe('gateway', () => {
         await page.locator('#gatewaySelector').selectOption('worldpay');
         await expect(page.locator('text="3434 3434 3434 343"').first()).toBeVisible();
 
-        await page.goto(`chrome-extension://${extensionId}/panel.html`);
+        await page.goto(`chrome-extension://${extensionId}/sidepanel.html`);
         await expect(page.locator('#gatewaySelector')).toHaveValue('worldpay');
         await expect(page.locator('text="3434 3434 3434 343"').first()).toBeVisible();
     });

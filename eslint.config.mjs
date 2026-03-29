@@ -4,7 +4,7 @@ import globals from 'globals';
 
 export default tseslint.config(
     {
-        ignores: ['dist/**', 'build/**', 'e2e/test-results/**', 'e2e/playwright-report/**', 'scripts/build.js']
+        ignores: ['dist/**', 'build/**', '.output/**', '.wxt/**', 'e2e/test-results/**', 'e2e/playwright-report/**']
     },
     eslint.configs.recommended,
     ...tseslint.configs.recommended,

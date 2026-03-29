@@ -1,5 +1,4 @@
-import browser from 'webextension-polyfill';
-import { parseGatewayData, NetworkInfo, Card, ParsedGroup, RawCardItem } from './parser';
+import { parseGatewayData, NetworkInfo, Card, ParsedGroup, RawCardItem } from '../../parser';
 
 // name objects on local storage
 const FAVOURITES_LIST = "favourites-list"
@@ -54,7 +53,7 @@ function applyTheme(mode: ThemeMode) {
 function updateThemeToggleLabel(mode: ThemeMode) {
   if (!themeToggle) return;
   themeToggle.title = `${mode.charAt(0).toUpperCase() + mode.slice(1)} theme`;
-  (themeToggle.querySelector('img') as HTMLImageElement).src = `images/theme-${mode}.svg`;
+  (themeToggle.querySelector('img') as HTMLImageElement).src = `/images/theme-${mode}.svg`;
 }
 
 async function loadTheme() {
@@ -214,7 +213,7 @@ function renderCardDiv(card: Card, isFavLayout: boolean): HTMLElement {
   nets.forEach(net => {
     const networkInfo = networks.find(n => n.id === net);
     const img = document.createElement('img');
-    img.src = networkInfo?.logo ? `./images/logos/${networkInfo.logo}` : './images/logos/nocard.svg';
+    img.src = networkInfo?.logo ? `/images/logos/${networkInfo.logo}` : '/images/logos/nocard.svg';
     img.className = 'network-icon';
     img.title = networkInfo?.names?.[0] || net;
     logosDiv.appendChild(img);
@@ -301,7 +300,7 @@ function renderCardDiv(card: Card, isFavLayout: boolean): HTMLElement {
   fillSpan.classList.add('fill-column');
   fillSpan.title = 'Autofill';
   const fillImg = document.createElement('img');
-  fillImg.src = './images/autofill.svg';
+  fillImg.src = '/images/autofill.svg';
   fillImg.className = 'action-icon';
   fillImg.alt = '';
   fillSpan.appendChild(fillImg);

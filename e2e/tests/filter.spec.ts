@@ -6,7 +6,7 @@ const ADYEN_BANCONTACT = '4871 0499 9999 9910';
 
 test.describe('filter', () => {
     test.beforeEach(async ({ page, extensionId }) => {
-        await page.goto(`chrome-extension://${extensionId}/panel.html`);
+        await page.goto(`chrome-extension://${extensionId}/sidepanel.html`);
         await page.locator('#gatewaySelector').selectOption('adyen');
     });
 

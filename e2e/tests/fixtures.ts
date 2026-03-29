@@ -4,7 +4,7 @@
 import { test as base, chromium, type BrowserContext } from '@playwright/test';
 import path from 'path';
 
-const PATH_TO_EXTENSION = '../../dist/chrome'
+const PATH_TO_EXTENSION = '../../.output/chrome-mv3'
 
 export const test = base.extend<{
   context: BrowserContext;

@@ -6,7 +6,7 @@ const CARD_2 = '2222 4000 7000 0005';
 
 test.describe('favorites', () => {
     test.beforeEach(async ({ page, extensionId }) => {
-        await page.goto(`chrome-extension://${extensionId}/panel.html`);
+        await page.goto(`chrome-extension://${extensionId}/sidepanel.html`);
         await page.locator('#gatewaySelector').selectOption('adyen');
     });
 
@@ -59,7 +59,7 @@ test.describe('favorites', () => {
         await page.locator('.card-item').filter({ hasText: CARD_1 }).locator('.fav-icon').click();
         await expect(page.locator('#tableFavouritesId')).toContainText(CARD_1);
 
-        await page.goto(`chrome-extension://${extensionId}/panel.html`);
+        await page.goto(`chrome-extension://${extensionId}/sidepanel.html`);
         await expect(page.locator('#tableFavouritesId')).toContainText(CARD_1);
     });
 

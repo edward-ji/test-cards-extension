@@ -1,23 +1,6 @@
 {
-    "compilerOptions": {
-        "target": "es2020",
-        "lib": [
-            "DOM",
-            "ES2020"
-        ],
-        "module": "commonjs",
-        "strict": true,
-        "esModuleInterop": true,
-        "skipLibCheck": true,
-        "forceConsistentCasingInFileNames": true,
-        "outDir": "./build",
-        "types": [
-            "chrome",
-            "firefox-webext-browser",
-            "node"
-        ]
-    },
-    "include": [
-        "**/*.ts"
-    ]
+  "extends": ".wxt/tsconfig.json",
+  "compilerOptions": {
+    "types": ["node"]
+  }
 }

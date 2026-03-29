@@ -2,7 +2,7 @@ import { test, expect } from './fixtures';
 
 test.describe('copy', () => {
     test.beforeEach(async ({ page, extensionId }) => {
-        await page.goto(`chrome-extension://${extensionId}/panel.html`);
+        await page.goto(`chrome-extension://${extensionId}/sidepanel.html`);
         await page.locator('#gatewaySelector').selectOption('adyen');
     });
 

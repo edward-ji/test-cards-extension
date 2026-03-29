@@ -26,13 +26,13 @@ jobs:
         run: npm ci
 
       - name: Build Chrome and Firefox packages
-        run: npm run build
+        run: npm run build && npm run build:firefox
 
       - name: Create Chrome ZIP
-        run: cd dist/chrome && zip -r ../../test-cards-chrome.zip .
+        run: cd .output/chrome-mv3 && zip -r ../../test-cards-chrome.zip .
 
       - name: Create Firefox ZIP
-        run: cd dist/firefox && zip -r ../../test-cards-firefox.zip .
+        run: cd .output/firefox-mv2 && zip -r ../../test-cards-firefox.zip .
 
       - name: Upload release binaries
         run: gh release upload ${{ github.event.release.tag_name }} ./test-cards-chrome.zip ./test-cards-firefox.zip

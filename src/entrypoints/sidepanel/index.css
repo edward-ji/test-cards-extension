@@ -1,13 +1,13 @@
 @font-face {
   font-family: 'Inter';
-  src: url('./fonts/Inter-Regular.woff2') format('woff2');
+  src: url('/fonts/Inter-Regular.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Roboto Mono';
-  src: url('./fonts/RobotoMono-Regular.woff2') format('woff2');
+  src: url('/fonts/RobotoMono-Regular.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
 }
@@ -25,8 +25,8 @@
   --card-border: #e5e7eb;
   --badge-bg: #f3f4f6;
   --badge-text: #4b5563;
-  --star-empty-url: url('./images/star-empty.svg');
-  --star-filled-url: url('./images/star-filled.svg');
+  --star-empty-url: url('/images/star-empty.svg');
+  --star-filled-url: url('/images/star-filled.svg');
 }
 
 @media (prefers-color-scheme: dark) {
@@ -43,7 +43,7 @@
     --card-border: #333333;
     --badge-bg: #2a2a2a;
     --badge-text: #9ca3af;
-    --star-empty-url: url('./images/star-empty-dark.svg');
+    --star-empty-url: url('/images/star-empty-dark.svg');
   }
 }
 
@@ -60,7 +60,7 @@ html[data-theme="light"] {
   --card-border: #e5e7eb;
   --badge-bg: #f3f4f6;
   --badge-text: #4b5563;
-  --star-empty-url: url('./images/star-empty.svg');
+  --star-empty-url: url('/images/star-empty.svg');
 }
 
 html[data-theme="dark"] {
@@ -76,7 +76,7 @@ html[data-theme="dark"] {
   --card-border: #333333;
   --badge-bg: #2a2a2a;
   --badge-text: #9ca3af;
-  --star-empty-url: url('./images/star-empty-dark.svg');
+  --star-empty-url: url('/images/star-empty-dark.svg');
 }
 
 body {
@@ -372,4 +372,3 @@ html[data-theme="light"] .theme-toggle img {
   color: var(--text-muted);
   margin: 4px 0 0;
 }
-
