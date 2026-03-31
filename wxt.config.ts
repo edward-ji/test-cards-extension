@@ -2,7 +2,7 @@ import { defineConfig } from 'wxt';
 
 export default defineConfig({
   srcDir: 'src',
-  modules: ['@wxt-dev/webextension-polyfill'],
+  modules: ['@wxt-dev/webextension-polyfill', '@wxt-dev/module-svelte'],
   webExt: {
     startUrls: ['https://mystoredemo.io'],
   },
