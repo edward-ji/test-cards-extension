@@ -38,6 +38,17 @@ export interface RawCardItem {
     [key: string]: unknown;
 }
 
+// djb2 hash → 6-char lowercase hex string
+function hashCard(parts: string[]): string {
+    const str = parts.join('|');
+    let h = 5381;
+    for (let i = 0; i < str.length; i++) {
+        h = ((h << 5) + h) ^ str.charCodeAt(i);
+        h = h >>> 0; // keep unsigned 32-bit
+    }
+    return h.toString(16).padStart(8, '0').slice(-6);
+}
+
 // Resolves a raw autofill field value into a prefill string or undefined.
 // - null/undefined: skip autofill
 // - false or "": explicitly clear the field
@@ -53,14 +64,13 @@ function resolveField(value: string | number | boolean | null | undefined, defau
 export function parseGatewayData(gatewayId: string, rawGroups: { group: string; items: RawCardItem[] }[], networksList: NetworkInfo[] = []): ParsedGroup[] {
     const parsedGroups: ParsedGroup[] = [];
 
-    rawGroups.forEach((group, gIndex) => {
+    rawGroups.forEach((group) => {
         const parsedGroup: ParsedGroup = {
             group: group.group,
             items: []
         };
 
-        group.items.forEach((item: RawCardItem, iIndex: number) => {
-            const id = `${gatewayId}-${gIndex}-${iIndex}`;
+        group.items.forEach((item: RawCardItem) => {
 
             const networksArr = Array.isArray(item.network)
                 ? item.network
@@ -107,6 +117,20 @@ export function parseGatewayData(gatewayId: string, rawGroups: { group: string; 
             if ('exp' in item && typeof item.exp === 'string' && item.exp !== '') {
                 display.exp = resolvedExp;
             }
+
+            // Compute stable card ID: hash of resolved prefill fields + sorted extra fields
+            const AUTOFILL_KEY_SET = new Set(['number', 'name', 'csc', 'exp', 'network', 'id']);
+            const extraParts = Object.keys(item)
+                .filter(k => !AUTOFILL_KEY_SET.has(k))
+                .sort()
+                .map(k => `${k}=${String(item[k])}`);
+            const id = `${gatewayId}-${hashCard([
+                prefill.number ?? '',
+                typeof item.exp === 'string' ? item.exp : '',
+                prefill.csc ?? '',
+                prefill.name ?? '',
+                ...extraParts,
+            ])}`;
 
             // Compute search content
             const networkNames = networksArr
