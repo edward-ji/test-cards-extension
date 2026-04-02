@@ -99,7 +99,7 @@
         browser.scripting.executeScript({
           target: { tabId: activeTab.id!, frameIds: [frame.frameId] },
           func: prefillCardComponent,
-          args: [prefill.number, prefill.exp, prefill.csc, prefill.name],
+          args: [prefill.number ?? null, prefill.exp ?? null, prefill.csc ?? null, prefill.name ?? null],
         }).catch(() => {});
       });
     }
