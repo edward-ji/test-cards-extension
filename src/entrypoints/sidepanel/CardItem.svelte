@@ -62,7 +62,7 @@
   <!-- Column 2: card content -->
   <div class="card-content">
     {#if card.display['number'] != null && card.display['number'] !== ''}
-      <div class="card-number copyable" onclick={() => onCopy(String(card.display['number']))}>
+      <div class="card-number copyable" role="button" tabindex="0" onclick={() => onCopy(String(card.display['number']))} onkeydown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onCopy(String(card.display['number'])); } }}>
         {card.display['number']}
       </div>
     {/if}
@@ -73,7 +73,7 @@
           {#if card.display[key] != null && card.display[key] !== ''}
             <div class="card-field" class:card-field--name={key === 'name'}>
               <span class="field-label">{label}</span>
-              <span class="field-value copyable" onclick={() => onCopy(String(card.display[key]))}>{card.display[key]}</span>
+              <span class="field-value copyable" role="button" tabindex="0" onclick={() => onCopy(String(card.display[key]))} onkeydown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onCopy(String(card.display[key])); } }}>{card.display[key]}</span>
             </div>
           {/if}
         {/each}
@@ -83,7 +83,7 @@
     {#if extraEntries.length > 0}
       <div class="card-extras">
         {#each extraEntries as [key, val] (key)}
-          <span class="card-badge copyable" title={typeof val === 'boolean' ? undefined : key.charAt(0).toUpperCase() + key.slice(1)} onclick={() => onCopy(typeof val === 'boolean' ? key : String(val))}>
+          <span class="card-badge copyable" role="button" tabindex="0" title={typeof val === 'boolean' ? undefined : key.charAt(0).toUpperCase() + key.slice(1)} onclick={() => onCopy(typeof val === 'boolean' ? key : String(val))} onkeydown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onCopy(typeof val === 'boolean' ? key : String(val)); } }}>
             {typeof val === 'boolean' ? key : val}
           </span>
         {/each}
@@ -94,13 +94,13 @@
   <!-- Column 3: action buttons -->
   <div class="card-actions">
     {#if isFav}
-      <div class="unfav-icon" title="Remove from favourites" onclick={() => onUnfav(card.id)}></div>
+      <button type="button" class="unfav-icon" title="Remove from favourites" onclick={() => onUnfav(card.id)}></button>
     {:else}
-      <div class="fav-icon" title="Add to favourites" onclick={() => onFav(card.id)}></div>
+      <button type="button" class="fav-icon" title="Add to favourites" onclick={() => onFav(card.id)}></button>
     {/if}
 
-    <span class="fill-column" title="Autofill" onclick={() => onAutofill(card.prefill)}>
+    <button type="button" class="fill-column" title="Autofill" onclick={() => onAutofill(card.prefill)}>
       <img src="/images/autofill.svg" class="action-icon" alt="" />
-    </span>
+    </button>
   </div>
 </div>
