@@ -38,6 +38,9 @@ export interface RawCardItem {
     [key: string]: unknown;
 }
 
+const AUTOFILL_KEYS = new Set(['number', 'name', 'csc', 'exp']);
+const AUTOFILL_KEY_SET = new Set(['number', 'name', 'csc', 'exp', 'network', 'id']);
+
 // djb2 hash → 6-char lowercase hex string
 function hashCard(parts: string[]): string {
     const str = parts.join('|');
@@ -63,6 +66,7 @@ function resolveField(value: string | number | boolean | null | undefined, defau
 
 export function parseGatewayData(gatewayId: string, rawGroups: { group: string; items: RawCardItem[] }[], networksList: NetworkInfo[] = []): ParsedGroup[] {
     const parsedGroups: ParsedGroup[] = [];
+    const networkMap = new Map(networksList.map(n => [n.id, n]));
 
     rawGroups.forEach((group) => {
         const parsedGroup: ParsedGroup = {
@@ -103,7 +107,6 @@ export function parseGatewayData(gatewayId: string, rawGroups: { group: string; 
             };
 
             // Build the display object
-            const AUTOFILL_KEYS = new Set(['number', 'name', 'csc', 'exp']);
             const display: Record<string, unknown> = {};
             Object.keys(item).forEach((key) => {
                 if (key !== 'network' && key !== 'id') {
@@ -119,7 +122,6 @@ export function parseGatewayData(gatewayId: string, rawGroups: { group: string; 
             }
 
             // Compute stable card ID: hash of resolved prefill fields + sorted extra fields
-            const AUTOFILL_KEY_SET = new Set(['number', 'name', 'csc', 'exp', 'network', 'id']);
             const extraParts = Object.keys(item)
                 .filter(k => !AUTOFILL_KEY_SET.has(k))
                 .sort()
@@ -134,10 +136,7 @@ export function parseGatewayData(gatewayId: string, rawGroups: { group: string; 
 
             // Compute search content
             const networkNames = networksArr
-                .map(networkId => {
-                    const networkInfo = networksList.find(net => net.id === networkId);
-                    return networkInfo?.names?.join(" ") ?? "";
-                })
+                .map(networkId => networkMap.get(networkId)?.names?.join(" ") ?? "")
                 .join(" ");
             let search = `${group.group} ${networkNames} `;
             Object.entries(display).forEach(([key, val]) => {

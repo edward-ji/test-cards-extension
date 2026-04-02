@@ -24,7 +24,7 @@
   } = $props();
 
   const nets = $derived(Array.isArray(card.network) ? card.network : [card.network]);
-  const isHidden = $derived(isSearchable && !card.search.includes(searchQuery.toLowerCase()));
+  const isHidden = $derived(isSearchable && !card.search.includes(searchQuery));
 
   const STANDARD_KEYS = new Set(['number', 'exp', 'csc', 'name']);
   const extraEntries = $derived(
@@ -38,6 +38,15 @@
     { key: 'csc', label: 'CSC' },
     { key: 'name', label: 'Name' },
   ] as const;
+
+  function onCopyKeydown(copyFn: () => void) {
+    return (e: KeyboardEvent) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        copyFn();
+      }
+    };
+  }
 </script>
 
 <div
@@ -62,7 +71,9 @@
   <!-- Column 2: card content -->
   <div class="card-content">
     {#if card.display['number'] != null && card.display['number'] !== ''}
-      <div class="card-number copyable" role="button" tabindex="0" onclick={() => onCopy(String(card.display['number']))} onkeydown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onCopy(String(card.display['number'])); } }}>
+      <div class="card-number copyable" role="button" tabindex="0"
+        onclick={() => onCopy(String(card.display['number']))}
+        onkeydown={onCopyKeydown(() => onCopy(String(card.display['number'])))}>
         {card.display['number']}
       </div>
     {/if}
@@ -73,7 +84,10 @@
           {#if card.display[key] != null && card.display[key] !== ''}
             <div class="card-field" class:card-field--name={key === 'name'}>
               <span class="field-label">{label}</span>
-              <span class="field-value copyable" role="button" tabindex="0" onclick={() => onCopy(String(card.display[key]))} onkeydown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onCopy(String(card.display[key])); } }}>{card.display[key]}</span>
+              <span class="field-value copyable" role="button" tabindex="0"
+                onclick={() => onCopy(String(card.display[key]))}
+                onkeydown={onCopyKeydown(() => onCopy(String(card.display[key])))}
+              >{card.display[key]}</span>
             </div>
           {/if}
         {/each}
@@ -83,7 +97,11 @@
     {#if extraEntries.length > 0}
       <div class="card-extras">
         {#each extraEntries as [key, val] (key)}
-          <span class="card-badge copyable" role="button" tabindex="0" title={typeof val === 'boolean' ? undefined : key.charAt(0).toUpperCase() + key.slice(1)} onclick={() => onCopy(typeof val === 'boolean' ? key : String(val))} onkeydown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onCopy(typeof val === 'boolean' ? key : String(val)); } }}>
+          {@const copyVal = typeof val === 'boolean' ? key : String(val)}
+          <span class="card-badge copyable" role="button" tabindex="0"
+            title={typeof val === 'boolean' ? undefined : key.charAt(0).toUpperCase() + key.slice(1)}
+            onclick={() => onCopy(copyVal)}
+            onkeydown={onCopyKeydown(() => onCopy(copyVal))}>
             {typeof val === 'boolean' ? key : val}
           </span>
         {/each}

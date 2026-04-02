@@ -21,6 +21,7 @@
 
   // Derived
   const currentGateway = $derived(gateways.find(g => g.id === currentGatewayId));
+  const searchQueryLower = $derived(searchQuery.toLowerCase());
   const favCards = $derived(
     cards.flatMap(g => g.items.filter((c: Card) => favourites.includes(c.id)))
   );
@@ -42,11 +43,12 @@
   });
 
   onMount(async () => {
-    const [storedFavs, storedTheme, gatewayData, networkData] = await Promise.all([
+    const [storedFavs, storedTheme, gatewayData, networkData, savedGateway] = await Promise.all([
       getFromStorage<string[]>(FAVOURITES_LIST),
       getFromStorage<ThemeMode>(COLOR_SCHEME),
       loadFromFile<{ id: string; name: string; docsLink?: string }[]>('data/gateways.json'),
       loadFromFile<NetworkInfo[]>('data/networks.json'),
+      getFromStorage<string>(SELECTED_GATEWAY),
     ]);
 
     favourites = storedFavs ?? [];
@@ -54,7 +56,6 @@
     gateways = gatewayData ?? [];
     networks = networkData ?? [];
 
-    const savedGateway = await getFromStorage<string>(SELECTED_GATEWAY);
     if (savedGateway && gateways.find(g => g.id === savedGateway)) {
       currentGatewayId = savedGateway;
     }
@@ -188,7 +189,7 @@
               {networks}
               isFav={true}
               isSearchable={false}
-              {searchQuery}
+              searchQuery={searchQueryLower}
               onFav={addFavourite}
               onUnfav={removeFavourite}
               onCopy={handleCopy}
@@ -203,7 +204,7 @@
 
     <!-- Card group sections -->
     {#each nonFavGroups as group (group.group)}
-      {@const anyVisible = group.items.some((c: Card) => c.search.includes(searchQuery.toLowerCase()))}
+      {@const anyVisible = group.items.some((c: Card) => c.search.includes(searchQueryLower))}
       <div class="cards-section" style:display={anyVisible ? '' : 'none'}>
         <h3 class="section-title">{group.group}</h3>
         {#each group.items as card (card.id)}
@@ -212,7 +213,7 @@
             {networks}
             isFav={false}
             isSearchable={true}
-            {searchQuery}
+            searchQuery={searchQueryLower}
             onFav={addFavourite}
             onUnfav={removeFavourite}
             onCopy={handleCopy}
