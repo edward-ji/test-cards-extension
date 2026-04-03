@@ -4,30 +4,58 @@
     "items": [
       {
         "number": "4000 0000 0000 1000",
-        "exp": null,
-        "csc": null,
-        "name": null,
+        "exp": true,
+        "csc": true,
+        "name": "AUTHORISED",
+        "network": "visa"
+      },
+      {
+        "number": "4000 0000 0000 1000",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED",
         "network": "visa"
       },
       {
         "number": "5200 0000 0000 1005",
-        "exp": null,
-        "csc": null,
-        "name": null,
+        "exp": true,
+        "csc": true,
+        "name": "AUTHORISED",
+        "network": "mc"
+      },
+      {
+        "number": "5200 0000 0000 1005",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED",
         "network": "mc"
       },
       {
         "number": "3400 0000 0001 007",
-        "exp": null,
-        "csc": null,
-        "name": null,
+        "exp": true,
+        "csc": true,
+        "name": "AUTHORISED",
+        "network": "amex"
+      },
+      {
+        "number": "3400 0000 0001 007",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED",
         "network": "amex"
       },
       {
         "number": "6200 0100 0020 0000",
-        "exp": null,
-        "csc": null,
-        "name": null,
+        "exp": true,
+        "csc": true,
+        "name": "AUTHORISED",
+        "network": "cup"
+      },
+      {
+        "number": "6200 0100 0020 0000",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED",
         "network": "cup"
       }
     ]
@@ -37,30 +65,58 @@
     "items": [
       {
         "number": "4000 0000 0000 1018",
-        "exp": null,
-        "csc": null,
-        "name": null,
+        "exp": true,
+        "csc": true,
+        "name": "AUTHORISED",
+        "network": "visa"
+      },
+      {
+        "number": "4000 0000 0000 1018",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED",
         "network": "visa"
       },
       {
         "number": "5200 0000 0000 1013",
-        "exp": null,
-        "csc": null,
-        "name": null,
+        "exp": true,
+        "csc": true,
+        "name": "AUTHORISED",
+        "network": "mc"
+      },
+      {
+        "number": "5200 0000 0000 1013",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED",
         "network": "mc"
       },
       {
         "number": "3400 0000 0001 015",
-        "exp": null,
-        "csc": null,
-        "name": null,
+        "exp": true,
+        "csc": true,
+        "name": "AUTHORISED",
+        "network": "amex"
+      },
+      {
+        "number": "3400 0000 0001 015",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED",
         "network": "amex"
       },
       {
         "number": "6200 0100 0010 0010",
-        "exp": null,
-        "csc": null,
-        "name": null,
+        "exp": true,
+        "csc": true,
+        "name": "AUTHORISED",
+        "network": "cup"
+      },
+      {
+        "number": "6200 0100 0010 0010",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED",
         "network": "cup"
       }
     ]
@@ -70,30 +126,58 @@
     "items": [
       {
         "number": "4000 0000 0000 1026",
-        "exp": null,
-        "csc": null,
-        "name": null,
+        "exp": true,
+        "csc": true,
+        "name": "AUTHORISED",
+        "network": "visa"
+      },
+      {
+        "number": "4000 0000 0000 1026",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED",
         "network": "visa"
       },
       {
         "number": "5200 0000 0000 1021",
-        "exp": null,
-        "csc": null,
-        "name": null,
+        "exp": true,
+        "csc": true,
+        "name": "AUTHORISED",
+        "network": "mc"
+      },
+      {
+        "number": "5200 0000 0000 1021",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED",
         "network": "mc"
       },
       {
         "number": "3400 0000 0001 023",
-        "exp": null,
-        "csc": null,
-        "name": null,
+        "exp": true,
+        "csc": true,
+        "name": "AUTHORISED",
+        "network": "amex"
+      },
+      {
+        "number": "3400 0000 0001 023",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED",
         "network": "amex"
       },
       {
         "number": "6200 0100 0000 0020",
-        "exp": null,
-        "csc": null,
-        "name": null,
+        "exp": true,
+        "csc": true,
+        "name": "AUTHORISED",
+        "network": "cup"
+      },
+      {
+        "number": "6200 0100 0000 0020",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED",
         "network": "cup"
       }
     ]
@@ -103,30 +187,58 @@
     "items": [
       {
         "number": "4000 0000 0000 1034",
-        "exp": null,
-        "csc": null,
-        "name": null,
+        "exp": true,
+        "csc": true,
+        "name": "AUTHORISED",
+        "network": "visa"
+      },
+      {
+        "number": "4000 0000 0000 1034",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED",
         "network": "visa"
       },
       {
         "number": "5200 0000 0000 1039",
-        "exp": null,
-        "csc": null,
-        "name": null,
+        "exp": true,
+        "csc": true,
+        "name": "AUTHORISED",
+        "network": "mc"
+      },
+      {
+        "number": "5200 0000 0000 1039",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED",
         "network": "mc"
       },
       {
         "number": "3400 0000 0001 031",
-        "exp": null,
-        "csc": null,
-        "name": null,
+        "exp": true,
+        "csc": true,
+        "name": "AUTHORISED",
+        "network": "amex"
+      },
+      {
+        "number": "3400 0000 0001 031",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED",
         "network": "amex"
       },
       {
         "number": "6200 0100 0040 0030",
-        "exp": null,
-        "csc": null,
-        "name": null,
+        "exp": true,
+        "csc": true,
+        "name": "AUTHORISED",
+        "network": "cup"
+      },
+      {
+        "number": "6200 0100 0040 0030",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED",
         "network": "cup"
       }
     ]
@@ -136,30 +248,58 @@
     "items": [
       {
         "number": "4000 0000 0000 1042",
-        "exp": null,
-        "csc": null,
-        "name": null,
+        "exp": true,
+        "csc": true,
+        "name": "AUTHORISED",
+        "network": "visa"
+      },
+      {
+        "number": "4000 0000 0000 1042",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED",
         "network": "visa"
       },
       {
         "number": "5200 0000 0000 1047",
-        "exp": null,
-        "csc": null,
-        "name": null,
+        "exp": true,
+        "csc": true,
+        "name": "AUTHORISED",
+        "network": "mc"
+      },
+      {
+        "number": "5200 0000 0000 1047",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED",
         "network": "mc"
       },
       {
         "number": "3400 0000 0001 049",
-        "exp": null,
-        "csc": null,
-        "name": null,
+        "exp": true,
+        "csc": true,
+        "name": "AUTHORISED",
+        "network": "amex"
+      },
+      {
+        "number": "3400 0000 0001 049",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED",
         "network": "amex"
       },
       {
         "number": "6200 0100 0030 0040",
-        "exp": null,
-        "csc": null,
-        "name": null,
+        "exp": true,
+        "csc": true,
+        "name": "AUTHORISED",
+        "network": "cup"
+      },
+      {
+        "number": "6200 0100 0030 0040",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED",
         "network": "cup"
       }
     ]
@@ -169,30 +309,58 @@
     "items": [
       {
         "number": "4000 0000 0000 1059",
-        "exp": null,
-        "csc": null,
-        "name": null,
+        "exp": true,
+        "csc": true,
+        "name": "AUTHORISED",
+        "network": "visa"
+      },
+      {
+        "number": "4000 0000 0000 1059",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED",
         "network": "visa"
       },
       {
         "number": "5200 0000 0000 1054",
-        "exp": null,
-        "csc": null,
-        "name": null,
+        "exp": true,
+        "csc": true,
+        "name": "AUTHORISED",
+        "network": "mc"
+      },
+      {
+        "number": "5200 0000 0000 1054",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED",
         "network": "mc"
       },
       {
         "number": "3400 0000 0001 056",
-        "exp": null,
-        "csc": null,
-        "name": null,
+        "exp": true,
+        "csc": true,
+        "name": "AUTHORISED",
+        "network": "amex"
+      },
+      {
+        "number": "3400 0000 0001 056",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED",
         "network": "amex"
       },
       {
         "number": "6200 0100 0060 0050",
-        "exp": null,
-        "csc": null,
-        "name": null,
+        "exp": true,
+        "csc": true,
+        "name": "AUTHORISED",
+        "network": "cup"
+      },
+      {
+        "number": "6200 0100 0060 0050",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED",
         "network": "cup"
       }
     ]
@@ -202,30 +370,58 @@
     "items": [
       {
         "number": "4000 0000 0000 1067",
-        "exp": null,
-        "csc": null,
-        "name": null,
+        "exp": true,
+        "csc": true,
+        "name": "AUTHORISED",
+        "network": "visa"
+      },
+      {
+        "number": "4000 0000 0000 1067",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED",
         "network": "visa"
       },
       {
         "number": "5200 0000 0000 1062",
-        "exp": null,
-        "csc": null,
-        "name": null,
+        "exp": true,
+        "csc": true,
+        "name": "AUTHORISED",
+        "network": "mc"
+      },
+      {
+        "number": "5200 0000 0000 1062",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED",
         "network": "mc"
       },
       {
         "number": "3400 0000 0001 064",
-        "exp": null,
-        "csc": null,
-        "name": null,
+        "exp": true,
+        "csc": true,
+        "name": "AUTHORISED",
+        "network": "amex"
+      },
+      {
+        "number": "3400 0000 0001 064",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED",
         "network": "amex"
       },
       {
         "number": "6200 0100 0050 0060",
-        "exp": null,
-        "csc": null,
-        "name": null,
+        "exp": true,
+        "csc": true,
+        "name": "AUTHORISED",
+        "network": "cup"
+      },
+      {
+        "number": "6200 0100 0050 0060",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED",
         "network": "cup"
       }
     ]
@@ -235,30 +431,58 @@
     "items": [
       {
         "number": "4000 0000 0000 1075",
-        "exp": null,
-        "csc": null,
-        "name": null,
+        "exp": true,
+        "csc": true,
+        "name": "AUTHORISED",
+        "network": "visa"
+      },
+      {
+        "number": "4000 0000 0000 1075",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED",
         "network": "visa"
       },
       {
         "number": "5200 0000 0000 1070",
-        "exp": null,
-        "csc": null,
-        "name": null,
+        "exp": true,
+        "csc": true,
+        "name": "AUTHORISED",
+        "network": "mc"
+      },
+      {
+        "number": "5200 0000 0000 1070",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED",
         "network": "mc"
       },
       {
         "number": "3400 0000 0001 072",
-        "exp": null,
-        "csc": null,
-        "name": null,
+        "exp": true,
+        "csc": true,
+        "name": "AUTHORISED",
+        "network": "amex"
+      },
+      {
+        "number": "3400 0000 0001 072",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED",
         "network": "amex"
       },
       {
         "number": "6200 0100 0090 0070",
-        "exp": null,
-        "csc": null,
-        "name": null,
+        "exp": true,
+        "csc": true,
+        "name": "AUTHORISED",
+        "network": "cup"
+      },
+      {
+        "number": "6200 0100 0090 0070",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED",
         "network": "cup"
       }
     ]
@@ -268,30 +492,58 @@
     "items": [
       {
         "number": "4000 0000 0000 1083",
-        "exp": null,
-        "csc": null,
-        "name": null,
+        "exp": true,
+        "csc": true,
+        "name": "AUTHORISED",
+        "network": "visa"
+      },
+      {
+        "number": "4000 0000 0000 1083",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED",
         "network": "visa"
       },
       {
         "number": "5200 0000 0000 1088",
-        "exp": null,
-        "csc": null,
-        "name": null,
+        "exp": true,
+        "csc": true,
+        "name": "AUTHORISED",
+        "network": "mc"
+      },
+      {
+        "number": "5200 0000 0000 1088",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED",
         "network": "mc"
       },
       {
         "number": "3400 0000 0001 080",
-        "exp": null,
-        "csc": null,
-        "name": null,
+        "exp": true,
+        "csc": true,
+        "name": "AUTHORISED",
+        "network": "amex"
+      },
+      {
+        "number": "3400 0000 0001 080",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED",
         "network": "amex"
       },
       {
         "number": "6200 0100 0080 0080",
-        "exp": null,
-        "csc": null,
-        "name": null,
+        "exp": true,
+        "csc": true,
+        "name": "AUTHORISED",
+        "network": "cup"
+      },
+      {
+        "number": "6200 0100 0080 0080",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED",
         "network": "cup"
       }
     ]
@@ -301,23 +553,44 @@
     "items": [
       {
         "number": "4000 0000 0000 1091",
-        "exp": null,
-        "csc": null,
-        "name": null,
+        "exp": true,
+        "csc": true,
+        "name": "AUTHORISED",
+        "network": "visa"
+      },
+      {
+        "number": "4000 0000 0000 1091",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED",
         "network": "visa"
       },
       {
         "number": "5200 0000 0000 1096",
-        "exp": null,
-        "csc": null,
-        "name": null,
+        "exp": true,
+        "csc": true,
+        "name": "AUTHORISED",
+        "network": "mc"
+      },
+      {
+        "number": "5200 0000 0000 1096",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED",
         "network": "mc"
       },
       {
         "number": "3400 0000 0001 098",
-        "exp": null,
-        "csc": null,
-        "name": null,
+        "exp": true,
+        "csc": true,
+        "name": "AUTHORISED",
+        "network": "amex"
+      },
+      {
+        "number": "3400 0000 0001 098",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED",
         "network": "amex"
       }
     ]
@@ -327,23 +600,44 @@
     "items": [
       {
         "number": "4000 0000 0000 1109",
-        "exp": null,
-        "csc": null,
-        "name": null,
+        "exp": true,
+        "csc": true,
+        "name": "AUTHORISED",
+        "network": "visa"
+      },
+      {
+        "number": "4000 0000 0000 1109",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED",
         "network": "visa"
       },
       {
         "number": "5200 0000 0000 1104",
-        "exp": null,
-        "csc": null,
-        "name": null,
+        "exp": true,
+        "csc": true,
+        "name": "AUTHORISED",
+        "network": "mc"
+      },
+      {
+        "number": "5200 0000 0000 1104",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED",
         "network": "mc"
       },
       {
         "number": "3400 0000 0001 106",
-        "exp": null,
-        "csc": null,
-        "name": null,
+        "exp": true,
+        "csc": true,
+        "name": "AUTHORISED",
+        "network": "amex"
+      },
+      {
+        "number": "3400 0000 0001 106",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED",
         "network": "amex"
       }
     ]
@@ -353,23 +647,44 @@
     "items": [
       {
         "number": "4000 0000 0000 1117",
-        "exp": null,
-        "csc": null,
-        "name": null,
+        "exp": true,
+        "csc": true,
+        "name": "AUTHORISED",
+        "network": "visa"
+      },
+      {
+        "number": "4000 0000 0000 1117",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED",
         "network": "visa"
       },
       {
         "number": "5200 0000 0000 1112",
-        "exp": null,
-        "csc": null,
-        "name": null,
+        "exp": true,
+        "csc": true,
+        "name": "AUTHORISED",
+        "network": "mc"
+      },
+      {
+        "number": "5200 0000 0000 1112",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED",
         "network": "mc"
       },
       {
         "number": "3400 0000 0001 114",
-        "exp": null,
-        "csc": null,
-        "name": null,
+        "exp": true,
+        "csc": true,
+        "name": "AUTHORISED",
+        "network": "amex"
+      },
+      {
+        "number": "3400 0000 0001 114",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED",
         "network": "amex"
       }
     ]
@@ -379,23 +694,44 @@
     "items": [
       {
         "number": "4000 0000 0000 1125",
-        "exp": null,
-        "csc": null,
-        "name": null,
+        "exp": true,
+        "csc": true,
+        "name": "AUTHORISED",
+        "network": "visa"
+      },
+      {
+        "number": "4000 0000 0000 1125",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED",
         "network": "visa"
       },
       {
         "number": "5200 0000 0000 1120",
-        "exp": null,
-        "csc": null,
-        "name": null,
+        "exp": true,
+        "csc": true,
+        "name": "AUTHORISED",
+        "network": "mc"
+      },
+      {
+        "number": "5200 0000 0000 1120",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED",
         "network": "mc"
       },
       {
         "number": "3400 0000 0001 122",
-        "exp": null,
-        "csc": null,
-        "name": null,
+        "exp": true,
+        "csc": true,
+        "name": "AUTHORISED",
+        "network": "amex"
+      },
+      {
+        "number": "3400 0000 0001 122",
+        "exp": true,
+        "csc": true,
+        "name": "REFUSED",
         "network": "amex"
       }
     ]
