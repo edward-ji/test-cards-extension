@@ -122,3 +122,175 @@
     </button>
   </div>
 </div>
+<style>
+  .card-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 8px;
+  }
+
+  /* ── Left column: logos stacked vertically ─ */
+  .card-logos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    flex-shrink: 0;
+  }
+
+  .network-icon {
+    height: 20px;
+    width: 36px;
+    object-fit: contain;
+  }
+
+  /* ── Right column: content ───────────────── */
+  .card-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  /* ── Column 3: action buttons ────────────── */
+  .card-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .fav-icon,
+  .unfav-icon {
+    width: 15px;
+    height: 15px;
+    background-size: cover;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .fav-icon {
+    background-image: var(--star-empty-url);
+  }
+
+  .fav-icon:hover {
+    background-image: var(--star-filled-url);
+  }
+
+  .unfav-icon {
+    background-image: var(--star-filled-url);
+  }
+
+  .unfav-icon:hover {
+    background-image: var(--star-empty-url);
+  }
+
+  .fill-column {
+    cursor: pointer;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    border: none;
+    background: none;
+  }
+
+  .action-icon {
+    width: 15px;
+    height: 15px;
+  }
+
+  /* ── Card number ─────────────────────────── */
+  .card-number {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    padding: 2px 4px;
+    margin: 0 -4px;
+    border-radius: 4px;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .card-number:hover {
+    background: var(--row-hover);
+  }
+
+  /* ── Standard fields (exp, csc, name) ────── */
+  .card-fields {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 12px;
+  }
+
+  .card-field {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+  }
+
+  .field-label {
+    font-size: 9px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    user-select: none;
+  }
+
+  .field-value {
+    font-size: 12px;
+    padding: 1px 3px;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+
+  .field-value:hover {
+    background: var(--row-hover);
+  }
+
+  .card-field--name {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .card-field--name .field-value {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* ── Extra fields (country, flags, etc.) ─── */
+  .card-extras {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .card-badge {
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 10px;
+    background: var(--badge-bg);
+    color: var(--badge-text);
+    line-height: 1.5;
+  }
+
+  .card-badge.copyable {
+    cursor: pointer;
+  }
+
+  .card-badge.copyable:hover {
+    filter: brightness(0.92);
+  }
+</style>

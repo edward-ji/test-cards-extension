@@ -231,3 +231,103 @@
     {/each}
   </div>
 </main>
+<style>
+  a {
+    color: var(--link);
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  /* ── Header ──────────────────────────────── */
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--header-bg);
+    color: var(--text);
+    padding: 10px;
+    text-align: center;
+    z-index: 100;
+  }
+
+  main {
+    margin-top: 25px;
+  }
+
+  /* ── Top controls ────────────────────────── */
+  .header-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    gap: 10px;
+  }
+
+  .gateway-select,
+  .search-input {
+    box-sizing: border-box;
+    padding: 8px 12px;
+    font-size: 13px;
+    border: 1px solid var(--input-border);
+    border-radius: 6px;
+    outline: none;
+    font-family: inherit;
+    background-color: var(--input-bg);
+    color: var(--input-text);
+  }
+
+  .gateway-select {
+    flex: 1;
+  }
+
+  .search-container {
+    flex: 2;
+  }
+
+  .search-input {
+    width: 100%;
+  }
+
+  .settings-button {
+    background: none;
+    border: 1px solid var(--input-border);
+    border-radius: 6px;
+    padding: 8px 10px;
+    cursor: pointer;
+    color: var(--text);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+  }
+
+  .settings-button:hover {
+    background: var(--row-hover);
+    border-color: var(--text-muted);
+  }
+
+  /* ── Section ─────────────────────────────── */
+  .cards-section {
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text);
+    opacity: 0.6;
+    margin: 0 0 6px 2px;
+    padding: 0;
+  }
+
+  /* ── Favourites empty state ──────────────── */
+  .empty-favs {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin: 4px 0 0;
+  }
+</style>
