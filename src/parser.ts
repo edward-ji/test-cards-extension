@@ -18,7 +18,7 @@ export interface PrefillData {
 
 export interface Card {
     id: string;
-    network: string | string[];
+    network: string[];
     prefill: PrefillData;
     display: Record<string, unknown>;
     search: string;

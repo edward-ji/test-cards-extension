@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import type { PublicPath } from 'wxt/browser';
   import { parseGatewayData, type NetworkInfo, type Card, type ParsedGroup, type RawCardItem, type PrefillData } from '../../parser';
   import CardItem from './CardItem.svelte';
   import Settings from './Settings.svelte';
@@ -48,8 +49,8 @@
     const [storedFavs, storedTheme, gatewayData, networkData, savedGateway] = await Promise.all([
       getFromStorage<string[]>(FAVOURITES_LIST),
       getFromStorage<ThemeMode>(COLOR_SCHEME),
-      loadFromFile<{ id: string; name: string; docsLink?: string }[]>('data/gateways.json'),
-      loadFromFile<NetworkInfo[]>('data/networks.json'),
+      loadFromFile<{ id: string; name: string; docsLink?: string }[]>('/data/gateways.json'),
+      loadFromFile<NetworkInfo[]>('/data/networks.json'),
       getFromStorage<string>(SELECTED_GATEWAY),
     ]);
 
@@ -66,7 +67,7 @@
   });
 
   async function loadDataForGateway(gatewayId: string) {
-    const rawCards = await loadFromFile<{ group: string; items: RawCardItem[] }[]>(`data/${gatewayId}.json`);
+    const rawCards = await loadFromFile<{ group: string; items: RawCardItem[] }[]>(`/data/${gatewayId}.json` as PublicPath);
     cards = parseGatewayData(gatewayId, rawCards ?? [], networks);
   }
 
@@ -101,7 +102,7 @@
         browser.scripting.executeScript({
           target: { tabId: activeTab.id!, frameIds: [frame.frameId] },
           func: prefillCardComponent,
-          args: [prefill.number ?? null, prefill.exp ?? null, prefill.csc ?? null, prefill.name ?? null],
+          args: [prefill.number, prefill.exp, prefill.csc, prefill.name],
         }).catch(() => {});
       });
     }
@@ -116,7 +117,7 @@
     return result[name] as T | undefined;
   }
 
-  async function loadFromFile<T>(filename: string): Promise<T | undefined> {
+  async function loadFromFile<T>(filename: PublicPath): Promise<T | undefined> {
     try {
       const res = await fetch(browser.runtime.getURL(filename));
       return await res.json() as T;
