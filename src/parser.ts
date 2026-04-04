@@ -112,13 +112,10 @@ export function parseGatewayData(gatewayId: string, rawGroups: { group: string; 
                     const val = item[key];
                     // For autofill fields, only display explicit non-empty string values
                     if (AUTOFILL_KEYS.has(key) && (typeof val !== 'string' || val === '')) return;
-                    display[key] = val;
+                    // For exp, show the resolved date (e.g. +3Y → MM/YY) rather than the raw shorthand
+                    display[key] = key === 'exp' ? resolvedExp : val;
                 }
             });
-            // Display resolved date only if exp was an explicit string
-            if ('exp' in item && typeof item.exp === 'string' && item.exp !== '') {
-                display.exp = resolvedExp;
-            }
 
             // Compute stable card ID: hash of resolved prefill fields + sorted extra fields
             const extraParts = Object.keys(item)
