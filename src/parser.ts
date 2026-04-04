@@ -52,6 +52,17 @@ function hashCard(parts: string[]): string {
     return h.toString(16).padStart(8, '0').slice(-6);
 }
 
+// Resolves a +XY shorthand (e.g. "+3Y") to an MM/YY expiry string, or passes through as-is.
+function resolveExpiry(raw: string): string {
+    const match = /^\+(\d+)Y$/.exec(raw);
+    if (!match) return raw;
+    const years = parseInt(match[1], 10);
+    const date = new Date();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = String(date.getFullYear() + years).slice(-2);
+    return `${month}/${year}`;
+}
+
 // Resolves a raw autofill field value into a prefill string or undefined.
 // - null/undefined: skip autofill
 // - false or "": explicitly clear the field
@@ -85,19 +96,7 @@ export function parseGatewayData(gatewayId: string, rawGroups: { group: string; 
 
             // Resolve expiry: apply +XY shorthand if present
             const rawExp = resolveField(item.exp, "+3Y");
-            let resolvedExp: string | undefined;
-            if (rawExp !== undefined) {
-                const expMatch = /^\+(\d+)Y$/.exec(rawExp);
-                if (expMatch) {
-                    const years = parseInt(expMatch[1], 10);
-                    const date = new Date();
-                    const month = String(date.getMonth() + 1).padStart(2, '0');
-                    const year = String(date.getFullYear() + years).slice(-2);
-                    resolvedExp = `${month}/${year}`;
-                } else {
-                    resolvedExp = rawExp;
-                }
-            }
+            const resolvedExp = rawExp !== undefined ? resolveExpiry(rawExp) : undefined;
 
             const prefill: PrefillData = {
                 number: resolveField(item.number, undefined),
