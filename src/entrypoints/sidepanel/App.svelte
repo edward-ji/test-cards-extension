@@ -112,6 +112,9 @@
         }).catch(() => {});
       });
     }
+    copyMessage = 'Filled';
+    clearTimeout(copyTimerId);
+    copyTimerId = setTimeout(() => { copyMessage = ''; }, 2000);
   }
 
   async function setInStorage(name: string, value: unknown) {
