@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import { fade } from 'svelte/transition';
   import type { PublicPath } from 'wxt/browser';
   import { parseGatewayData, type NetworkInfo, type Card, type ParsedGroup, type RawCardItem, type PrefillData } from '../../parser';
 
@@ -93,7 +94,7 @@
   let copyTimerId: ReturnType<typeof setTimeout> | undefined;
   function handleCopy(text: string) {
     navigator.clipboard.writeText(text);
-    copyMessage = 'Copied ✅';
+    copyMessage = 'Copied';
     clearTimeout(copyTimerId);
     copyTimerId = setTimeout(() => { copyMessage = ''; }, 2000);
   }
@@ -145,7 +146,6 @@
   }
 </script>
 
-<header id="header">{copyMessage}</header>
 <main class="content">
   <div class="header-controls">
     <select
@@ -237,6 +237,12 @@
       </div>
     {/each}
   </div>
+
+  {#if copyMessage}
+    <div class="copy-toast" transition:fade={{ duration: 200 }}>
+      {copyMessage}
+    </div>
+  {/if}
 </main>
 <style>
   a {
@@ -245,21 +251,21 @@
     text-decoration: none;
   }
 
-  /* ── Header ──────────────────────────────── */
-  header {
+  /* ── Copy toast ──────────────────────────── */
+  .copy-toast {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    background-color: var(--header-bg);
-    color: var(--text);
-    padding: 10px;
-    text-align: center;
-    z-index: 100;
-  }
-
-  main {
-    margin-top: 25px;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--text);
+    color: var(--bg);
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    z-index: 200;
+    pointer-events: none;
+    white-space: nowrap;
   }
 
   /* ── Top controls ────────────────────────── */

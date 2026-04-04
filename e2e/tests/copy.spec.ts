@@ -44,13 +44,13 @@ test.describe('copy', () => {
 
     test('copied message appears', async ({ page }) => {
         await page.locator('text="4871 0499 9999 9910"').click();
-        await expect(page.locator('#header')).toContainText('Copied');
+        await expect(page.locator('.copy-toast')).toContainText('Copied');
     });
 
     test('copied message disappears', async ({ page }) => {
         await page.locator('text="4871 0499 9999 9910"').click();
-        await expect(page.locator('#header')).toContainText('Copied');
+        await expect(page.locator('.copy-toast')).toContainText('Copied');
         await page.waitForTimeout(2500);
-        await expect(page.locator('#header')).toBeEmpty();
+        await expect(page.locator('.copy-toast')).not.toBeAttached();
     });
 });
