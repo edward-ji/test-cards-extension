@@ -2,6 +2,7 @@
   import { onMount } from 'svelte';
   import { parseGatewayData, type NetworkInfo, type Card, type ParsedGroup, type RawCardItem, type PrefillData } from '../../parser';
   import CardItem from './CardItem.svelte';
+  import Settings from './Settings.svelte';
   import { prefillCardComponent } from './autofill';
 
   const FAVOURITES_LIST = 'favourites-list';
@@ -18,6 +19,7 @@
   let themeMode = $state<ThemeMode>('system');
   let copyMessage = $state('');
   let searchQuery = $state('');
+  let isSettingsOpen = $state(false);
 
   // Derived
   const currentGateway = $derived(gateways.find(g => g.id === currentGatewayId));
@@ -123,14 +125,16 @@
     }
   }
 
-  function themeLabel(mode: ThemeMode) {
-    return `${mode.charAt(0).toUpperCase()}${mode.slice(1)} theme`;
-  }
 
-  async function cycleTheme() {
-    const next: ThemeMode = themeMode === 'system' ? 'light' : themeMode === 'light' ? 'dark' : 'system';
+  async function updateTheme(next: ThemeMode) {
     themeMode = next;
     await setInStorage(COLOR_SCHEME, next);
+  }
+
+  async function handleGatewayChange(gatewayId: string) {
+    currentGatewayId = gatewayId;
+    await setInStorage(SELECTED_GATEWAY, currentGatewayId);
+    await loadDataForGateway(currentGatewayId);
   }
 </script>
 
@@ -141,11 +145,7 @@
       id="gatewaySelector"
       class="gateway-select"
       value={currentGatewayId}
-      onchange={async (e) => {
-        currentGatewayId = (e.target as HTMLSelectElement).value;
-        await setInStorage(SELECTED_GATEWAY, currentGatewayId);
-        await loadDataForGateway(currentGatewayId);
-      }}
+      onchange={(e) => handleGatewayChange((e.target as HTMLSelectElement).value)}
     >
       {#each gateways as gw (gw.id)}
         <option value={gw.id}>{gw.name}</option>
@@ -164,14 +164,21 @@
     </div>
 
     <button
-      id="themeToggle"
-      class="theme-toggle"
-      title={themeLabel(themeMode)}
-      onclick={cycleTheme}
+      id="settingsButton"
+      class="settings-button"
+      title="Open Settings"
+      onclick={() => isSettingsOpen = true}
     >
-      <img src={`/images/theme-${themeMode}.svg`} width="16" height="16" alt="" />
+      <img src="/images/settings.svg" width="18" height="18" alt="" class="icon-dark-invert" />
     </button>
   </div>
+
+  <Settings 
+    isOpen={isSettingsOpen}
+    themeMode={themeMode}
+    onClose={() => isSettingsOpen = false}
+    onThemeChange={updateTheme}
+  />
 
   <div>
     <p>You can find these cards <a id="docsLink" href={currentGateway?.docsLink ?? '#'} target="_blank">here</a>.</p>

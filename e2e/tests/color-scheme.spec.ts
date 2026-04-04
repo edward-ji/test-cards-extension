@@ -38,10 +38,9 @@ test.describe('color scheme - dark via toggle', () => {
 
     test('dark theme matches snapshot', async ({ page }) => {
         await expect(page.locator('#cards')).toContainText(READY_TEXT);
-        // Click toggle twice: system → light → dark
-        const toggle = page.locator('#themeToggle');
-        await toggle.click(); // system → light
-        await toggle.click(); // light → dark
+        await page.locator('#settingsButton').click();
+        await page.getByRole('button', { name: 'Dark' }).click();
+        await page.locator('button[title="Close"]').click();
         await expect(page).toHaveScreenshot('dark-toggle-adyen.png');
     });
 });

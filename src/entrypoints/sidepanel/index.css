@@ -12,6 +12,10 @@
   font-style: normal;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 :root {
   --bg: #ffffff;
   --text: #000000;
@@ -83,9 +87,11 @@ body {
   font-family: 'Inter', sans-serif;
   font-size: 12px;
   font-weight: normal;
-  margin: 4px;
+  margin: 0;
+  padding: 4px;
   background-color: var(--bg);
   color: var(--text);
+  overflow-x: hidden;
 }
 
 .hidden {
@@ -104,11 +110,12 @@ header {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
+  right: 0;
   background-color: var(--header-bg);
   color: var(--text);
   padding: 10px;
   text-align: center;
+  z-index: 100;
 }
 
 main {
@@ -150,7 +157,7 @@ main {
   width: 100%;
 }
 
-.theme-toggle {
+.settings-button {
   background: none;
   border: 1px solid var(--input-border);
   border-radius: 6px;
@@ -161,18 +168,82 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.settings-button:hover {
+  background: var(--row-hover);
+  border-color: var(--text-muted);
+}
+
+/* ── Icons & Themes ──────────────────────── */
+
+.icon-dark-invert {
+  filter: none;
 }
 
 @media (prefers-color-scheme: dark) {
-  .theme-toggle img { filter: invert(1); }
+  html:not([data-theme="light"]) .icon-dark-invert {
+    filter: invert(1);
+  }
 }
 
-html[data-theme="dark"] .theme-toggle img {
+html[data-theme="dark"] .icon-dark-invert {
   filter: invert(1);
 }
 
-html[data-theme="light"] .theme-toggle img {
-  filter: none;
+/* ── Scrollbars ──────────────────────────── */
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme="light"]) * {
+    scrollbar-color: #475569 transparent;
+  }
+}
+
+html[data-theme="dark"] * {
+  scrollbar-color: #475569 transparent;
+}
+
+/* Webkit (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme="light"]) ::-webkit-scrollbar-thumb {
+    background: #475569;
+  }
+  html:not([data-theme="light"]) ::-webkit-scrollbar-thumb:hover {
+    background: #64748b;
+  }
+}
+
+html[data-theme="dark"] ::-webkit-scrollbar-thumb {
+  background: #475569;
+}
+
+html[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
 }
 
 /* ── Section ─────────────────────────────── */
