@@ -2,6 +2,11 @@
   import { onMount } from 'svelte';
   import type { PublicPath } from 'wxt/browser';
   import { parseGatewayData, type NetworkInfo, type Card, type ParsedGroup, type RawCardItem, type PrefillData } from '../../parser';
+
+  type GatewayId<P extends PublicPath = PublicPath> = P extends `/data/cards/${infer Id}.json` ? Id : never;
+  function isGatewayId(value: string): value is GatewayId {
+    return gateways.some(g => g.id === value);
+  }
   import CardItem from './CardItem.svelte';
   import Settings from './Settings.svelte';
   import { prefillCardComponent } from './autofill';
@@ -13,7 +18,7 @@
 
   // State
   let gateways = $state<{ id: string; name: string; docsLink?: string }[]>([]);
-  let currentGatewayId = $state('adyen');
+  let currentGatewayId = $state<GatewayId>('adyen');
   let cards = $state<ParsedGroup[]>([]);
   let favourites = $state<string[]>([]);
   let networks = $state<NetworkInfo[]>([]);
@@ -59,15 +64,15 @@
     gateways = gatewayData ?? [];
     networks = networkData ?? [];
 
-    if (savedGateway && gateways.find(g => g.id === savedGateway)) {
+    if (savedGateway && isGatewayId(savedGateway)) {
       currentGatewayId = savedGateway;
     }
 
     await loadDataForGateway(currentGatewayId);
   });
 
-  async function loadDataForGateway(gatewayId: string) {
-    const rawCards = await loadFromFile<{ group: string; items: RawCardItem[] }[]>(`/data/${gatewayId}.json` as PublicPath);
+  async function loadDataForGateway(gatewayId: GatewayId) {
+    const rawCards = await loadFromFile<{ group: string; items: RawCardItem[] }[]>(`/data/cards/${gatewayId}.json`);
     cards = parseGatewayData(gatewayId, rawCards ?? [], networks);
   }
 
@@ -132,8 +137,9 @@
     await setInStorage(COLOR_SCHEME, next);
   }
 
-  async function handleGatewayChange(gatewayId: string) {
-    currentGatewayId = gatewayId;
+  async function handleGatewayChange(value: string) {
+    if (!isGatewayId(value)) return;
+    currentGatewayId = value;
     await setInStorage(SELECTED_GATEWAY, currentGatewayId);
     await loadDataForGateway(currentGatewayId);
   }

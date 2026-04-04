@@ -27,7 +27,7 @@ export default defineConfig({
     host_permissions: ['https://*/*', 'http://*/*'],
     web_accessible_resources: [
       {
-        resources: ['/data/*.json'],
+        resources: ['/data/**/*.json'],
         matches: ['https://*/*', 'http://*/*'],
       },
     ],
