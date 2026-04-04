@@ -39,7 +39,7 @@ export interface RawCardItem {
 }
 
 const AUTOFILL_KEYS = new Set(['number', 'name', 'csc', 'exp']);
-const AUTOFILL_KEY_SET = new Set(['number', 'name', 'csc', 'exp', 'network', 'id']);
+const DISPLAY_SKIP_KEYS = new Set([...AUTOFILL_KEYS, 'network', 'id']);
 
 // djb2 hash → 6-char lowercase hex string
 function hashCard(parts: string[]): string {
@@ -123,7 +123,7 @@ export function parseGatewayData(gatewayId: string, rawGroups: { group: string; 
 
             // Compute stable card ID: hash of resolved prefill fields + sorted extra fields
             const extraParts = Object.keys(item)
-                .filter(k => !AUTOFILL_KEY_SET.has(k))
+                .filter(k => !DISPLAY_SKIP_KEYS.has(k))
                 .sort()
                 .map(k => `${k}=${String(item[k])}`);
             const id = `${gatewayId}-${hashCard([
