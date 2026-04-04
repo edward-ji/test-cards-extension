@@ -151,18 +151,42 @@
 
 <main class="content">
   <div class="header-controls">
-    <select
-      id="gatewaySelector"
-      class="gateway-select"
-      value={currentGatewayId}
-      onchange={(e) => handleGatewayChange((e.target as HTMLSelectElement).value)}
-    >
-      {#each gateways as gw (gw.id)}
-        <option value={gw.id}>{gw.name}</option>
-      {/each}
-    </select>
+    <div class="controls-row controls-row--top">
+      <select
+        id="gatewaySelector"
+        class="gateway-select"
+        value={currentGatewayId}
+        onchange={(e) => handleGatewayChange((e.target as HTMLSelectElement).value)}
+      >
+        {#each gateways as gw (gw.id)}
+          <option value={gw.id}>{gw.name}</option>
+        {/each}
+      </select>
 
-    <div class="search-container">
+      {#if currentGateway?.docsLink}
+        <a
+          id="docsLink"
+          href={currentGateway.docsLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="icon-button"
+          title="Link to source"
+        >
+          <img src="/images/external-link.svg" width="18" height="18" alt="" class="icon-dark-invert" />
+        </a>
+      {/if}
+
+      <button
+        id="settingsButton"
+        class="icon-button"
+        title="Open Settings"
+        onclick={() => isSettingsOpen = true}
+      >
+        <img src="/images/settings.svg" width="18" height="18" alt="" class="icon-dark-invert" />
+      </button>
+    </div>
+
+    <div class="controls-row controls-row--bottom">
       <input
         id="search"
         class="search-input"
@@ -172,27 +196,14 @@
         bind:value={searchQuery}
       />
     </div>
-
-    <button
-      id="settingsButton"
-      class="settings-button"
-      title="Open Settings"
-      onclick={() => isSettingsOpen = true}
-    >
-      <img src="/images/settings.svg" width="18" height="18" alt="" class="icon-dark-invert" />
-    </button>
   </div>
 
-  <Settings 
+  <Settings
     isOpen={isSettingsOpen}
     themeMode={themeMode}
     onClose={() => isSettingsOpen = false}
     onThemeChange={updateTheme}
   />
-
-  <div>
-    <p>You can find these cards <a id="docsLink" href={currentGateway?.docsLink ?? '#'} target="_blank">here</a>.</p>
-  </div>
 
   <div id="cards">
     <!-- Favourites section -->
@@ -273,14 +284,42 @@
 
   /* ── Top controls ────────────────────────── */
   .header-controls {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: var(--bg);
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
-    gap: 10px;
+    flex-direction: column;
+    gap: 8px;
+    margin: -4px -4px 7px;
+    padding: 4px 4px 8px;
+    border-bottom: 1px solid var(--card-border);
   }
 
-  .gateway-select,
+  .controls-row--top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .controls-row--bottom {
+    display: flex;
+  }
+
+  .gateway-select {
+    box-sizing: border-box;
+    padding: 8px 12px;
+    font-size: 13px;
+    border: 1px solid var(--input-border);
+    border-radius: 6px;
+    outline: none;
+    font-family: inherit;
+    background-color: var(--input-bg);
+    color: var(--input-text);
+    flex: 1;
+    min-width: 0;
+  }
+
   .search-input {
     box-sizing: border-box;
     padding: 8px 12px;
@@ -291,21 +330,10 @@
     font-family: inherit;
     background-color: var(--input-bg);
     color: var(--input-text);
-  }
-
-  .gateway-select {
-    flex: 1;
-  }
-
-  .search-container {
-    flex: 2;
-  }
-
-  .search-input {
     width: 100%;
   }
 
-  .settings-button {
+  .icon-button {
     background: none;
     border: 1px solid var(--input-border);
     border-radius: 6px;
@@ -316,10 +344,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background 0.2s, color 0.2s, border-color 0.2s;
+    transition: background 0.2s, border-color 0.2s;
+    text-decoration: none;
   }
 
-  .settings-button:hover {
+  .icon-button:hover {
     background: var(--row-hover);
     border-color: var(--text-muted);
   }
