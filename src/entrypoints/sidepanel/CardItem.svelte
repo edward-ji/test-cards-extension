@@ -117,9 +117,7 @@
       <button type="button" class="fav-icon" title="Add to favourites" onclick={() => onFav(card.id)}></button>
     {/if}
 
-    <button type="button" class="fill-column" title="Autofill" onclick={() => onAutofill(card.prefill)}>
-      <img src="/images/autofill.svg" class="action-icon" alt="" />
-    </button>
+    <button type="button" class="fill-column" title="Autofill" onclick={() => onAutofill(card.prefill)}></button>
   </div>
 </div>
 <style>
@@ -192,18 +190,19 @@
   }
 
   .fill-column {
-    cursor: pointer;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    padding: 0;
-    border: none;
-    background: none;
-  }
-
-  .action-icon {
     width: 15px;
     height: 15px;
+    background-size: cover;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    flex-shrink: 0;
+    background-image: url('/images/autofill-inactive.svg');
+  }
+
+  .fill-column:hover {
+    background-image: url('/images/autofill.svg');
   }
 
   /* ── Card number ─────────────────────────── */
