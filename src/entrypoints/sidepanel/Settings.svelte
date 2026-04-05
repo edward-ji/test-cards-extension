@@ -6,11 +6,15 @@
   interface Props {
     isOpen: boolean;
     themeMode: ThemeMode;
+    showRecent: boolean;
+    recentLimit: number;
     onClose: () => void;
     onThemeChange: (theme: ThemeMode) => void;
+    onShowRecentChange: (value: boolean) => void;
+    onRecentLimitChange: (value: number) => void;
   }
 
-  let { isOpen, themeMode, onClose, onThemeChange }: Props = $props();
+  let { isOpen, themeMode, showRecent, recentLimit, onClose, onThemeChange, onShowRecentChange, onRecentLimitChange }: Props = $props();
 
   const manifest = browser.runtime.getManifest();
   const extensionName = $derived(manifest.name || "Test Cards");
@@ -71,6 +75,34 @@
                     class="icon-dark-invert"
                   />
                   <span>{themeLabel(mode as ThemeMode)}</span>
+                </button>
+              {/each}
+            </div>
+          </div>
+        </section>
+
+        <section class="settings-section">
+          <h3 class="section-label">Recent cards</h3>
+          <div class="setting-item">
+            <div class="setting-info">
+              <span class="setting-name">Cards to show</span>
+              <span class="setting-description">Show recently used cards at the top</span>
+            </div>
+            <div class="theme-options">
+              <button
+                class="theme-option"
+                class:active={!showRecent}
+                onclick={() => onShowRecentChange(false)}
+              >
+                <span>Off</span>
+              </button>
+              {#each [3, 5, 10] as n}
+                <button
+                  class="theme-option"
+                  class:active={showRecent && recentLimit === n}
+                  onclick={() => { onShowRecentChange(true); onRecentLimitChange(n); }}
+                >
+                  <span>{n}</span>
                 </button>
               {/each}
             </div>

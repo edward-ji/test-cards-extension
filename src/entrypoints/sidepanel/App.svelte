@@ -15,6 +15,9 @@
   const FAVOURITES_LIST = 'favourites-list';
   const SELECTED_GATEWAY = 'selected-gateway';
   const COLOR_SCHEME = 'color-scheme';
+  const RECENT_CARDS = 'recent-cards';
+  const SHOW_RECENT = 'show-recent';
+  const RECENT_LIMIT = 'recent-limit';
   type ThemeMode = 'light' | 'dark' | 'system';
 
   // State
@@ -27,6 +30,9 @@
   let copyMessage = $state('');
   let searchQuery = $state('');
   let isSettingsOpen = $state(false);
+  let recentCardIds = $state<string[]>([]);
+  let showRecent = $state(false);
+  let recentLimit = $state(5);
 
   // Derived
   const currentGateway = $derived(gateways.find(g => g.id === currentGatewayId));
@@ -38,6 +44,14 @@
     cards
       .map(g => ({ ...g, items: g.items.filter((c: Card) => !favourites.includes(c.id)) }))
       .filter(g => g.items.length > 0)
+  );
+  const allCurrentCards = $derived(cards.flatMap(g => g.items));
+  const recentCards = $derived(
+    !showRecent ? [] :
+    recentCardIds
+      .map(id => allCurrentCards.find((c: Card) => c.id === id))
+      .filter((c): c is Card => c !== undefined)
+      .slice(0, recentLimit)
   );
 
   // Sync theme attribute to documentElement
@@ -52,18 +66,24 @@
   });
 
   onMount(async () => {
-    const [storedFavs, storedTheme, gatewayData, networkData, savedGateway] = await Promise.all([
+    const [storedFavs, storedTheme, gatewayData, networkData, savedGateway, storedRecent, storedShowRecent, storedRecentLimit] = await Promise.all([
       getFromStorage<string[]>(FAVOURITES_LIST),
       getFromStorage<ThemeMode>(COLOR_SCHEME),
       loadFromFile<{ id: string; name: string; docsLink?: string }[]>('/data/gateways.json'),
       loadFromFile<NetworkInfo[]>('/data/networks.json'),
       getFromStorage<string>(SELECTED_GATEWAY),
+      getFromStorage<string[]>(RECENT_CARDS),
+      getFromStorage<boolean>(SHOW_RECENT),
+      getFromStorage<number>(RECENT_LIMIT),
     ]);
 
     favourites = storedFavs ?? [];
     themeMode = storedTheme ?? 'system';
     gateways = gatewayData ?? [];
     networks = networkData ?? [];
+    recentCardIds = storedRecent ?? [];
+    showRecent = storedShowRecent ?? false;
+    recentLimit = storedRecentLimit ?? 5;
 
     if (savedGateway && isGatewayId(savedGateway)) {
       currentGatewayId = savedGateway;
@@ -136,6 +156,22 @@
   }
 
 
+  async function trackRecent(cardId: string) {
+    const updated = [cardId, ...recentCardIds.filter(id => id !== cardId)];
+    await setInStorage(RECENT_CARDS, updated);
+    recentCardIds = updated;
+  }
+
+  async function updateShowRecent(value: boolean) {
+    await setInStorage(SHOW_RECENT, value);
+    showRecent = value;
+  }
+
+  async function updateRecentLimit(value: number) {
+    await setInStorage(RECENT_LIMIT, value);
+    recentLimit = value;
+  }
+
   async function updateTheme(next: ThemeMode) {
     themeMode = next;
     await setInStorage(COLOR_SCHEME, next);
@@ -201,8 +237,12 @@
   <Settings
     isOpen={isSettingsOpen}
     themeMode={themeMode}
+    showRecent={showRecent}
+    recentLimit={recentLimit}
     onClose={() => isSettingsOpen = false}
     onThemeChange={updateTheme}
+    onShowRecentChange={updateShowRecent}
+    onRecentLimitChange={updateRecentLimit}
   />
 
   <div id="cards">
@@ -222,6 +262,30 @@
               onUnfav={removeFavourite}
               onCopy={handleCopy}
               onAutofill={handleAutofill}
+              onInteract={trackRecent}
+            />
+          {/each}
+        </div>
+      </div>
+    {/if}
+
+    <!-- Recent section -->
+    {#if recentCards.length > 0}
+      <div class="cards-section">
+        <h3 class="section-title">Recent</h3>
+        <div id="tableRecentId">
+          {#each recentCards as card (card.id)}
+            <CardItem
+              {card}
+              {networks}
+              isFav={favourites.includes(card.id)}
+              isSearchable={false}
+              searchQuery={searchQueryLower}
+              onFav={addFavourite}
+              onUnfav={removeFavourite}
+              onCopy={handleCopy}
+              onAutofill={handleAutofill}
+              onInteract={trackRecent}
             />
           {/each}
         </div>
@@ -244,6 +308,7 @@
             onUnfav={removeFavourite}
             onCopy={handleCopy}
             onAutofill={handleAutofill}
+            onInteract={trackRecent}
           />
         {/each}
       </div>

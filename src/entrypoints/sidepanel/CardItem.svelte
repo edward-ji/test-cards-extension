@@ -11,6 +11,7 @@
     onUnfav,
     onCopy,
     onAutofill,
+    onInteract,
   }: {
     card: Card;
     networks: NetworkInfo[];
@@ -21,6 +22,7 @@
     onUnfav: (id: string) => Promise<void>;
     onCopy: (text: string) => void;
     onAutofill: (prefill: PrefillData) => void;
+    onInteract?: (cardId: string) => void;
   } = $props();
 
   const nets = $derived(Array.isArray(card.network) ? card.network : [card.network]);
@@ -38,6 +40,16 @@
     { key: 'csc', label: 'CSC' },
     { key: 'name', label: 'Name' },
   ] as const;
+
+  function copyAndTrack(text: string) {
+    onCopy(text);
+    onInteract?.(card.id);
+  }
+
+  function autofillAndTrack() {
+    onAutofill(card.prefill);
+    onInteract?.(card.id);
+  }
 
   function onCopyKeydown(copyFn: () => void) {
     return (e: KeyboardEvent) => {
@@ -72,8 +84,8 @@
   <div class="card-content">
     {#if card.display['number'] != null && card.display['number'] !== ''}
       <div class="card-number copyable" role="button" tabindex="0"
-        onclick={() => onCopy(String(card.display['number']))}
-        onkeydown={onCopyKeydown(() => onCopy(String(card.display['number'])))}>
+        onclick={() => copyAndTrack(String(card.display['number']))}
+        onkeydown={onCopyKeydown(() => copyAndTrack(String(card.display['number'])))}>
         {card.display['number']}
       </div>
     {/if}
@@ -85,8 +97,8 @@
             <div class="card-field" class:card-field--name={key === 'name'}>
               <span class="field-label">{label}</span>
               <span class="field-value copyable" role="button" tabindex="0"
-                onclick={() => onCopy(String(card.display[key]))}
-                onkeydown={onCopyKeydown(() => onCopy(String(card.display[key])))}
+                onclick={() => copyAndTrack(String(card.display[key]))}
+                onkeydown={onCopyKeydown(() => copyAndTrack(String(card.display[key])))}
               >{card.display[key]}</span>
             </div>
           {/if}
@@ -100,8 +112,8 @@
           {@const copyVal = typeof val === 'boolean' ? key : String(val)}
           <span class="card-badge copyable" role="button" tabindex="0"
             title={typeof val === 'boolean' ? undefined : key.charAt(0).toUpperCase() + key.slice(1)}
-            onclick={() => onCopy(copyVal)}
-            onkeydown={onCopyKeydown(() => onCopy(copyVal))}>
+            onclick={() => copyAndTrack(copyVal)}
+            onkeydown={onCopyKeydown(() => copyAndTrack(copyVal))}>
             {typeof val === 'boolean' ? key : val}
           </span>
         {/each}
@@ -117,7 +129,7 @@
       <button type="button" class="fav-icon" title="Add to favourites" onclick={() => onFav(card.id)}></button>
     {/if}
 
-    <button type="button" class="fill-column" title="Autofill" onclick={() => onAutofill(card.prefill)}></button>
+    <button type="button" class="fill-column" title="Autofill" onclick={autofillAndTrack}></button>
   </div>
 </div>
 <style>
