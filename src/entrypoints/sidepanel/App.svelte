@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
+  import { onMount, tick } from 'svelte';
   import { fade } from 'svelte/transition';
   import type { PublicPath } from 'wxt/browser';
   import { parseGatewayData, type NetworkInfo, type Card, type ParsedGroup, type RawCardItem, type PrefillData } from '../../parser';
@@ -33,6 +33,7 @@
   let recentCardIds = $state<string[]>([]);
   let showRecent = $state(false);
   let recentLimit = $state(5);
+  let recentSectionEl: HTMLElement | null = null;
 
   // Derived
   const currentGateway = $derived(gateways.find(g => g.id === currentGatewayId));
@@ -156,10 +157,29 @@
   }
 
 
-  async function trackRecent(cardId: string) {
+  function sectionHeightWithMargin(el: HTMLElement | null): number {
+    if (!el) return 0;
+    return el.offsetHeight + parseFloat(getComputedStyle(el).marginBottom);
+  }
+
+  async function trackRecent(cardId: string, compensateScroll = false) {
+    const prevHeight = sectionHeightWithMargin(recentSectionEl);
+    const prevScrollTop = document.documentElement.scrollTop;
+
     const updated = [cardId, ...recentCardIds.filter(id => id !== cardId)];
     await setInStorage(RECENT_CARDS, updated);
     recentCardIds = updated;
+
+    if (!compensateScroll) return;
+
+    await tick();
+
+    const newSection = recentSectionEl ?? document.getElementById('tableRecentId')?.closest<HTMLElement>('.cards-section');
+    const newHeight = sectionHeightWithMargin(newSection ?? null);
+    const heightDiff = newHeight - prevHeight;
+    if (heightDiff > 0) {
+      document.documentElement.scrollTop = prevScrollTop + heightDiff;
+    }
   }
 
   async function updateShowRecent(value: boolean) {
@@ -293,7 +313,7 @@
 
     <!-- Recent section -->
     {#if recentCards.length > 0}
-      <div class="cards-section">
+      <div class="cards-section" bind:this={recentSectionEl}>
         <h3 class="section-title">Recent</h3>
         <div id="tableRecentId">
           {#each recentCards as card (card.id)}
@@ -330,7 +350,7 @@
             onUnfav={removeFavourite}
             onCopy={handleCopy}
             onAutofill={handleAutofill}
-            onInteract={trackRecent}
+            onInteract={(id) => trackRecent(id, true)}
           />
         {/each}
       </div>
