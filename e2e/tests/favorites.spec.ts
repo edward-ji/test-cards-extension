@@ -1,6 +1,5 @@
 import { test, expect } from './fixtures';
 
-const ADD_TO_FAVS_TEXT = "Click '☆' to add your favourites here";
 const CARD_1 = '4871 0499 9999 9910';
 const CARD_2 = '2222 4000 7000 0005';
 
@@ -10,13 +9,13 @@ test.describe('favorites', () => {
         await page.locator('#gatewaySelector').selectOption('adyen');
     });
 
-    test('empty message shown initially', async ({ page }) => {
-        await expect(page.locator('text=' + ADD_TO_FAVS_TEXT)).toBeVisible();
+    test('favorites section hidden initially', async ({ page }) => {
+        await expect(page.locator('#tableFavouritesId')).not.toBeAttached();
     });
 
-    test('add hides empty message', async ({ page }) => {
+    test('add shows favorites section', async ({ page }) => {
         await page.locator('.card-item').filter({ hasText: CARD_1 }).locator('.fav-icon').click();
-        await expect(page.locator('text=' + ADD_TO_FAVS_TEXT)).not.toBeVisible();
+        await expect(page.locator('#tableFavouritesId')).toBeAttached();
     });
 
     test('card appears in favorites section', async ({ page }) => {
@@ -32,12 +31,12 @@ test.describe('favorites', () => {
         ).toHaveCount(0);
     });
 
-    test('remove restores empty message', async ({ page }) => {
+    test('remove hides favorites section', async ({ page }) => {
         await page.locator('.card-item').filter({ hasText: CARD_1 }).locator('.fav-icon').click();
-        await expect(page.locator('text=' + ADD_TO_FAVS_TEXT)).not.toBeVisible();
+        await expect(page.locator('#tableFavouritesId')).toBeAttached();
 
         await page.locator('.card-item').filter({ hasText: CARD_1 }).locator('.unfav-icon').click();
-        await expect(page.locator('text=' + ADD_TO_FAVS_TEXT)).toBeVisible();
+        await expect(page.locator('#tableFavouritesId')).not.toBeAttached();
     });
 
     test('card returns to main list after unfav', async ({ page }) => {

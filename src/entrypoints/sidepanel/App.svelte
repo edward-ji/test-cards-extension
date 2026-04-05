@@ -207,10 +207,10 @@
 
   <div id="cards">
     <!-- Favourites section -->
-    <div class="cards-section">
-      <h3 class="section-title">Favourites</h3>
-      <div id="tableFavouritesId">
-        {#if favCards.length > 0}
+    {#if favCards.length > 0}
+      <div class="cards-section">
+        <h3 class="section-title">Favourites</h3>
+        <div id="tableFavouritesId">
           {#each favCards as card (card.id)}
             <CardItem
               {card}
@@ -224,11 +224,9 @@
               onAutofill={handleAutofill}
             />
           {/each}
-        {:else}
-          <p class="empty-favs">Click '&#9734;' to add your favourites here</p>
-        {/if}
+        </div>
       </div>
-    </div>
+    {/if}
 
     <!-- Card group sections -->
     {#each nonFavGroups as group (group.group)}
@@ -369,10 +367,4 @@
     padding: 0;
   }
 
-  /* ── Favourites empty state ──────────────── */
-  .empty-favs {
-    font-size: 11px;
-    color: var(--text-muted);
-    margin: 4px 0 0;
-  }
 </style>
