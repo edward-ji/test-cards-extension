@@ -172,6 +172,25 @@
     recentLimit = value;
   }
 
+  async function clearFavourites() {
+    await setInStorage(FAVOURITES_LIST, []);
+    favourites = [];
+  }
+
+  async function clearRecent() {
+    await setInStorage(RECENT_CARDS, []);
+    recentCardIds = [];
+  }
+
+  async function clearAll() {
+    await browser.storage.local.clear();
+    favourites = [];
+    recentCardIds = [];
+    themeMode = 'system';
+    showRecent = false;
+    recentLimit = 5;
+  }
+
   async function updateTheme(next: ThemeMode) {
     themeMode = next;
     await setInStorage(COLOR_SCHEME, next);
@@ -243,6 +262,9 @@
     onThemeChange={updateTheme}
     onShowRecentChange={updateShowRecent}
     onRecentLimitChange={updateRecentLimit}
+    onClearFavourites={clearFavourites}
+    onClearRecent={clearRecent}
+    onClearAll={clearAll}
   />
 
   <div id="cards">

@@ -12,9 +12,12 @@
     onThemeChange: (theme: ThemeMode) => void;
     onShowRecentChange: (value: boolean) => void;
     onRecentLimitChange: (value: number) => void;
+    onClearFavourites: () => void;
+    onClearRecent: () => void;
+    onClearAll: () => void;
   }
 
-  let { isOpen, themeMode, showRecent, recentLimit, onClose, onThemeChange, onShowRecentChange, onRecentLimitChange }: Props = $props();
+  let { isOpen, themeMode, showRecent, recentLimit, onClose, onThemeChange, onShowRecentChange, onRecentLimitChange, onClearFavourites, onClearRecent, onClearAll }: Props = $props();
 
   const manifest = browser.runtime.getManifest();
   const extensionName = $derived(manifest.name || "Test Cards");
@@ -106,6 +109,15 @@
                 </button>
               {/each}
             </div>
+          </div>
+        </section>
+
+        <section class="settings-section">
+          <h3 class="section-label">Local storage</h3>
+          <div class="data-actions">
+            <button class="data-button data-button--danger" onclick={onClearFavourites}>Clear favourites</button>
+            <button class="data-button data-button--danger" onclick={onClearRecent}>Clear recent</button>
+            <button class="data-button data-button--danger" onclick={onClearAll}>Clear all data</button>
           </div>
         </section>
       </div>
@@ -262,6 +274,36 @@
 
   .theme-option.active img {
     opacity: 1;
+  }
+
+  .data-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .data-button {
+    padding: 8px 12px;
+    border: 1px solid var(--input-border);
+    border-radius: 6px;
+    background: none;
+    color: var(--text);
+    font-family: inherit;
+    font-size: 12px;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.15s, border-color 0.15s;
+  }
+
+  .data-button:hover {
+    background: var(--row-hover);
+    border-color: var(--text-muted);
+  }
+
+  .data-button--danger:hover {
+    background: rgba(220, 38, 38, 0.08);
+    border-color: rgba(220, 38, 38, 0.4);
+    color: rgb(220, 38, 38);
   }
 
   .settings-footer {
