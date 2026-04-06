@@ -2,14 +2,17 @@
   import { fade, slide } from "svelte/transition";
 
   type ThemeMode = "light" | "dark" | "system";
+  type Density = "comfortable" | "compact";
 
   interface Props {
     isOpen: boolean;
     themeMode: ThemeMode;
+    density: Density;
     showRecent: boolean;
     recentLimit: number;
     onClose: () => void;
     onThemeChange: (theme: ThemeMode) => void;
+    onDensityChange: (density: Density) => void;
     onShowRecentChange: (value: boolean) => void;
     onRecentLimitChange: (value: number) => void;
     onClearFavourites: () => void;
@@ -17,7 +20,7 @@
     onClearAll: () => void;
   }
 
-  let { isOpen, themeMode, showRecent, recentLimit, onClose, onThemeChange, onShowRecentChange, onRecentLimitChange, onClearFavourites, onClearRecent, onClearAll }: Props = $props();
+  let { isOpen, themeMode, density, showRecent, recentLimit, onClose, onThemeChange, onDensityChange, onShowRecentChange, onRecentLimitChange, onClearFavourites, onClearRecent, onClearAll }: Props = $props();
 
   const manifest = browser.runtime.getManifest();
   const extensionName = $derived(manifest.name || "Test Cards");
@@ -80,6 +83,28 @@
                   <span>{themeLabel(mode as ThemeMode)}</span>
                 </button>
               {/each}
+            </div>
+          </div>
+          <div class="setting-item">
+            <div class="setting-info">
+              <span class="setting-name">Density</span>
+              <span class="setting-description">How much information fits on screen</span>
+            </div>
+            <div class="theme-options">
+              <button
+                class="theme-option"
+                class:active={density === 'comfortable'}
+                onclick={() => onDensityChange('comfortable')}
+              >
+                <span>Comfortable</span>
+              </button>
+              <button
+                class="theme-option"
+                class:active={density === 'compact'}
+                onclick={() => onDensityChange('compact')}
+              >
+                <span>Compact</span>
+              </button>
             </div>
           </div>
         </section>
@@ -216,6 +241,10 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
+  }
+
+  .setting-item + .setting-item {
+    margin-top: 20px;
   }
 
   .setting-info {

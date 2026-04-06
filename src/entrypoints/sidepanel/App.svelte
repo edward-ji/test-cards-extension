@@ -10,6 +10,7 @@
   }
   import CardItem from './CardItem.svelte';
   import Settings from './Settings.svelte';
+  import TableView from './TableView.svelte';
   import { prefillCardComponent } from './autofill';
 
   const FAVOURITES_LIST = 'favourites-list';
@@ -18,7 +19,9 @@
   const RECENT_CARDS = 'recent-cards';
   const SHOW_RECENT = 'show-recent';
   const RECENT_LIMIT = 'recent-limit';
+  const DENSITY = 'density';
   type ThemeMode = 'light' | 'dark' | 'system';
+  type Density = 'comfortable' | 'compact';
 
   // State
   let gateways = $state<{ id: string; name: string; docsLink?: string }[]>([]);
@@ -27,6 +30,7 @@
   let favourites = $state<string[]>([]);
   let networks = $state<NetworkInfo[]>([]);
   let themeMode = $state<ThemeMode>('system');
+  let density = $state<Density>('comfortable');
   let copyMessage = $state('');
   let searchQuery = $state('');
   let isSettingsOpen = $state(false);
@@ -67,9 +71,10 @@
   });
 
   onMount(async () => {
-    const [storedFavs, storedTheme, gatewayData, networkData, savedGateway, storedRecent, storedShowRecent, storedRecentLimit] = await Promise.all([
+    const [storedFavs, storedTheme, storedDensity, gatewayData, networkData, savedGateway, storedRecent, storedShowRecent, storedRecentLimit] = await Promise.all([
       getFromStorage<string[]>(FAVOURITES_LIST),
       getFromStorage<ThemeMode>(COLOR_SCHEME),
+      getFromStorage<Density>(DENSITY),
       loadFromFile<{ id: string; name: string; docsLink?: string }[]>('/data/gateways.json'),
       loadFromFile<NetworkInfo[]>('/data/networks.json'),
       getFromStorage<string>(SELECTED_GATEWAY),
@@ -80,6 +85,7 @@
 
     favourites = storedFavs ?? [];
     themeMode = storedTheme ?? 'system';
+    density = storedDensity ?? 'comfortable';
     gateways = gatewayData ?? [];
     networks = networkData ?? [];
     recentCardIds = storedRecent ?? [];
@@ -207,6 +213,7 @@
     favourites = [];
     recentCardIds = [];
     themeMode = 'system';
+    density = 'comfortable';
     showRecent = false;
     recentLimit = 5;
   }
@@ -214,6 +221,11 @@
   async function updateTheme(next: ThemeMode) {
     themeMode = next;
     await setInStorage(COLOR_SCHEME, next);
+  }
+
+  async function updateDensity(next: Density) {
+    await setInStorage(DENSITY, next);
+    density = next;
   }
 
   async function handleGatewayChange(value: string) {
@@ -276,10 +288,12 @@
   <Settings
     isOpen={isSettingsOpen}
     themeMode={themeMode}
+    density={density}
     showRecent={showRecent}
     recentLimit={recentLimit}
     onClose={() => isSettingsOpen = false}
     onThemeChange={updateTheme}
+    onDensityChange={updateDensity}
     onShowRecentChange={updateShowRecent}
     onRecentLimitChange={updateRecentLimit}
     onClearFavourites={clearFavourites}
@@ -288,73 +302,89 @@
   />
 
   <div id="cards">
-    <!-- Favourites section -->
-    {#if favCards.length > 0}
-      <div class="cards-section">
-        <h3 class="section-title">Favourites</h3>
-        <div id="tableFavouritesId">
-          {#each favCards as card (card.id)}
+    {#if density === 'compact'}
+      <TableView
+        {nonFavGroups}
+        {favCards}
+        {recentCards}
+        {networks}
+        {favourites}
+        searchQuery={searchQueryLower}
+        onFav={addFavourite}
+        onUnfav={removeFavourite}
+        onCopy={handleCopy}
+        onAutofill={handleAutofill}
+        onInteract={trackRecent}
+      />
+    {:else}
+      <!-- Favourites section -->
+      {#if favCards.length > 0}
+        <div class="cards-section">
+          <h3 class="section-title">Favourites</h3>
+          <div id="tableFavouritesId">
+            {#each favCards as card (card.id)}
+              <CardItem
+                {card}
+                {networks}
+                isFav={true}
+                isSearchable={false}
+                searchQuery={searchQueryLower}
+                onFav={addFavourite}
+                onUnfav={removeFavourite}
+                onCopy={handleCopy}
+                onAutofill={handleAutofill}
+                onInteract={trackRecent}
+              />
+            {/each}
+          </div>
+        </div>
+      {/if}
+
+      <!-- Recent section -->
+      {#if recentCards.length > 0}
+        <div class="cards-section" bind:this={recentSectionEl}>
+          <h3 class="section-title">Recent</h3>
+          <div id="tableRecentId">
+            {#each recentCards as card (card.id)}
+              <CardItem
+                {card}
+                {networks}
+                isFav={favourites.includes(card.id)}
+                isSearchable={false}
+                searchQuery={searchQueryLower}
+                onFav={addFavourite}
+                onUnfav={removeFavourite}
+                onCopy={handleCopy}
+                onAutofill={handleAutofill}
+                onInteract={trackRecent}
+              />
+            {/each}
+          </div>
+        </div>
+      {/if}
+
+      <!-- Card group sections -->
+      {#each nonFavGroups as group (group.group)}
+        {@const anyVisible = group.items.some((c: Card) => c.search.includes(searchQueryLower))}
+        <div class="cards-section" style:display={anyVisible ? '' : 'none'}>
+          <h3 class="section-title">{group.group}</h3>
+          {#each group.items as card (card.id)}
             <CardItem
               {card}
               {networks}
-              isFav={true}
-              isSearchable={false}
+              isFav={false}
+              isSearchable={true}
               searchQuery={searchQueryLower}
               onFav={addFavourite}
               onUnfav={removeFavourite}
               onCopy={handleCopy}
               onAutofill={handleAutofill}
-              onInteract={trackRecent}
+              onInteract={(id) => trackRecent(id, true)}
             />
           {/each}
         </div>
-      </div>
+      {/each}
     {/if}
-
-    <!-- Recent section -->
-    {#if recentCards.length > 0}
-      <div class="cards-section" bind:this={recentSectionEl}>
-        <h3 class="section-title">Recent</h3>
-        <div id="tableRecentId">
-          {#each recentCards as card (card.id)}
-            <CardItem
-              {card}
-              {networks}
-              isFav={favourites.includes(card.id)}
-              isSearchable={false}
-              searchQuery={searchQueryLower}
-              onFav={addFavourite}
-              onUnfav={removeFavourite}
-              onCopy={handleCopy}
-              onAutofill={handleAutofill}
-              onInteract={trackRecent}
-            />
-          {/each}
-        </div>
-      </div>
-    {/if}
-
-    <!-- Card group sections -->
-    {#each nonFavGroups as group (group.group)}
-      {@const anyVisible = group.items.some((c: Card) => c.search.includes(searchQueryLower))}
-      <div class="cards-section" style:display={anyVisible ? '' : 'none'}>
-        <h3 class="section-title">{group.group}</h3>
-        {#each group.items as card (card.id)}
-          <CardItem
-            {card}
-            {networks}
-            isFav={false}
-            isSearchable={true}
-            searchQuery={searchQueryLower}
-            onFav={addFavourite}
-            onUnfav={removeFavourite}
-            onCopy={handleCopy}
-            onAutofill={handleAutofill}
-            onInteract={(id) => trackRecent(id, true)}
-          />
-        {/each}
-      </div>
-    {/each}
   </div>
 
   {#if copyMessage}
