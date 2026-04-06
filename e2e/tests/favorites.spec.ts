@@ -62,6 +62,17 @@ test.describe('favorites', () => {
         await expect(page.locator('#tableFavouritesId')).toContainText(CARD_1);
     });
 
+    test('clear favourites removes all', async ({ page }) => {
+        await page.locator('.card-item').filter({ hasText: CARD_1 }).locator('.fav-icon').click();
+        await expect(page.locator('#tableFavouritesId')).toBeAttached();
+
+        await page.locator('#settingsButton').click();
+        await page.locator('button').filter({ hasText: 'Clear favourites' }).click();
+        await page.locator('.close-button').click();
+
+        await expect(page.locator('#tableFavouritesId')).not.toBeAttached();
+    });
+
     test('favorites carry across gateway switch', async ({ page }) => {
         await page.locator('.card-item').filter({ hasText: CARD_1 }).locator('.fav-icon').click();
         await expect(page.locator('#tableFavouritesId')).toContainText(CARD_1);

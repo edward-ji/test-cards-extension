@@ -89,6 +89,13 @@ test.describe('autofill', () => {
         await formPage.close();
     });
 
+    test('shows Filled toast after autofill', async ({ page }) => {
+        const formPage = await openFormPage(page);
+        await clickFill(page, '3700 0000 0000 002');
+        await expect(page.locator('.copy-toast')).toHaveText('Filled');
+        await formPage.close();
+    });
+
     test('explicit exp: cc-exp is filled with given date', async ({ page }) => {
         const formPage = await openFormPage(page);
 
