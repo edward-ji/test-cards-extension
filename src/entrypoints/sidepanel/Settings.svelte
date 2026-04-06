@@ -1,6 +1,8 @@
 <script lang="ts">
   import { fade, slide } from "svelte/transition";
 
+  let panelReady = $state(false);
+
   type ThemeMode = "light" | "dark" | "system";
   type Density = "comfortable" | "compact";
 
@@ -42,6 +44,8 @@
     <div
       class="settings-panel"
       transition:slide={{ axis: "y", duration: 300 }}
+      onintroend={() => panelReady = true}
+      onoutrostart={() => panelReady = false}
       onclick={(e) => e.stopPropagation()}
       onkeydown={(e) => e.stopPropagation()}
       role="dialog"
@@ -56,7 +60,7 @@
         </button>
       </header>
 
-      <div class="settings-content">
+      <div class="settings-content" class:scrollable={panelReady}>
         <section class="settings-section">
           <h3 class="section-label">Appearance</h3>
           <div class="setting-item">
@@ -175,7 +179,6 @@
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
     max-height: 85%;
-    overflow-y: auto;
     box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.25);
     display: flex;
     flex-direction: column;
@@ -188,14 +191,18 @@
     align-items: center;
     padding: 18px 24px;
     border-bottom: 1px solid var(--card-border);
-    position: sticky;
-    top: 0;
-    background: var(--bg);
-    z-index: 10;
+    flex-shrink: 0;
   }
 
   .settings-content {
     padding: 24px;
+    overflow-y: hidden;
+    flex: 1;
+    min-height: 0;
+  }
+
+  .settings-content.scrollable {
+    overflow-y: auto;
   }
 
   .settings-header h2 {

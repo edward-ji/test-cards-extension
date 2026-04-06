@@ -38,6 +38,7 @@
   let showRecent = $state(false);
   let recentLimit = $state(5);
   let recentSectionEl: HTMLElement | null = null;
+  let cardsEl: HTMLElement | null = null;
 
   // Derived
   const currentGateway = $derived(gateways.find(g => g.id === currentGatewayId));
@@ -170,7 +171,7 @@
 
   async function trackRecent(cardId: string, compensateScroll = false) {
     const prevHeight = sectionHeightWithMargin(recentSectionEl);
-    const prevScrollTop = document.documentElement.scrollTop;
+    const prevScrollTop = cardsEl?.scrollTop ?? 0;
 
     const updated = [cardId, ...recentCardIds.filter(id => id !== cardId)];
     await setInStorage(RECENT_CARDS, updated);
@@ -183,8 +184,8 @@
     const newSection = recentSectionEl ?? document.getElementById('tableRecentId')?.closest<HTMLElement>('.cards-section');
     const newHeight = sectionHeightWithMargin(newSection ?? null);
     const heightDiff = newHeight - prevHeight;
-    if (heightDiff > 0) {
-      document.documentElement.scrollTop = prevScrollTop + heightDiff;
+    if (heightDiff > 0 && cardsEl) {
+      cardsEl.scrollTop = prevScrollTop + heightDiff;
     }
   }
 
@@ -301,7 +302,7 @@
     onClearAll={clearAll}
   />
 
-  <div id="cards">
+  <div id="cards" bind:this={cardsEl} style:overflow-y={isSettingsOpen ? 'hidden' : undefined}>
     {#if density === 'compact'}
       <TableView
         {nonFavGroups}
@@ -394,6 +395,12 @@
   {/if}
 </main>
 <style>
+  .content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
   a {
     color: var(--link);
     cursor: pointer;
@@ -419,8 +426,7 @@
 
   /* ── Top controls ────────────────────────── */
   .header-controls {
-    position: sticky;
-    top: 0;
+    flex-shrink: 0;
     z-index: 10;
     background-color: var(--bg);
     display: flex;
@@ -486,6 +492,14 @@
   .icon-button:hover {
     background: var(--row-hover);
     border-color: var(--text-muted);
+  }
+
+  /* ── Cards area ─────────────────────────── */
+  #cards {
+    flex: 1;
+    overflow-y: auto;
+    min-height: 0;
+    scrollbar-gutter: stable;
   }
 
   /* ── Section ─────────────────────────────── */

@@ -83,6 +83,11 @@ html[data-theme="dark"] {
   --star-empty-url: url('/images/star-empty-dark.svg');
 }
 
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
 body {
   font-family: 'Inter', sans-serif;
   font-size: 12px;
@@ -91,7 +96,6 @@ body {
   padding: 4px;
   background-color: var(--bg);
   color: var(--text);
-  overflow-x: hidden;
 }
 
 .hidden {
