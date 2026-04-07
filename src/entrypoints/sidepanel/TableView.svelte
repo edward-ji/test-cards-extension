@@ -149,17 +149,19 @@
               {/if}
 
               <td class="col-extras">
-                {#each extras as [key, val] (key)}
-                  {@const copyVal = typeof val === 'boolean' ? key : String(val)}
-                  <span
-                    class="badge copyable"
-                    role="button"
-                    tabindex="0"
-                    title={typeof val === 'boolean' ? undefined : key.charAt(0).toUpperCase() + key.slice(1)}
-                    onclick={() => { onCopy(copyVal); onInteract(card.id); }}
-                    onkeydown={onKeydown(() => { onCopy(copyVal); onInteract(card.id); })}
-                  >{typeof val === 'boolean' ? key : val}</span>
-                {/each}
+                <div class="extras-wrap">
+                  {#each extras as [key, val] (key)}
+                    {@const copyVal = typeof val === 'boolean' ? key : String(val)}
+                    <span
+                      class="badge copyable"
+                      role="button"
+                      tabindex="0"
+                      title={typeof val === 'boolean' ? undefined : key.charAt(0).toUpperCase() + key.slice(1)}
+                      onclick={() => { onCopy(copyVal); onInteract(card.id); }}
+                      onkeydown={onKeydown(() => { onCopy(copyVal); onInteract(card.id); })}
+                    >{typeof val === 'boolean' ? key : val}</span>
+                  {/each}
+                </div>
               </td>
 
               <td class="col-actions">
@@ -209,7 +211,8 @@
 
   .cards-table {
     width: 100%;
-    table-layout: fixed;
+    max-width: 100%;
+    table-layout: auto;
     border-collapse: collapse;
     font-size: 11px;
   }
@@ -230,7 +233,8 @@
 
   /* ── Logo column ─────────────────────────── */
   .col-logo {
-    width: 38px;
+    width: 1px;
+    white-space: nowrap;
   }
 
   .logos {
@@ -258,23 +262,24 @@
 
   /* ── Fixed-width field columns (exp, csc) ── */
   .col-field {
-    width: 42px;
-    overflow-wrap: break-word;
+    width: 1px;
+    white-space: nowrap;
   }
 
   /* ── Name column ─────────────────────────── */
   .col-name {
-    width: 72px;
-    overflow-wrap: break-word;
+    width: 1px;
+    white-space: nowrap;
   }
 
-  .name-val {
-    display: block;
-  }
-
-  /* ── Extras column: takes remaining space ── */
+  /* ── Extras column: auto-sized, but yields space under pressure ── */
   .col-extras {
-    width: auto;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .extras-wrap {
+    overflow: hidden;
   }
 
   .badge {
@@ -285,16 +290,15 @@
     background: var(--badge-bg);
     color: var(--badge-text);
     line-height: 1.5;
-    white-space: nowrap;
+    overflow-wrap: break-word;
     overflow: hidden;
-    text-overflow: ellipsis;
     max-width: 100%;
     margin: 0 2px 3px 0;
   }
 
   /* ── Actions column ──────────────────────── */
   .col-actions {
-    width: 44px;
+    width: 1px;
     text-align: right;
     white-space: nowrap;
   }
