@@ -37,8 +37,8 @@
   let recentCardIds = $state<string[]>([]);
   let showRecent = $state(false);
   let recentLimit = $state(5);
-  let recentSectionEl: HTMLElement | null = null;
-  let cardsEl: HTMLElement | null = null;
+  let recentSectionEl: HTMLElement | null = $state(null);
+  let cardsEl: HTMLElement | null = $state(null);
 
   // Derived
   const currentGateway = $derived(gateways.find(g => g.id === currentGatewayId));
