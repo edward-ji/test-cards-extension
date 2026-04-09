@@ -20,6 +20,8 @@
   const RECENT_LIMIT = 'recent-limit';
   const DENSITY = 'density';
   const CUSTOM_GATEWAYS = 'custom-gateways';
+
+  const SETTINGS_KEYS = [COLOR_SCHEME, DENSITY, SHOW_RECENT, RECENT_LIMIT] as const;
   type ThemeMode = 'light' | 'dark' | 'system';
   type Density = 'comfortable' | 'compact';
 
@@ -220,6 +222,25 @@
     recentCardIds = [];
   }
 
+  async function clearCustomGateways() {
+    await setInStorage(CUSTOM_GATEWAYS, []);
+    customGatewayFiles = [];
+    if (!builtinGatewayFiles.some(g => g.id === currentGatewayId)) {
+      const fallback = builtinGatewayFiles[0]?.id ?? 'adyen';
+      currentGatewayId = fallback;
+      await setInStorage(SELECTED_GATEWAY, fallback);
+      await loadDataForGateway(fallback);
+    }
+  }
+
+  async function clearSettings() {
+    await browser.storage.local.remove([...SETTINGS_KEYS]);
+    themeMode = 'system';
+    density = 'comfortable';
+    showRecent = false;
+    recentLimit = 5;
+  }
+
   async function clearAll() {
     await browser.storage.local.clear();
     favourites = [];
@@ -354,6 +375,8 @@
     onRecentLimitChange={updateRecentLimit}
     onClearFavourites={clearFavourites}
     onClearRecent={clearRecent}
+    onClearCustomGateways={clearCustomGateways}
+    onClearSettings={clearSettings}
     onClearAll={clearAll}
     customGateways={customGatewayFiles.map(g => ({ id: g.id, name: g.name }))}
     onImportGateway={handleImportGateway}

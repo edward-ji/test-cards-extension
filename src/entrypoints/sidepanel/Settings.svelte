@@ -20,12 +20,14 @@
     onRecentLimitChange: (value: number) => void;
     onClearFavourites: () => void;
     onClearRecent: () => void;
+    onClearCustomGateways: () => void;
+    onClearSettings: () => void;
     onClearAll: () => void;
     onImportGateway: (file: File) => Promise<string | undefined>;
     onRemoveCustomGateway: (id: string) => Promise<void>;
   }
 
-  let { isOpen, themeMode, density, showRecent, recentLimit, customGateways, onClose, onThemeChange, onDensityChange, onShowRecentChange, onRecentLimitChange, onClearFavourites, onClearRecent, onClearAll, onImportGateway, onRemoveCustomGateway }: Props = $props();
+  let { isOpen, themeMode, density, showRecent, recentLimit, customGateways, onClose, onThemeChange, onDensityChange, onShowRecentChange, onRecentLimitChange, onClearFavourites, onClearRecent, onClearCustomGateways, onClearSettings, onClearAll, onImportGateway, onRemoveCustomGateway }: Props = $props();
 
   let importError = $state('');
   let fileInputEl: HTMLInputElement | null = $state(null);
@@ -193,6 +195,8 @@
           <div class="data-actions">
             <button class="data-button data-button--danger" onclick={onClearFavourites}>Clear favourites</button>
             <button class="data-button data-button--danger" onclick={onClearRecent}>Clear recent</button>
+            <button class="data-button data-button--danger" onclick={onClearCustomGateways}>Clear custom gateways</button>
+            <button class="data-button data-button--danger" onclick={onClearSettings}>Clear settings</button>
             <button class="data-button data-button--danger" onclick={onClearAll}>Clear all data</button>
           </div>
         </section>
