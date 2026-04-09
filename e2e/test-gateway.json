@@ -1,0 +1,28 @@
+{
+  "id": "test-gateway",
+  "name": "Test Gateway",
+  "docsLink": "https://example.com/test-cards",
+  "cards": [
+    {
+      "group": "Visa",
+      "items": [
+        { "number": "4111 1111 1111 1111", "exp": "+3Y", "csc": "123", "network": "visa" },
+        { "number": "4012 8888 8888 1881", "exp": "+3Y", "csc": "456", "network": "visa" }
+      ]
+    },
+    {
+      "group": "Mastercard",
+      "items": [
+        { "number": "5500 0055 5555 5559", "exp": "+3Y", "csc": "789", "network": "mastercard" },
+        { "number": "5105 1051 0510 5100", "exp": "+3Y", "csc": "321", "network": "mastercard" }
+      ]
+    },
+    {
+      "group": "3D Secure",
+      "items": [
+        { "number": "4917 6100 0000 0000", "exp": "+3Y", "csc": "737", "network": "visa", "description": "Enrolled, frictionless" },
+        { "number": "4917 6100 0000 0000 003", "exp": "+3Y", "csc": "737", "network": "visa", "description": "Enrolled, challenge" }
+      ]
+    }
+  ]
+}
