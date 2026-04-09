@@ -3,12 +3,12 @@
  * Must be self-contained — no imports, no closed-over variables.
  */
 export function prefillCardComponent(
-  number: string | undefined,
-  exp: string | undefined,
-  csc: string | undefined,
-  name: string | undefined
+  number: string | null,
+  exp: string | null,
+  csc: string | null,
+  name: string | null
 ) {
-  function fillField(selector: string, value: string | undefined) {
+  function fillField(selector: string, value: string | null) {
     if (value == null) return;
     const element = document.querySelector(selector) as HTMLInputElement;
     if (!element) return;

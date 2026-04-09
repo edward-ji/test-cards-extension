@@ -12,6 +12,7 @@
     density: Density;
     showRecent: boolean;
     recentLimit: number;
+    customGateways: { id: string; name: string }[];
     onClose: () => void;
     onThemeChange: (theme: ThemeMode) => void;
     onDensityChange: (density: Density) => void;
@@ -20,9 +21,23 @@
     onClearFavourites: () => void;
     onClearRecent: () => void;
     onClearAll: () => void;
+    onImportGateway: (file: File) => Promise<string | undefined>;
+    onRemoveCustomGateway: (id: string) => Promise<void>;
   }
 
-  let { isOpen, themeMode, density, showRecent, recentLimit, onClose, onThemeChange, onDensityChange, onShowRecentChange, onRecentLimitChange, onClearFavourites, onClearRecent, onClearAll }: Props = $props();
+  let { isOpen, themeMode, density, showRecent, recentLimit, customGateways, onClose, onThemeChange, onDensityChange, onShowRecentChange, onRecentLimitChange, onClearFavourites, onClearRecent, onClearAll, onImportGateway, onRemoveCustomGateway }: Props = $props();
+
+  let importError = $state('');
+  let fileInputEl: HTMLInputElement | null = $state(null);
+
+  async function handleFileChange(e: Event) {
+    const file = (e.target as HTMLInputElement).files?.[0];
+    if (!file) return;
+    importError = '';
+    const err = await onImportGateway(file);
+    if (err) importError = err;
+    (e.target as HTMLInputElement).value = '';
+  }
 
   const manifest = browser.runtime.getManifest();
   const extensionName = $derived(manifest.name || "Test Cards");
@@ -139,6 +154,38 @@
               {/each}
             </div>
           </div>
+        </section>
+
+        <section class="settings-section">
+          <h3 class="section-label">Custom gateways</h3>
+
+          <input
+            type="file"
+            accept=".json"
+            bind:this={fileInputEl}
+            style="display:none"
+            onchange={handleFileChange}
+          />
+
+          <div class="data-actions">
+            <button class="data-button" onclick={() => fileInputEl?.click()}>
+              Import gateway file (.json)
+            </button>
+          </div>
+
+          {#if importError}
+            <p class="import-error">{importError}</p>
+          {/if}
+
+          {#each customGateways as gw (gw.id)}
+            <div class="custom-gateway-row">
+              <span class="custom-gateway-name">{gw.name}</span>
+              <button
+                class="data-button data-button--danger"
+                onclick={() => onRemoveCustomGateway(gw.id)}
+              >Remove</button>
+            </div>
+          {/each}
         </section>
 
         <section class="settings-section">
@@ -340,6 +387,27 @@
     background: rgba(220, 38, 38, 0.08);
     border-color: rgba(220, 38, 38, 0.4);
     color: rgb(220, 38, 38);
+  }
+
+  .import-error {
+    margin: 8px 0 0;
+    font-size: 11px;
+    color: rgb(220, 38, 38);
+  }
+
+  .custom-gateway-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+  .custom-gateway-name {
+    font-size: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .settings-footer {

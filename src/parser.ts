@@ -10,10 +10,10 @@ export interface NetworkInfo {
 }
 
 export interface PrefillData {
-    number: string | undefined;
-    name: string | undefined;
-    csc: string | undefined;
-    exp: string | undefined;
+    number: string | null;
+    name: string | null;
+    csc: string | null;
+    exp: string | null;
 }
 
 export interface Card {
@@ -75,8 +75,8 @@ function resolveExpiry(raw: string): string {
 // - false or "": explicitly clear the field
 // - true: field default)
 // - otherwise, use as-is
-function resolveField(value: string | number | boolean | null | undefined, defaultValue: string | undefined): string | undefined {
-    if (value == null) return undefined;
+function resolveField(value: string | number | boolean | null | undefined, defaultValue: string | undefined): string | null {
+    if (value == null) return null;
     if (value === false || value === "") return "";
     if (value === true) return defaultValue;
     return String(value);
@@ -103,7 +103,7 @@ export function parseGatewayData(gatewayId: string, rawGroups: { group: string; 
 
             // Resolve expiry: apply +XY shorthand if present
             const rawExp = resolveField(item.exp, "+3Y");
-            const resolvedExp = rawExp !== undefined ? resolveExpiry(rawExp) : undefined;
+            const resolvedExp = rawExp !== null ? resolveExpiry(rawExp) : null;
 
             const prefill: PrefillData = {
                 number: resolveField(item.number, undefined),

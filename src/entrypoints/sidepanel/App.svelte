@@ -19,11 +19,13 @@
   const SHOW_RECENT = 'show-recent';
   const RECENT_LIMIT = 'recent-limit';
   const DENSITY = 'density';
+  const CUSTOM_GATEWAYS = 'custom-gateways';
   type ThemeMode = 'light' | 'dark' | 'system';
   type Density = 'comfortable' | 'compact';
 
   // State
   let builtinGatewayFiles = $state<RawGatewayFile[]>([]);
+  let customGatewayFiles = $state<RawGatewayFile[]>([]);
   let currentGatewayId = $state<string>('adyen');
   let cards = $state<ParsedGroup[]>([]);
   let favourites = $state<string[]>([]);
@@ -40,7 +42,7 @@
   let cardsEl: HTMLElement | null = $state(null);
 
   // Derived
-  const gateways = $derived<RawGatewayFile[]>(builtinGatewayFiles);
+  const gateways = $derived<RawGatewayFile[]>([...builtinGatewayFiles, ...customGatewayFiles]);
   const currentGateway = $derived(gateways.find(g => g.id === currentGatewayId));
   const searchQueryLower = $derived(searchQuery.toLowerCase());
   const favCards = $derived(
@@ -72,7 +74,7 @@
   });
 
   onMount(async () => {
-    const [storedFavs, storedTheme, storedDensity, gatewayIds, networkData, savedGateway, storedRecent, storedShowRecent, storedRecentLimit] = await Promise.all([
+    const [storedFavs, storedTheme, storedDensity, gatewayIds, networkData, savedGateway, storedRecent, storedShowRecent, storedRecentLimit, storedCustomGateways] = await Promise.all([
       getFromStorage<string[]>(FAVOURITES_LIST),
       getFromStorage<ThemeMode>(COLOR_SCHEME),
       getFromStorage<Density>(DENSITY),
@@ -82,6 +84,7 @@
       getFromStorage<string[]>(RECENT_CARDS),
       getFromStorage<boolean>(SHOW_RECENT),
       getFromStorage<number>(RECENT_LIMIT),
+      getFromStorage<RawGatewayFile[]>(CUSTOM_GATEWAYS),
     ]);
 
     favourites = storedFavs ?? [];
@@ -91,6 +94,7 @@
     recentCardIds = storedRecent ?? [];
     showRecent = storedShowRecent ?? false;
     recentLimit = storedRecentLimit ?? 5;
+    customGatewayFiles = storedCustomGateways ?? [];
 
     // Load all built-in gateway files in parallel (small local resources)
     const ids = gatewayIds ?? [];
@@ -224,6 +228,11 @@
     density = 'comfortable';
     showRecent = false;
     recentLimit = 5;
+    customGatewayFiles = [];
+    if (!builtinGatewayFiles.some(g => g.id === currentGatewayId)) {
+      currentGatewayId = builtinGatewayFiles[0]?.id ?? 'adyen';
+      await loadDataForGateway(currentGatewayId);
+    }
   }
 
   async function updateTheme(next: ThemeMode) {
@@ -241,6 +250,45 @@
     currentGatewayId = value;
     await setInStorage(SELECTED_GATEWAY, value);
     await loadDataForGateway(value);
+  }
+
+  async function handleImportGateway(file: File): Promise<string | undefined> {
+    let parsed: unknown;
+    try {
+      parsed = JSON.parse(await file.text());
+    } catch {
+      return 'Could not parse file. Ensure it is valid JSON.';
+    }
+    if (
+      typeof parsed !== 'object' || parsed === null || Array.isArray(parsed) ||
+      typeof (parsed as Record<string, unknown>).id !== 'string' ||
+      typeof (parsed as Record<string, unknown>).name !== 'string' ||
+      !Array.isArray((parsed as Record<string, unknown>).cards) ||
+      !(parsed as { cards: unknown[] }).cards.every(
+        (g) => typeof (g as Record<string, unknown>).group === 'string' && Array.isArray((g as Record<string, unknown>).items)
+      )
+    ) {
+      return 'Invalid format. Expected: { id, name, docsLink?, cards: [{ group, items[] }] }';
+    }
+    const gw = parsed as RawGatewayFile;
+    if (builtinGatewayFiles.some(g => g.id === gw.id)) {
+      return `"${gw.id}" conflicts with a built-in gateway. Use a different id.`;
+    }
+    const updated = [...customGatewayFiles.filter(g => g.id !== gw.id), gw];
+    await setInStorage(CUSTOM_GATEWAYS, updated);
+    customGatewayFiles = updated;
+  }
+
+  async function handleRemoveCustomGateway(id: string) {
+    const updated = customGatewayFiles.filter(g => g.id !== id);
+    await setInStorage(CUSTOM_GATEWAYS, updated);
+    customGatewayFiles = updated;
+    if (currentGatewayId === id) {
+      const fallback = builtinGatewayFiles[0]?.id ?? 'adyen';
+      currentGatewayId = fallback;
+      await setInStorage(SELECTED_GATEWAY, fallback);
+      await loadDataForGateway(fallback);
+    }
   }
 </script>
 
@@ -307,6 +355,9 @@
     onClearFavourites={clearFavourites}
     onClearRecent={clearRecent}
     onClearAll={clearAll}
+    customGateways={customGatewayFiles.map(g => ({ id: g.id, name: g.name }))}
+    onImportGateway={handleImportGateway}
+    onRemoveCustomGateway={handleRemoveCustomGateway}
   />
 
   <div id="cards" bind:this={cardsEl} style:overflow-y={isSettingsOpen ? 'hidden' : undefined}>
