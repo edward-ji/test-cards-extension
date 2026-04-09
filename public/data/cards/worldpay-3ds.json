@@ -1,821 +1,826 @@
-[
-  {
-    "group": "Successful Authentication (Frictionless)",
-    "items": [
-      {
-        "number": "4000 0000 0000 2701",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "visa"
-      },
-      {
-        "number": "5200 0000 0000 2235",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "mc"
-      },
-      {
-        "number": "3400 0000 0002 708",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "amex"
-      },
-      {
-        "number": "6011 0000 0000 2117",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": [
-          "discover",
-          "diners"
-        ]
-      },
-      {
-        "number": "3338 0000 0000 0296",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "jcb"
-      },
-      {
-        "number": "4000 0000 0000 4970",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": [
-          "cartebancaire",
-          "visa"
-        ]
-      },
-      {
-        "number": "5200 0000 0000 4801",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": [
-          "cartebancaire",
-          "mc"
-        ]
-      }
-    ]
-  },
-  {
-    "group": "Failed Frictionless Authentication",
-    "items": [
-      {
-        "number": "4000 0000 0000 2925",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "visa"
-      },
-      {
-        "number": "5200 0000 0000 2276",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "mc"
-      },
-      {
-        "number": "3400 0000 0002 096",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "amex"
-      },
-      {
-        "number": "6011 0000 0000 2364",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": [
-          "discover",
-          "diners"
-        ]
-      },
-      {
-        "number": "3338 0000 0000 0361",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "jcb"
-      },
-      {
-        "number": "4000 0000 0000 4574",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": [
-          "cartebancaire",
-          "visa"
-        ]
-      },
-      {
-        "number": "5200 0000 0000 4538",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": [
-          "cartebancaire",
-          "mc"
-        ]
-      }
-    ]
-  },
-  {
-    "group": "Attempts Stand-In Frictionless Authentication",
-    "items": [
-      {
-        "number": "4000 0000 0000 2719",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "visa"
-      },
-      {
-        "number": "5200 0000 0000 2482",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "mc"
-      },
-      {
-        "number": "3400 0000 0002 872",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "amex"
-      },
-      {
-        "number": "6011 0000 0000 2646",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": [
-          "discover",
-          "diners"
-        ]
-      },
-      {
-        "number": "3338 0000 0000 0585",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "jcb"
-      },
-      {
-        "number": "4000 0000 0000 4111",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": [
-          "cartebancaire",
-          "visa"
-        ]
-      },
-      {
-        "number": "5200 0000 0000 4587",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": [
-          "cartebancaire",
-          "mc"
-        ]
-      }
-    ]
-  },
-  {
-    "group": "Authentication Unavailable (Issuer)",
-    "items": [
-      {
-        "number": "4000 0000 0000 2313",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "visa"
-      },
-      {
-        "number": "5200 0000 0000 2268",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "mc"
-      },
-      {
-        "number": "3400 0000 0002 922",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "amex"
-      },
-      {
-        "number": "6011 0000 0000 2612",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": [
-          "discover",
-          "diners"
-        ]
-      },
-      {
-        "number": "3338 0000 0000 0221",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "jcb"
-      },
-      {
-        "number": "4000 0000 0000 4160",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": [
-          "cartebancaire",
-          "visa"
-        ]
-      },
-      {
-        "number": "5200 0000 0000 4306",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": [
-          "cartebancaire",
-          "mc"
-        ]
-      }
-    ]
-  },
-  {
-    "group": "Authentication Rejected",
-    "items": [
-      {
-        "number": "4000 0000 0000 2537",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "visa"
-      },
-      {
-        "number": "5200 0000 0000 2185",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "mc"
-      },
-      {
-        "number": "3400 0000 0002 062",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "amex"
-      },
-      {
-        "number": "6011 0000 0000 2711",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": [
-          "discover",
-          "diners"
-        ]
-      },
-      {
-        "number": "3338 0000 0000 0734",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "jcb"
-      },
-      {
-        "number": "4000 0000 0000 4517",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": [
-          "cartebancaire",
-          "visa"
-        ]
-      },
-      {
-        "number": "5200 0000 0000 4405",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": [
-          "cartebancaire",
-          "mc"
-        ]
-      }
-    ]
-  },
-  {
-    "group": "Authentication Unavailable (System Error)",
-    "items": [
-      {
-        "number": "4000 0000 0000 2990",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "visa"
-      },
-      {
-        "number": "5200 0000 0000 2409",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "mc"
-      },
-      {
-        "number": "3400 0000 0002 468",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "amex"
-      },
-      {
-        "number": "6011 0000 0000 2836",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": [
-          "discover",
-          "diners"
-        ]
-      },
-      {
-        "number": "3338 0000 0000 0940",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "jcb"
-      },
-      {
-        "number": "4000 0000 0000 4285",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": [
-          "cartebancaire",
-          "visa"
-        ]
-      },
-      {
-        "number": "5200 0000 0000 4090",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": [
-          "cartebancaire",
-          "mc"
-        ]
-      }
-    ]
-  },
-  {
-    "group": "Authentication Error",
-    "items": [
-      {
-        "number": "4000 0000 0000 2446",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "visa"
-      },
-      {
-        "number": "5200 0000 0000 2037",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "mc"
-      },
-      {
-        "number": "3400 0000 0002 732",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "amex"
-      },
-      {
-        "number": "6011 0000 0000 2315",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": [
-          "discover",
-          "diners"
-        ]
-      },
-      {
-        "number": "3338 0000 0000 0650",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "jcb"
-      },
-      {
-        "number": "4000 0000 0000 4194",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": [
-          "cartebancaire",
-          "visa"
-        ]
-      },
-      {
-        "number": "5200 0000 0000 4058",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": [
-          "cartebancaire",
-          "mc"
-        ]
-      }
-    ]
-  },
-  {
-    "group": "Authentication Timeout / Outage",
-    "items": [
-      {
-        "number": "4000 0000 0000 2354",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "visa"
-      },
-      {
-        "number": "5200 0000 0000 2326",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "mc"
-      },
-      {
-        "number": "3400 0000 0002 047",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "amex"
-      },
-      {
-        "number": "6011 0000 0000 2869",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": [
-          "discover",
-          "diners"
-        ]
-      },
-      {
-        "number": "3338 0000 0000 0577",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "jcb"
-      },
-      {
-        "number": "4000 0000 0000 4277",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": [
-          "cartebancaire",
-          "visa"
-        ]
-      },
-      {
-        "number": "5200 0000 0000 4694",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": [
-          "cartebancaire",
-          "mc"
-        ]
-      }
-    ]
-  },
-  {
-    "group": "Successful Authentication (Challenged)",
-    "items": [
-      {
-        "number": "4000 0000 0000 2503",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "visa"
-      },
-      {
-        "number": "5200 0000 0000 2151",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "mc"
-      },
-      {
-        "number": "3400 0000 0002 534",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "amex"
-      },
-      {
-        "number": "6011 0000 0000 2265",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": [
-          "discover",
-          "diners"
-        ]
-      },
-      {
-        "number": "3338 0000 0000 0569",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "jcb"
-      },
-      {
-        "number": "4000 0000 0000 4855",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": [
-          "cartebancaire",
-          "visa"
-        ]
-      },
-      {
-        "number": "5200 0000 0000 4074",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": [
-          "cartebancaire",
-          "mc"
-        ]
-      }
-    ]
-  },
-  {
-    "group": "Failed Challenged Authentication",
-    "items": [
-      {
-        "number": "4000 0000 0000 2370",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "visa"
-      },
-      {
-        "number": "5200 0000 0000 2490",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "mc"
-      },
-      {
-        "number": "3400 0000 0002 237",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "amex"
-      },
-      {
-        "number": "6011 0000 0000 2695",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": [
-          "discover",
-          "diners"
-        ]
-      },
-      {
-        "number": "3338 0000 0000 0874",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "jcb"
-      },
-      {
-        "number": "4000 0000 0000 4293",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": [
-          "cartebancaire",
-          "visa"
-        ]
-      },
-      {
-        "number": "5200 0000 0000 4041",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": [
-          "cartebancaire",
-          "mc"
-        ]
-      }
-    ]
-  },
-  {
-    "group": "Verification Unavailable",
-    "items": [
-      {
-        "number": "4000 0000 0000 2420",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "visa"
-      },
-      {
-        "number": "5200 0000 0000 2664",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "mc"
-      },
-      {
-        "number": "3400 0000 0002 484",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "amex"
-      },
-      {
-        "number": "6011 0000 0000 2851",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": [
-          "discover",
-          "diners"
-        ]
-      },
-      {
-        "number": "3338 0000 0000 0981",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "jcb"
-      },
-      {
-        "number": "4000 0000 0000 4640",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": [
-          "cartebancaire",
-          "visa"
-        ]
-      },
-      {
-        "number": "5200 0000 0000 4124",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": [
-          "cartebancaire",
-          "mc"
-        ]
-      }
-    ]
-  },
-  {
-    "group": "Verification Error",
-    "items": [
-      {
-        "number": "4000 0000 0000 2644",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "visa"
-      },
-      {
-        "number": "5200 0000 0000 2656",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "mc"
-      },
-      {
-        "number": "3400 0000 0002 351",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "amex"
-      },
-      {
-        "number": "6011 0000 0000 2570",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": [
-          "discover",
-          "diners"
-        ]
-      },
-      {
-        "number": "3338 0000 0000 0676",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "jcb"
-      },
-      {
-        "number": "4000 0000 0000 4913",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": [
-          "cartebancaire",
-          "visa"
-        ]
-      },
-      {
-        "number": "5200 0000 0000 4611",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": [
-          "cartebancaire",
-          "mc"
-        ]
-      }
-    ]
-  },
-  {
-    "group": "Bypass",
-    "items": [
-      {
-        "number": "4000 0000 0000 2560",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "visa"
-      },
-      {
-        "number": "5200 0000 0000 2508",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "mc"
-      },
-      {
-        "number": "3400 0000 0002 948",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "amex"
-      },
-      {
-        "number": "6011 0000 0000 2976",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": [
-          "discover",
-          "diners"
-        ]
-      },
-      {
-        "number": "3338 0000 0000 0122",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "jcb"
-      },
-      {
-        "number": "4000 0000 0000 4400",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": [
-          "cartebancaire",
-          "visa"
-        ]
-      },
-      {
-        "number": "5200 0000 0000 4991",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": [
-          "cartebancaire",
-          "mc"
-        ]
-      }
-    ]
-  }
-]
+{
+  "id": "worldpay-3ds",
+  "name": "Worldpay (3DS)",
+  "docsLink": "https://docs.worldpay.com/access/products/3ds/testing",
+  "cards": [
+    {
+      "group": "Successful Authentication (Frictionless)",
+      "items": [
+        {
+          "number": "4000 0000 0000 2701",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "visa"
+        },
+        {
+          "number": "5200 0000 0000 2235",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "mc"
+        },
+        {
+          "number": "3400 0000 0002 708",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "amex"
+        },
+        {
+          "number": "6011 0000 0000 2117",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": [
+            "discover",
+            "diners"
+          ]
+        },
+        {
+          "number": "3338 0000 0000 0296",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "jcb"
+        },
+        {
+          "number": "4000 0000 0000 4970",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": [
+            "cartebancaire",
+            "visa"
+          ]
+        },
+        {
+          "number": "5200 0000 0000 4801",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": [
+            "cartebancaire",
+            "mc"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Failed Frictionless Authentication",
+      "items": [
+        {
+          "number": "4000 0000 0000 2925",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "visa"
+        },
+        {
+          "number": "5200 0000 0000 2276",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "mc"
+        },
+        {
+          "number": "3400 0000 0002 096",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "amex"
+        },
+        {
+          "number": "6011 0000 0000 2364",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": [
+            "discover",
+            "diners"
+          ]
+        },
+        {
+          "number": "3338 0000 0000 0361",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "jcb"
+        },
+        {
+          "number": "4000 0000 0000 4574",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": [
+            "cartebancaire",
+            "visa"
+          ]
+        },
+        {
+          "number": "5200 0000 0000 4538",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": [
+            "cartebancaire",
+            "mc"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Attempts Stand-In Frictionless Authentication",
+      "items": [
+        {
+          "number": "4000 0000 0000 2719",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "visa"
+        },
+        {
+          "number": "5200 0000 0000 2482",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "mc"
+        },
+        {
+          "number": "3400 0000 0002 872",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "amex"
+        },
+        {
+          "number": "6011 0000 0000 2646",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": [
+            "discover",
+            "diners"
+          ]
+        },
+        {
+          "number": "3338 0000 0000 0585",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "jcb"
+        },
+        {
+          "number": "4000 0000 0000 4111",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": [
+            "cartebancaire",
+            "visa"
+          ]
+        },
+        {
+          "number": "5200 0000 0000 4587",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": [
+            "cartebancaire",
+            "mc"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Authentication Unavailable (Issuer)",
+      "items": [
+        {
+          "number": "4000 0000 0000 2313",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "visa"
+        },
+        {
+          "number": "5200 0000 0000 2268",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "mc"
+        },
+        {
+          "number": "3400 0000 0002 922",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "amex"
+        },
+        {
+          "number": "6011 0000 0000 2612",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": [
+            "discover",
+            "diners"
+          ]
+        },
+        {
+          "number": "3338 0000 0000 0221",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "jcb"
+        },
+        {
+          "number": "4000 0000 0000 4160",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": [
+            "cartebancaire",
+            "visa"
+          ]
+        },
+        {
+          "number": "5200 0000 0000 4306",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": [
+            "cartebancaire",
+            "mc"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Authentication Rejected",
+      "items": [
+        {
+          "number": "4000 0000 0000 2537",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "visa"
+        },
+        {
+          "number": "5200 0000 0000 2185",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "mc"
+        },
+        {
+          "number": "3400 0000 0002 062",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "amex"
+        },
+        {
+          "number": "6011 0000 0000 2711",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": [
+            "discover",
+            "diners"
+          ]
+        },
+        {
+          "number": "3338 0000 0000 0734",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "jcb"
+        },
+        {
+          "number": "4000 0000 0000 4517",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": [
+            "cartebancaire",
+            "visa"
+          ]
+        },
+        {
+          "number": "5200 0000 0000 4405",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": [
+            "cartebancaire",
+            "mc"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Authentication Unavailable (System Error)",
+      "items": [
+        {
+          "number": "4000 0000 0000 2990",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "visa"
+        },
+        {
+          "number": "5200 0000 0000 2409",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "mc"
+        },
+        {
+          "number": "3400 0000 0002 468",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "amex"
+        },
+        {
+          "number": "6011 0000 0000 2836",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": [
+            "discover",
+            "diners"
+          ]
+        },
+        {
+          "number": "3338 0000 0000 0940",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "jcb"
+        },
+        {
+          "number": "4000 0000 0000 4285",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": [
+            "cartebancaire",
+            "visa"
+          ]
+        },
+        {
+          "number": "5200 0000 0000 4090",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": [
+            "cartebancaire",
+            "mc"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Authentication Error",
+      "items": [
+        {
+          "number": "4000 0000 0000 2446",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "visa"
+        },
+        {
+          "number": "5200 0000 0000 2037",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "mc"
+        },
+        {
+          "number": "3400 0000 0002 732",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "amex"
+        },
+        {
+          "number": "6011 0000 0000 2315",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": [
+            "discover",
+            "diners"
+          ]
+        },
+        {
+          "number": "3338 0000 0000 0650",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "jcb"
+        },
+        {
+          "number": "4000 0000 0000 4194",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": [
+            "cartebancaire",
+            "visa"
+          ]
+        },
+        {
+          "number": "5200 0000 0000 4058",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": [
+            "cartebancaire",
+            "mc"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Authentication Timeout / Outage",
+      "items": [
+        {
+          "number": "4000 0000 0000 2354",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "visa"
+        },
+        {
+          "number": "5200 0000 0000 2326",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "mc"
+        },
+        {
+          "number": "3400 0000 0002 047",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "amex"
+        },
+        {
+          "number": "6011 0000 0000 2869",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": [
+            "discover",
+            "diners"
+          ]
+        },
+        {
+          "number": "3338 0000 0000 0577",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "jcb"
+        },
+        {
+          "number": "4000 0000 0000 4277",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": [
+            "cartebancaire",
+            "visa"
+          ]
+        },
+        {
+          "number": "5200 0000 0000 4694",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": [
+            "cartebancaire",
+            "mc"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Successful Authentication (Challenged)",
+      "items": [
+        {
+          "number": "4000 0000 0000 2503",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "visa"
+        },
+        {
+          "number": "5200 0000 0000 2151",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "mc"
+        },
+        {
+          "number": "3400 0000 0002 534",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "amex"
+        },
+        {
+          "number": "6011 0000 0000 2265",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": [
+            "discover",
+            "diners"
+          ]
+        },
+        {
+          "number": "3338 0000 0000 0569",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "jcb"
+        },
+        {
+          "number": "4000 0000 0000 4855",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": [
+            "cartebancaire",
+            "visa"
+          ]
+        },
+        {
+          "number": "5200 0000 0000 4074",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": [
+            "cartebancaire",
+            "mc"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Failed Challenged Authentication",
+      "items": [
+        {
+          "number": "4000 0000 0000 2370",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "visa"
+        },
+        {
+          "number": "5200 0000 0000 2490",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "mc"
+        },
+        {
+          "number": "3400 0000 0002 237",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "amex"
+        },
+        {
+          "number": "6011 0000 0000 2695",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": [
+            "discover",
+            "diners"
+          ]
+        },
+        {
+          "number": "3338 0000 0000 0874",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "jcb"
+        },
+        {
+          "number": "4000 0000 0000 4293",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": [
+            "cartebancaire",
+            "visa"
+          ]
+        },
+        {
+          "number": "5200 0000 0000 4041",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": [
+            "cartebancaire",
+            "mc"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Verification Unavailable",
+      "items": [
+        {
+          "number": "4000 0000 0000 2420",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "visa"
+        },
+        {
+          "number": "5200 0000 0000 2664",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "mc"
+        },
+        {
+          "number": "3400 0000 0002 484",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "amex"
+        },
+        {
+          "number": "6011 0000 0000 2851",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": [
+            "discover",
+            "diners"
+          ]
+        },
+        {
+          "number": "3338 0000 0000 0981",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "jcb"
+        },
+        {
+          "number": "4000 0000 0000 4640",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": [
+            "cartebancaire",
+            "visa"
+          ]
+        },
+        {
+          "number": "5200 0000 0000 4124",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": [
+            "cartebancaire",
+            "mc"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Verification Error",
+      "items": [
+        {
+          "number": "4000 0000 0000 2644",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "visa"
+        },
+        {
+          "number": "5200 0000 0000 2656",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "mc"
+        },
+        {
+          "number": "3400 0000 0002 351",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "amex"
+        },
+        {
+          "number": "6011 0000 0000 2570",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": [
+            "discover",
+            "diners"
+          ]
+        },
+        {
+          "number": "3338 0000 0000 0676",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "jcb"
+        },
+        {
+          "number": "4000 0000 0000 4913",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": [
+            "cartebancaire",
+            "visa"
+          ]
+        },
+        {
+          "number": "5200 0000 0000 4611",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": [
+            "cartebancaire",
+            "mc"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Bypass",
+      "items": [
+        {
+          "number": "4000 0000 0000 2560",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "visa"
+        },
+        {
+          "number": "5200 0000 0000 2508",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "mc"
+        },
+        {
+          "number": "3400 0000 0002 948",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "amex"
+        },
+        {
+          "number": "6011 0000 0000 2976",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": [
+            "discover",
+            "diners"
+          ]
+        },
+        {
+          "number": "3338 0000 0000 0122",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "jcb"
+        },
+        {
+          "number": "4000 0000 0000 4400",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": [
+            "cartebancaire",
+            "visa"
+          ]
+        },
+        {
+          "number": "5200 0000 0000 4991",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": [
+            "cartebancaire",
+            "mc"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -38,6 +38,13 @@ export interface RawCardItem {
     [key: string]: unknown;
 }
 
+export interface RawGatewayFile {
+    id: string;
+    name: string;
+    docsLink?: string;
+    cards: { group: string; items: RawCardItem[] }[];
+}
+
 const AUTOFILL_KEYS = new Set(['number', 'name', 'csc', 'exp']);
 const DISPLAY_SKIP_KEYS = new Set([...AUTOFILL_KEYS, 'network', 'id']);
 

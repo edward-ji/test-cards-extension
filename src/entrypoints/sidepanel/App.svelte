@@ -2,10 +2,9 @@
   import { onMount, tick } from 'svelte';
   import { fade } from 'svelte/transition';
   import type { PublicPath } from 'wxt/browser';
-  import { parseGatewayData, type NetworkInfo, type Card, type ParsedGroup, type RawCardItem, type PrefillData } from '../../parser';
+  import { parseGatewayData, type NetworkInfo, type Card, type ParsedGroup, type RawGatewayFile, type PrefillData } from '../../parser';
 
-  type GatewayId<P extends PublicPath = PublicPath> = P extends `/data/cards/${infer Id}.json` ? Id : never;
-  function isGatewayId(value: string): value is GatewayId {
+  function isGatewayId(value: string): boolean {
     return gateways.some(g => g.id === value);
   }
   import CardItem from './CardItem.svelte';
@@ -24,8 +23,8 @@
   type Density = 'comfortable' | 'compact';
 
   // State
-  let gateways = $state<{ id: string; name: string; docsLink?: string }[]>([]);
-  let currentGatewayId = $state<GatewayId>('adyen');
+  let builtinGatewayFiles = $state<RawGatewayFile[]>([]);
+  let currentGatewayId = $state<string>('adyen');
   let cards = $state<ParsedGroup[]>([]);
   let favourites = $state<string[]>([]);
   let networks = $state<NetworkInfo[]>([]);
@@ -41,6 +40,7 @@
   let cardsEl: HTMLElement | null = $state(null);
 
   // Derived
+  const gateways = $derived<RawGatewayFile[]>(builtinGatewayFiles);
   const currentGateway = $derived(gateways.find(g => g.id === currentGatewayId));
   const searchQueryLower = $derived(searchQuery.toLowerCase());
   const favCards = $derived(
@@ -72,11 +72,11 @@
   });
 
   onMount(async () => {
-    const [storedFavs, storedTheme, storedDensity, gatewayData, networkData, savedGateway, storedRecent, storedShowRecent, storedRecentLimit] = await Promise.all([
+    const [storedFavs, storedTheme, storedDensity, gatewayIds, networkData, savedGateway, storedRecent, storedShowRecent, storedRecentLimit] = await Promise.all([
       getFromStorage<string[]>(FAVOURITES_LIST),
       getFromStorage<ThemeMode>(COLOR_SCHEME),
       getFromStorage<Density>(DENSITY),
-      loadFromFile<{ id: string; name: string; docsLink?: string }[]>('/data/gateways.json'),
+      loadFromFile<string[]>('/data/gateways.json'),
       loadFromFile<NetworkInfo[]>('/data/networks.json'),
       getFromStorage<string>(SELECTED_GATEWAY),
       getFromStorage<string[]>(RECENT_CARDS),
@@ -87,11 +87,16 @@
     favourites = storedFavs ?? [];
     themeMode = storedTheme ?? 'system';
     density = storedDensity ?? 'comfortable';
-    gateways = gatewayData ?? [];
     networks = networkData ?? [];
     recentCardIds = storedRecent ?? [];
     showRecent = storedShowRecent ?? false;
     recentLimit = storedRecentLimit ?? 5;
+
+    // Load all built-in gateway files in parallel (small local resources)
+    const ids = gatewayIds ?? [];
+    builtinGatewayFiles = (
+      await Promise.all(ids.map(id => loadFromFile<RawGatewayFile>(`/data/cards/${id}.json` as PublicPath)))
+    ).filter((f): f is RawGatewayFile => f !== undefined);
 
     if (savedGateway && isGatewayId(savedGateway)) {
       currentGatewayId = savedGateway;
@@ -100,9 +105,11 @@
     await loadDataForGateway(currentGatewayId);
   });
 
-  async function loadDataForGateway(gatewayId: GatewayId) {
-    const rawCards = await loadFromFile<{ group: string; items: RawCardItem[] }[]>(`/data/cards/${gatewayId}.json`);
-    cards = parseGatewayData(gatewayId, rawCards ?? [], networks);
+  async function loadDataForGateway(gatewayId: string) {
+    const file = gateways.find(g => g.id === gatewayId);
+    if (file) {
+      cards = parseGatewayData(gatewayId, file.cards, networks);
+    }
   }
 
   async function addFavourite(id: string) {
@@ -232,8 +239,8 @@
   async function handleGatewayChange(value: string) {
     if (!isGatewayId(value)) return;
     currentGatewayId = value;
-    await setInStorage(SELECTED_GATEWAY, currentGatewayId);
-    await loadDataForGateway(currentGatewayId);
+    await setInStorage(SELECTED_GATEWAY, value);
+    await loadDataForGateway(value);
   }
 </script>
 

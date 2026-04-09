@@ -1,398 +1,403 @@
-[
-  {
-    "group": "Test card numbers",
-    "items": [
-      {
-        "number": "3782 8224 6310 005",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "amex"
-      },
-      {
-        "number": "3782 8274 9798 722",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "amex"
-      },
-      {
-        "number": "5078 6018 7000 0127 985",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "aura"
-      },
-      {
-        "number": "3056 9309 0259 04",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "diners"
-      },
-      {
-        "number": "6011 1111 1111 1117",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "discover"
-      },
-      {
-        "number": "6362 9700 0045 7013",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "elo"
-      },
-      {
-        "number": "6362 9717 4712 9170",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "elo"
-      },
-      {
-        "number": "6062 8256 2425 4001",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "hipercard"
-      },
-      {
-        "number": "6062 8239 3626 8330",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "hipercard"
-      },
-      {
-        "number": "4111 1111 1111 1111",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "visa"
-      },
-      {
-        "number": "4111 1156 6605 2208",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "visa"
-      },
-      {
-        "number": "5555 5555 5555 4444",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "mc"
-      },
-      {
-        "number": "5555 5563 5556 4617",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "mc"
-      },
-      {
-        "number": "5062 2246 0744 0872",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "country": "Mexico",
-        "network": "carnet"
-      },
-      {
-        "number": "5045 2011 7440 2586",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "country": "Argentina",
-        "network": "credimas"
-      },
-      {
-        "number": "5895 6262 9299 0446",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "country": "Argentina",
-        "network": "naranja"
-      },
-      {
-        "number": "5896 5787 4202 6538",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "country": "Argentina",
-        "network": "cabal"
-      },
-      {
-        "number": "5680 0956 6061 0110",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "country": "Chile",
-        "network": "magna"
-      }
-    ]
-  },
-  {
-    "group": "Credit Card | Declined",
-    "items": [
-      {
-        "number": "4716 9097 7463 6285",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "response": "insufficientFunds",
-        "network": "visa"
-      },
-      {
-        "number": "5102 0268 2734 5142",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "response": "invalidData",
-        "network": "mc"
-      },
-      {
-        "number": "6011 0888 9671 5918",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "response": "cardExpired",
-        "network": "discover"
-      },
-      {
-        "number": "3785 6877 5709 157",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "response": "notApproved",
-        "network": "amex"
-      }
-    ]
-  },
-  {
-    "group": "Debit Card | Brazil",
-    "items": [
-      {
-        "number": "4000 0000 0000 1000",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "note": "Approved",
-        "challenge": false,
-        "network": "visa"
-      },
-      {
-        "number": "4000 0000 0000 1091",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "note": "Insufficient Funds",
-        "challenge": true,
-        "network": "visa"
-      },
-      {
-        "number": "4000 0000 0000 1042",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "note": "Invalid Card or Card Type",
-        "challenge": true,
-        "network": "visa"
-      },
-      {
-        "number": "4000 0000 0000 1109",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "note": "Invalid Card or Card Type",
-        "challenge": false,
-        "network": "visa"
-      },
-      {
-        "number": "5200 0000 0000 1096",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "note": "Approved",
-        "challenge": true,
-        "network": "mc"
-      },
-      {
-        "number": "5200 0000 0000 1005",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "note": "Insufficient Funds",
-        "challenge": true,
-        "network": "mc"
-      },
-      {
-        "number": "5200 0000 0000 1013",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "note": "Invalid Card or Card Type",
-        "challenge": true,
-        "network": "mc"
-      },
-      {
-        "number": "5200 0000 0000 1104",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "note": "Invalid Card or Card Type",
-        "challenge": false,
-        "network": "mc"
-      },
-      {
-        "number": "6759 4111 0000 0008",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "note": "Approved",
-        "challenge": false,
-        "network": "maestro"
-      },
-      {
-        "number": "6505 0500 0000 1000",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "note": "Approved",
-        "challenge": false,
-        "network": "elo"
-      }
-    ]
-  },
-  {
-    "group": "Debit Cards | Mexico",
-    "items": [
-      {
-        "number": "4242 4242 4242 4242",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "visa"
-      },
-      {
-        "number": "4012 8888 8888 1881",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "visa"
-      },
-      {
-        "number": "5555 5555 5555 4444",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "mc"
-      },
-      {
-        "number": "5105 1051 0510 5100",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "network": "mc"
-      }
-    ]
-  },
-  {
-    "group": "Cards with 3DS 2.0",
-    "items": [
-      {
-        "number": "4000 0000 0000 1000",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "note": "Approved",
-        "challenge": true,
-        "network": "visa"
-      },
-      {
-        "number": "4000 0000 0000 1091",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "note": "Insufficient Funds",
-        "challenge": true,
-        "network": "visa"
-      },
-      {
-        "number": "4000 0000 0000 1042",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "note": "Invalid Card or Card Type",
-        "challenge": true,
-        "network": "visa"
-      },
-      {
-        "number": "4000 0000 0000 1109",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "note": "Invalid Card or Card Type",
-        "challenge": false,
-        "network": "visa"
-      },
-      {
-        "number": "5200 0000 0000 1096",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "note": "Approved",
-        "challenge": true,
-        "network": "mc"
-      },
-      {
-        "number": "5200 0000 0000 1005",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "note": "Insufficient Funds",
-        "challenge": true,
-        "network": "mc"
-      },
-      {
-        "number": "5200 0000 0000 1013",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "note": "Invalid Card or Card Type",
-        "challenge": true,
-        "network": "mc"
-      },
-      {
-        "number": "5200 0000 0000 1104",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "note": "Invalid Card or Card Type",
-        "challenge": false,
-        "network": "mc"
-      },
-      {
-        "number": "6759 4111 0000 0008",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "note": "Approved",
-        "challenge": false,
-        "network": "maestro"
-      },
-      {
-        "number": "6505 0500 0000 1000",
-        "exp": true,
-        "csc": true,
-        "name": true,
-        "note": "Approved",
-        "challenge": false,
-        "network": "elo"
-      }
-    ]
-  }
-]
+{
+  "id": "ebanx",
+  "name": "EBANX",
+  "docsLink": "https://docs.ebanx.com/docs/resources/sandbox-simulation/test-credit-cards",
+  "cards": [
+    {
+      "group": "Test card numbers",
+      "items": [
+        {
+          "number": "3782 8224 6310 005",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "amex"
+        },
+        {
+          "number": "3782 8274 9798 722",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "amex"
+        },
+        {
+          "number": "5078 6018 7000 0127 985",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "aura"
+        },
+        {
+          "number": "3056 9309 0259 04",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "diners"
+        },
+        {
+          "number": "6011 1111 1111 1117",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "discover"
+        },
+        {
+          "number": "6362 9700 0045 7013",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "elo"
+        },
+        {
+          "number": "6362 9717 4712 9170",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "elo"
+        },
+        {
+          "number": "6062 8256 2425 4001",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "hipercard"
+        },
+        {
+          "number": "6062 8239 3626 8330",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "hipercard"
+        },
+        {
+          "number": "4111 1111 1111 1111",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "visa"
+        },
+        {
+          "number": "4111 1156 6605 2208",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "visa"
+        },
+        {
+          "number": "5555 5555 5555 4444",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "mc"
+        },
+        {
+          "number": "5555 5563 5556 4617",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "mc"
+        },
+        {
+          "number": "5062 2246 0744 0872",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "country": "Mexico",
+          "network": "carnet"
+        },
+        {
+          "number": "5045 2011 7440 2586",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "country": "Argentina",
+          "network": "credimas"
+        },
+        {
+          "number": "5895 6262 9299 0446",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "country": "Argentina",
+          "network": "naranja"
+        },
+        {
+          "number": "5896 5787 4202 6538",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "country": "Argentina",
+          "network": "cabal"
+        },
+        {
+          "number": "5680 0956 6061 0110",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "country": "Chile",
+          "network": "magna"
+        }
+      ]
+    },
+    {
+      "group": "Credit Card | Declined",
+      "items": [
+        {
+          "number": "4716 9097 7463 6285",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "response": "insufficientFunds",
+          "network": "visa"
+        },
+        {
+          "number": "5102 0268 2734 5142",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "response": "invalidData",
+          "network": "mc"
+        },
+        {
+          "number": "6011 0888 9671 5918",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "response": "cardExpired",
+          "network": "discover"
+        },
+        {
+          "number": "3785 6877 5709 157",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "response": "notApproved",
+          "network": "amex"
+        }
+      ]
+    },
+    {
+      "group": "Debit Card | Brazil",
+      "items": [
+        {
+          "number": "4000 0000 0000 1000",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "note": "Approved",
+          "challenge": false,
+          "network": "visa"
+        },
+        {
+          "number": "4000 0000 0000 1091",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "note": "Insufficient Funds",
+          "challenge": true,
+          "network": "visa"
+        },
+        {
+          "number": "4000 0000 0000 1042",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "note": "Invalid Card or Card Type",
+          "challenge": true,
+          "network": "visa"
+        },
+        {
+          "number": "4000 0000 0000 1109",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "note": "Invalid Card or Card Type",
+          "challenge": false,
+          "network": "visa"
+        },
+        {
+          "number": "5200 0000 0000 1096",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "note": "Approved",
+          "challenge": true,
+          "network": "mc"
+        },
+        {
+          "number": "5200 0000 0000 1005",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "note": "Insufficient Funds",
+          "challenge": true,
+          "network": "mc"
+        },
+        {
+          "number": "5200 0000 0000 1013",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "note": "Invalid Card or Card Type",
+          "challenge": true,
+          "network": "mc"
+        },
+        {
+          "number": "5200 0000 0000 1104",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "note": "Invalid Card or Card Type",
+          "challenge": false,
+          "network": "mc"
+        },
+        {
+          "number": "6759 4111 0000 0008",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "note": "Approved",
+          "challenge": false,
+          "network": "maestro"
+        },
+        {
+          "number": "6505 0500 0000 1000",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "note": "Approved",
+          "challenge": false,
+          "network": "elo"
+        }
+      ]
+    },
+    {
+      "group": "Debit Cards | Mexico",
+      "items": [
+        {
+          "number": "4242 4242 4242 4242",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "visa"
+        },
+        {
+          "number": "4012 8888 8888 1881",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "visa"
+        },
+        {
+          "number": "5555 5555 5555 4444",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "mc"
+        },
+        {
+          "number": "5105 1051 0510 5100",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "network": "mc"
+        }
+      ]
+    },
+    {
+      "group": "Cards with 3DS 2.0",
+      "items": [
+        {
+          "number": "4000 0000 0000 1000",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "note": "Approved",
+          "challenge": true,
+          "network": "visa"
+        },
+        {
+          "number": "4000 0000 0000 1091",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "note": "Insufficient Funds",
+          "challenge": true,
+          "network": "visa"
+        },
+        {
+          "number": "4000 0000 0000 1042",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "note": "Invalid Card or Card Type",
+          "challenge": true,
+          "network": "visa"
+        },
+        {
+          "number": "4000 0000 0000 1109",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "note": "Invalid Card or Card Type",
+          "challenge": false,
+          "network": "visa"
+        },
+        {
+          "number": "5200 0000 0000 1096",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "note": "Approved",
+          "challenge": true,
+          "network": "mc"
+        },
+        {
+          "number": "5200 0000 0000 1005",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "note": "Insufficient Funds",
+          "challenge": true,
+          "network": "mc"
+        },
+        {
+          "number": "5200 0000 0000 1013",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "note": "Invalid Card or Card Type",
+          "challenge": true,
+          "network": "mc"
+        },
+        {
+          "number": "5200 0000 0000 1104",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "note": "Invalid Card or Card Type",
+          "challenge": false,
+          "network": "mc"
+        },
+        {
+          "number": "6759 4111 0000 0008",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "note": "Approved",
+          "challenge": false,
+          "network": "maestro"
+        },
+        {
+          "number": "6505 0500 0000 1000",
+          "exp": true,
+          "csc": true,
+          "name": true,
+          "note": "Approved",
+          "challenge": false,
+          "network": "elo"
+        }
+      ]
+    }
+  ]
+}
