@@ -78,7 +78,7 @@ function resolveExpiry(raw: string): string {
 function resolveField(value: string | number | boolean | null | undefined, defaultValue: string | undefined): string | null {
     if (value == null) return null;
     if (value === false || value === "") return "";
-    if (value === true) return defaultValue;
+    if (value === true) return defaultValue ?? null;
     return String(value);
 }
 
