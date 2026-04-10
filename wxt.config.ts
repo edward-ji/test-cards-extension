@@ -8,7 +8,7 @@ export default defineConfig({
   },
   manifest: ({ browser }) => ({
     name: 'Test Cards',
-    version: '0.4.0',
+    version: '1.0.0',
     description: 'Copy and prefill test card numbers and other payment methods with a single click.',
     action: {
       default_title: 'Test Cards',
