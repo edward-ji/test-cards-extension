@@ -1,90 +1,52 @@
-# Test Cards Extension
+# Test Cards
 
-A [Chrome] and [Firefox] extension that lets you copy and prefill Adyen test card numbers with a single click.
+Streamline your payment integration testing with instant access to test card
+numbers for major gateways. This extension provides a convenient side panel to
+browse, select, and manage the test credentials you need for any payment flow
+without ever leaving your active tab.
 
-## Chrome vs Firefox
+## Installation
 
-The extension is built from one codebase for both browsers. **Chrome** uses a side panel (toolbar icon opens the panel); **Firefox** uses a sidebar (toolbar icon opens the sidebar). The same panel UI, test data, and copy/prefill logic run in both. Build output is separate: `dist/chrome` (Chrome Web Store) and `dist/firefox` (Firefox Add-ons).
+> [!NOTE]
+> The extension requests permission to read and write data on all websites. This
+> is required to autofill payment forms regardless of where your integration is
+> hosted. No data is read from pages — the extension only writes card details
+> into form fields. All code is open source and there is no telemetry.
 
-## Test Cards
+- [Chrome Web Store](https://chromewebstore.google.com/detail/ddflppoejkafcaedakefoakkmaholoeh)
+- [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/test-cards/)
+- [Microsoft Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/test-cards/cfejdbkkfbpjdfafkmjcpnkgmdegcdjl)
 
-Adyen provides [test card numbers](https://docs.adyen.com/development-resources/testing/test-card-numbers) to test the Checkout integration with different payment methods and flows.
+### Loading from source
 
-This extension brings those test card numbers directly into your browser where you can:
-* copy the card number to the clipboard
-* prefill the Adyen Web Drop-in with the selected card details and perform the testing quickly and easily.
+> [!NOTE]
+> Temporarily loaded extensions are removed on browser restart and must be reloaded.
 
-### Installation
+```bash
+npm install
+npm run build  # chrome
+npm run build:firefox
+npm run build:edge
+```
 
-#### Chrome: from Chrome Web Store
+**Chrome / Edge:** Open `chrome://extensions` (or `edge://extensions`), enable
+Developer Mode, click "Load unpacked", and select the build output folder.
 
-1. Find the extension in the [Chrome Web Store][Chrome]
-2. Click "Add to Chrome"
+**Firefox:** Open `about:debugging`, click "This Firefox", "Load Temporary
+Add-on", and select the `manifest.json` from the build output folder.
 
-The installation will warn that the extension can read and write data on all websites.
+## Development
 
-> **Note**
-This is necessary as we do not know where your integration is hosted. The Test Cards extension only copies (using Javascript) the selected card details into the Credit Card fields. No other data or fields are read or changed. All of the code is Open-Source and there is no telemetry in this extension.
->
+```bash
+npm run dev  # chrome
+npm run dev:firefox
+npm run dev:edge
 
-#### Firefox: from Add-ons (AMO)
-
-1. Find the extension on [Firefox Add-ons (AMO)][Firefox]
-2. Click "Add to Firefox"
-
-Or load the built package (see "Building from source" below).
-
-#### Building from source (Chrome and Firefox)
-
-1. Build both browser packages:
-   ```bash
-   npm run build
-   ```
-   This produces `dist/chrome/` and `dist/firefox/`.
-
-2. **Chrome:** Open `chrome://extensions`, enable Developer Mode, click "Load unpacked", and select the `dist/chrome` folder.
-
-3. **Firefox:** Open `about:debugging`, click "This Firefox", "Load Temporary Add-on", and select `dist/firefox/manifest.json`.
-
-
-### Usage
-
-Open the extension and choose a card number.
-
-## Contributing
-
-We commit all our new features directly into our GitHub repository. Feel free to request or suggest new features or code changes yourself as well!
-
-Find out more in our [contributing](https://github.com/adyen-examples/.github/blob/main/CONTRIBUTING.md) guidelines.
-
-### Build & PR
-
-To contribute:
-* create a new GitHub issue (please specify if it is a feature, improvement or bug fix)
-* create a local branch
-* develop and test your changes locally ("Load unpacked" from your source)
-* run the E2E tests locally
-  ```
-  cd e2e
-  npx playwright test
-  ```
-* submit a PR
-
-**Note**: the list of cards are saved (as JSON) on local storage. If the JSON format changes then the existing users might be affected (breaking change?).
-
-## Maintainers
-
-### Build & publish
-
-In order to publish a new release:
-* develop and test features and changes
-* update the version (and other applicable fields) in `manifests/chrome.json` and `manifests/firefox.json`
-* create a new release: the `package-extension.yml` workflow runs `npm run build`, zips `dist/chrome` and `dist/firefox`, and attaches `test-cards-chrome.zip` and `test-cards-firefox.zip` to the release
-* upload the Chrome zip to the Chrome Web Store and the Firefox zip to Firefox Add-ons (AMO)
+npm run lint
+npm run check
+npm test
+```
 
 ## License
 
-MIT license. For more information, see the **LICENSE** file.
-
-[Chrome]: https://chromewebstore.google.com/detail/ddflppoejkafcaedakefoakkmaholoeh
-[Firefox]: https://addons.mozilla.org/en-US/firefox/addon/test-cards/
+MIT
