@@ -20,6 +20,7 @@
   const RECENT_LIMIT = 'recent-limit';
   const DENSITY = 'density';
   const CUSTOM_GATEWAYS = 'custom-gateways';
+  const COLLAPSED_GROUPS = 'collapsed-groups';
 
   const SETTINGS_KEYS = [COLOR_SCHEME, DENSITY, SHOW_RECENT, RECENT_LIMIT] as const;
   type ThemeMode = 'light' | 'dark' | 'system';
@@ -42,6 +43,7 @@
   let recentLimit = $state(5);
   let recentSectionEl: HTMLElement | null = $state(null);
   let cardsEl: HTMLElement | null = $state(null);
+  let collapsedGroups = $state<Set<string>>(new Set());
 
   // Derived
   const gateways = $derived<RawGatewayFile[]>([...builtinGatewayFiles, ...customGatewayFiles]);
@@ -76,7 +78,7 @@
   });
 
   onMount(async () => {
-    const [storedFavs, storedTheme, storedDensity, gatewayIds, networkData, savedGateway, storedRecent, storedShowRecent, storedRecentLimit, storedCustomGateways] = await Promise.all([
+    const [storedFavs, storedTheme, storedDensity, gatewayIds, networkData, savedGateway, storedRecent, storedShowRecent, storedRecentLimit, storedCustomGateways, storedCollapsed] = await Promise.all([
       getFromStorage<string[]>(FAVOURITES_LIST),
       getFromStorage<ThemeMode>(COLOR_SCHEME),
       getFromStorage<Density>(DENSITY),
@@ -87,6 +89,7 @@
       getFromStorage<boolean>(SHOW_RECENT),
       getFromStorage<number>(RECENT_LIMIT),
       getFromStorage<RawGatewayFile[]>(CUSTOM_GATEWAYS),
+      getFromStorage<string[]>(COLLAPSED_GROUPS),
     ]);
 
     favourites = storedFavs ?? [];
@@ -97,6 +100,7 @@
     showRecent = storedShowRecent ?? false;
     recentLimit = storedRecentLimit ?? 5;
     customGatewayFiles = storedCustomGateways ?? [];
+    collapsedGroups = new Set(storedCollapsed ?? []);
 
     // Load all built-in gateway files in parallel (small local resources)
     const ids = gatewayIds ?? [];
@@ -250,10 +254,22 @@
     showRecent = false;
     recentLimit = 5;
     customGatewayFiles = [];
+    collapsedGroups = new Set();
     if (!builtinGatewayFiles.some(g => g.id === currentGatewayId)) {
       currentGatewayId = builtinGatewayFiles[0]?.id ?? 'adyen';
       await loadDataForGateway(currentGatewayId);
     }
+  }
+
+  async function toggleGroup(group: string) {
+    const next = new Set(collapsedGroups);
+    if (next.has(group)) {
+      next.delete(group);
+    } else {
+      next.add(group);
+    }
+    await setInStorage(COLLAPSED_GROUPS, [...next]);
+    collapsedGroups = next;
   }
 
   async function updateTheme(next: ThemeMode) {
@@ -455,33 +471,43 @@
     <!-- Card group sections -->
     {#each nonFavGroups as group (group.group)}
       {@const visibleCards = group.items.filter((c: Card) => c.search.includes(searchQueryLower))}
+      {@const isCollapsed = collapsedGroups.has(group.group)}
       {#if visibleCards.length > 0}
         <div class="cards-section">
-          <h3 class="section-title">{group.group}</h3>
-          {#if density === 'compact'}
-            <TableView
-              cards={visibleCards}
-              {networks}
-              {favourites}
-              isFavSection={false}
-              onFav={addFavourite}
-              onUnfav={removeFavourite}
-              onCopy={handleCopy}
-              onAutofill={handleAutofill}
-              onInteract={(id) => trackRecent(id, true)}
-            />
-          {:else}
-            <CardView
-              cards={visibleCards}
-              {networks}
-              {favourites}
-              isFavSection={false}
-              onFav={addFavourite}
-              onUnfav={removeFavourite}
-              onCopy={handleCopy}
-              onAutofill={handleAutofill}
-              onInteract={(id) => trackRecent(id, true)}
-            />
+          <button
+            class="section-title"
+            class:section-title--collapsed={isCollapsed}
+            onclick={() => toggleGroup(group.group)}
+          >
+            {group.group}
+            <span class="section-chevron">›</span>
+          </button>
+          {#if !isCollapsed}
+            {#if density === 'compact'}
+              <TableView
+                cards={visibleCards}
+                {networks}
+                {favourites}
+                isFavSection={false}
+                onFav={addFavourite}
+                onUnfav={removeFavourite}
+                onCopy={handleCopy}
+                onAutofill={handleAutofill}
+                onInteract={(id) => trackRecent(id, true)}
+              />
+            {:else}
+              <CardView
+                cards={visibleCards}
+                {networks}
+                {favourites}
+                isFavSection={false}
+                onFav={addFavourite}
+                onUnfav={removeFavourite}
+                onCopy={handleCopy}
+                onAutofill={handleAutofill}
+                onInteract={(id) => trackRecent(id, true)}
+              />
+            {/if}
           {/if}
         </div>
       {/if}
@@ -616,6 +642,27 @@
     opacity: 0.6;
     margin: 0 0 6px 2px;
     padding: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .section-title:hover {
+    opacity: 1;
+  }
+
+  .section-chevron {
+    display: inline-block;
+    transition: transform 0.2s;
+    transform: rotate(90deg);
+  }
+
+  .section-title--collapsed .section-chevron {
+    transform: rotate(0deg);
   }
 
 </style>
