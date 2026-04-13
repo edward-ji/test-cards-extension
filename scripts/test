@@ -23,6 +23,7 @@ fi
 PW_VERSION=$(node -e "console.log(require('./node_modules/@playwright/test/package.json').version)")
 IMAGE="mcr.microsoft.com/playwright:v${PW_VERSION}-noble"
 
+mkdir -p test-results playwright-report
 $RUNTIME run --rm \
     -v "$(pwd)/src:/work/src:ro,z" \
     -v "$(pwd)/public:/work/public:ro,z" \
@@ -33,6 +34,8 @@ $RUNTIME run --rm \
     -v "$(pwd)/tsconfig.json:/work/tsconfig.json:ro,z" \
     -v "$(pwd)/wxt.config.ts:/work/wxt.config.ts:ro,z" \
     -v "$(pwd)/playwright.config.ts:/work/playwright.config.ts:ro,z" \
+    -v "$(pwd)/test-results:/work/test-results:rw,z" \
+    -v "$(pwd)/playwright-report:/work/playwright-report:rw,z" \
     -w /work \
     --shm-size=1gb \
     "$IMAGE" \
