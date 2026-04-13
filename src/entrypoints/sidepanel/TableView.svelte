@@ -1,25 +1,21 @@
 <script lang="ts">
-  import type { Card, NetworkInfo, ParsedGroup, PrefillData } from '../../parser';
+  import type { Card, NetworkInfo, PrefillData } from '../../parser';
 
   let {
-    nonFavGroups,
-    favCards,
-    recentCards,
+    cards,
     networks,
     favourites,
-    searchQuery,
+    isFavSection,
     onFav,
     onUnfav,
     onCopy,
     onAutofill,
     onInteract,
   }: {
-    nonFavGroups: ParsedGroup[];
-    favCards: Card[];
-    recentCards: Card[];
+    cards: Card[];
     networks: NetworkInfo[];
     favourites: string[];
-    searchQuery: string;
+    isFavSection: boolean;
     onFav: (id: string) => Promise<void>;
     onUnfav: (id: string) => Promise<void>;
     onCopy: (text: string) => void;
@@ -29,7 +25,7 @@
 
   const STANDARD_KEYS = new Set(['number', 'exp', 'csc', 'name']);
 
-  function hasField(cards: Card[], key: string): boolean {
+  function hasField(key: string): boolean {
     return cards.some(c => c.display[key] != null && c.display[key] !== '');
   }
 
@@ -54,161 +50,126 @@
     };
   }
 
-  type Cols = { number: boolean; exp: boolean; csc: boolean; name: boolean };
-
-  function cols(cards: Card[]): Cols {
-    return {
-      number: hasField(cards, 'number'),
-      exp:    hasField(cards, 'exp'),
-      csc:    hasField(cards, 'csc'),
-      name:   hasField(cards, 'name'),
-    };
-  }
+  const c = $derived({
+    number: hasField('number'),
+    exp:    hasField('exp'),
+    csc:    hasField('csc'),
+    name:   hasField('name'),
+  });
 </script>
 
-{#snippet sectionTable(label: string, cards: Card[], isFavSection: boolean)}
-  {#if cards.length > 0}
-    {@const c = cols(cards)}
-    <div class="cards-section">
-      <h3 class="section-title">{label}</h3>
-      <table class="cards-table">
-        <tbody>
-          {#each cards as card (card.id)}
-            {@const nets = getNets(card)}
-            {@const extras = getExtras(card)}
-            {@const isFav = isFavSection || favourites.includes(card.id)}
-            <tr class="card-row">
-              <td class="col-logo">
-                <div class="logos">
-                  {#each nets as net (net)}
-                    {@const ni = networks.find(n => n.id === net)}
-                    <img
-                      src={ni?.logo ? `/images/logos/${ni.logo}` : '/images/logos/nocard.svg'}
-                      class="net-icon"
-                      title={ni?.names?.[0] ?? net}
-                      alt=""
-                    />
-                  {/each}
-                </div>
-              </td>
+<table class="cards-table">
+  <tbody>
+    {#each cards as card (card.id)}
+      {@const nets = getNets(card)}
+      {@const extras = getExtras(card)}
+      {@const isFav = isFavSection || favourites.includes(card.id)}
+      <tr class="card-row">
+        <td class="col-logo">
+          <div class="logos">
+            {#each nets as net (net)}
+              {@const ni = networks.find(n => n.id === net)}
+              <img
+                src={ni?.logo ? `/images/logos/${ni.logo}` : '/images/logos/nocard.svg'}
+                class="net-icon"
+                title={ni?.names?.[0] ?? net}
+                alt=""
+              />
+            {/each}
+          </div>
+        </td>
 
-              {#if c.number}
-                <td class="col-number">
-                  {#if card.display['number'] != null && card.display['number'] !== ''}
-                    <span
-                      class="copyable mono"
-                      role="button"
-                      tabindex="0"
-                      onclick={() => copyField(card.display['number'], card.id)}
-                      onkeydown={onKeydown(() => copyField(card.display['number'], card.id))}
-                    >{card.display['number']}</span>
-                  {/if}
-                </td>
-              {/if}
+        {#if c.number}
+          <td class="col-number">
+            {#if card.display['number'] != null && card.display['number'] !== ''}
+              <span
+                class="copyable mono"
+                role="button"
+                tabindex="0"
+                onclick={() => copyField(card.display['number'], card.id)}
+                onkeydown={onKeydown(() => copyField(card.display['number'], card.id))}
+              >{card.display['number']}</span>
+            {/if}
+          </td>
+        {/if}
 
-              {#if c.exp}
-                <td class="col-field">
-                  {#if card.display['exp'] != null && card.display['exp'] !== ''}
-                    <span
-                      class="copyable field-val"
-                      role="button"
-                      tabindex="0"
-                      onclick={() => copyField(card.display['exp'], card.id)}
-                      onkeydown={onKeydown(() => copyField(card.display['exp'], card.id))}
-                    >{card.display['exp']}</span>
-                  {/if}
-                </td>
-              {/if}
+        {#if c.exp}
+          <td class="col-field">
+            {#if card.display['exp'] != null && card.display['exp'] !== ''}
+              <span
+                class="copyable field-val"
+                role="button"
+                tabindex="0"
+                onclick={() => copyField(card.display['exp'], card.id)}
+                onkeydown={onKeydown(() => copyField(card.display['exp'], card.id))}
+              >{card.display['exp']}</span>
+            {/if}
+          </td>
+        {/if}
 
-              {#if c.csc}
-                <td class="col-field">
-                  {#if card.display['csc'] != null && card.display['csc'] !== ''}
-                    <span
-                      class="copyable field-val"
-                      role="button"
-                      tabindex="0"
-                      onclick={() => copyField(card.display['csc'], card.id)}
-                      onkeydown={onKeydown(() => copyField(card.display['csc'], card.id))}
-                    >{card.display['csc']}</span>
-                  {/if}
-                </td>
-              {/if}
+        {#if c.csc}
+          <td class="col-field">
+            {#if card.display['csc'] != null && card.display['csc'] !== ''}
+              <span
+                class="copyable field-val"
+                role="button"
+                tabindex="0"
+                onclick={() => copyField(card.display['csc'], card.id)}
+                onkeydown={onKeydown(() => copyField(card.display['csc'], card.id))}
+              >{card.display['csc']}</span>
+            {/if}
+          </td>
+        {/if}
 
-              {#if c.name}
-                <td class="col-name">
-                  {#if card.display['name'] != null && card.display['name'] !== ''}
-                    <span
-                      class="copyable field-val name-val"
-                      role="button"
-                      tabindex="0"
-                      onclick={() => copyField(card.display['name'], card.id)}
-                      onkeydown={onKeydown(() => copyField(card.display['name'], card.id))}
-                    >{card.display['name']}</span>
-                  {/if}
-                </td>
-              {/if}
+        {#if c.name}
+          <td class="col-name">
+            {#if card.display['name'] != null && card.display['name'] !== ''}
+              <span
+                class="copyable field-val name-val"
+                role="button"
+                tabindex="0"
+                onclick={() => copyField(card.display['name'], card.id)}
+                onkeydown={onKeydown(() => copyField(card.display['name'], card.id))}
+              >{card.display['name']}</span>
+            {/if}
+          </td>
+        {/if}
 
-              <td class="col-extras">
-                <div class="extras-wrap">
-                  {#each extras as [key, val] (key)}
-                    {@const copyVal = typeof val === 'boolean' ? key : String(val)}
-                    <span
-                      class="badge copyable"
-                      role="button"
-                      tabindex="0"
-                      title={typeof val === 'boolean' ? undefined : key.charAt(0).toUpperCase() + key.slice(1)}
-                      onclick={() => { onCopy(copyVal); onInteract(card.id); }}
-                      onkeydown={onKeydown(() => { onCopy(copyVal); onInteract(card.id); })}
-                    >{typeof val === 'boolean' ? key : val}</span>
-                  {/each}
-                </div>
-              </td>
+        <td class="col-extras">
+          <div class="extras-wrap">
+            {#each extras as [key, val] (key)}
+              {@const copyVal = typeof val === 'boolean' ? key : String(val)}
+              <span
+                class="badge copyable"
+                role="button"
+                tabindex="0"
+                title={typeof val === 'boolean' ? undefined : key.charAt(0).toUpperCase() + key.slice(1)}
+                onclick={() => { onCopy(copyVal); onInteract(card.id); }}
+                onkeydown={onKeydown(() => { onCopy(copyVal); onInteract(card.id); })}
+              >{typeof val === 'boolean' ? key : val}</span>
+            {/each}
+          </div>
+        </td>
 
-              <td class="col-actions">
-                {#if isFav}
-                  <button type="button" class="unfav-icon" title="Remove from favourites" onclick={() => onUnfav(card.id)}></button>
-                {:else}
-                  <button type="button" class="fav-icon" title="Add to favourites" onclick={() => onFav(card.id)}></button>
-                {/if}
-                <button
-                  type="button"
-                  class="fill-btn"
-                  title="Autofill"
-                  onclick={() => { onAutofill(card.prefill); onInteract(card.id); }}
-                ></button>
-              </td>
-            </tr>
-          {/each}
-        </tbody>
-      </table>
-    </div>
-  {/if}
-{/snippet}
-
-{@render sectionTable('Favourites', favCards, true)}
-{@render sectionTable('Recent', recentCards, false)}
-
-{#each nonFavGroups as group (group.group)}
-  {@const visibleItems = group.items.filter(c => c.search.includes(searchQuery))}
-  {@render sectionTable(group.group, visibleItems, false)}
-{/each}
+        <td class="col-actions">
+          {#if isFav}
+            <button type="button" class="unfav-icon" title="Remove from favourites" onclick={() => onUnfav(card.id)}></button>
+          {:else}
+            <button type="button" class="fav-icon" title="Add to favourites" onclick={() => onFav(card.id)}></button>
+          {/if}
+          <button
+            type="button"
+            class="fill-btn"
+            title="Autofill"
+            onclick={() => { onAutofill(card.prefill); onInteract(card.id); }}
+          ></button>
+        </td>
+      </tr>
+    {/each}
+  </tbody>
+</table>
 
 <style>
-  .cards-section {
-    margin-bottom: 16px;
-  }
-
-  .section-title {
-    font-size: 10px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--text);
-    opacity: 0.6;
-    margin: 0 0 4px 2px;
-    padding: 0;
-  }
-
   .cards-table {
     width: 100%;
     max-width: 100%;

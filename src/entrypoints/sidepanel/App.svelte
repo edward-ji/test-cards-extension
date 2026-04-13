@@ -7,7 +7,7 @@
   function isGatewayId(value: string): boolean {
     return gateways.some(g => g.id === value);
   }
-  import CardItem from './CardItem.svelte';
+  import CardView from './CardView.svelte';
   import Settings from './Settings.svelte';
   import TableView from './TableView.svelte';
   import { prefillCardComponent } from './autofill';
@@ -384,89 +384,108 @@
   />
 
   <div id="cards" bind:this={cardsEl} style:overflow-y={isSettingsOpen ? 'hidden' : undefined}>
-    {#if density === 'compact'}
-      <TableView
-        {nonFavGroups}
-        {favCards}
-        {recentCards}
-        {networks}
-        {favourites}
-        searchQuery={searchQueryLower}
-        onFav={addFavourite}
-        onUnfav={removeFavourite}
-        onCopy={handleCopy}
-        onAutofill={handleAutofill}
-        onInteract={trackRecent}
-      />
-    {:else}
-      <!-- Favourites section -->
-      {#if favCards.length > 0}
-        <div class="cards-section">
-          <h3 class="section-title">Favourites</h3>
-          <div id="tableFavouritesId">
-            {#each favCards as card (card.id)}
-              <CardItem
-                {card}
-                {networks}
-                isFav={true}
-                isSearchable={false}
-                searchQuery={searchQueryLower}
-                onFav={addFavourite}
-                onUnfav={removeFavourite}
-                onCopy={handleCopy}
-                onAutofill={handleAutofill}
-                onInteract={trackRecent}
-              />
-            {/each}
-          </div>
-        </div>
-      {/if}
-
-      <!-- Recent section -->
-      {#if recentCards.length > 0}
-        <div class="cards-section" bind:this={recentSectionEl}>
-          <h3 class="section-title">Recent</h3>
-          <div id="tableRecentId">
-            {#each recentCards as card (card.id)}
-              <CardItem
-                {card}
-                {networks}
-                isFav={favourites.includes(card.id)}
-                isSearchable={false}
-                searchQuery={searchQueryLower}
-                onFav={addFavourite}
-                onUnfav={removeFavourite}
-                onCopy={handleCopy}
-                onAutofill={handleAutofill}
-                onInteract={trackRecent}
-              />
-            {/each}
-          </div>
-        </div>
-      {/if}
-
-      <!-- Card group sections -->
-      {#each nonFavGroups as group (group.group)}
-        {@const anyVisible = group.items.some((c: Card) => c.search.includes(searchQueryLower))}
-        <div class="cards-section" style:display={anyVisible ? '' : 'none'}>
-          <h3 class="section-title">{group.group}</h3>
-          {#each group.items as card (card.id)}
-            <CardItem
-              {card}
+    <!-- Favourites section -->
+    {#if favCards.length > 0}
+      <div class="cards-section">
+        <h3 class="section-title">Favourites</h3>
+        <div id="tableFavouritesId">
+          {#if density === 'compact'}
+            <TableView
+              cards={favCards}
               {networks}
-              isFav={false}
-              isSearchable={true}
-              searchQuery={searchQueryLower}
+              {favourites}
+              isFavSection={true}
+              onFav={addFavourite}
+              onUnfav={removeFavourite}
+              onCopy={handleCopy}
+              onAutofill={handleAutofill}
+              onInteract={trackRecent}
+            />
+          {:else}
+            <CardView
+              cards={favCards}
+              {networks}
+              {favourites}
+              isFavSection={true}
+              onFav={addFavourite}
+              onUnfav={removeFavourite}
+              onCopy={handleCopy}
+              onAutofill={handleAutofill}
+              onInteract={trackRecent}
+            />
+          {/if}
+        </div>
+      </div>
+    {/if}
+
+    <!-- Recent section -->
+    {#if recentCards.length > 0}
+      <div class="cards-section" bind:this={recentSectionEl}>
+        <h3 class="section-title">Recent</h3>
+        <div id="tableRecentId">
+          {#if density === 'compact'}
+            <TableView
+              cards={recentCards}
+              {networks}
+              {favourites}
+              isFavSection={false}
+              onFav={addFavourite}
+              onUnfav={removeFavourite}
+              onCopy={handleCopy}
+              onAutofill={handleAutofill}
+              onInteract={trackRecent}
+            />
+          {:else}
+            <CardView
+              cards={recentCards}
+              {networks}
+              {favourites}
+              isFavSection={false}
+              onFav={addFavourite}
+              onUnfav={removeFavourite}
+              onCopy={handleCopy}
+              onAutofill={handleAutofill}
+              onInteract={trackRecent}
+            />
+          {/if}
+        </div>
+      </div>
+    {/if}
+
+    <!-- Card group sections -->
+    {#each nonFavGroups as group (group.group)}
+      {@const visibleCards = group.items.filter((c: Card) => c.search.includes(searchQueryLower))}
+      {#if visibleCards.length > 0}
+        <div class="cards-section">
+          <h3 class="section-title">{group.group}</h3>
+          {#if density === 'compact'}
+            <TableView
+              cards={visibleCards}
+              {networks}
+              {favourites}
+              isFavSection={false}
               onFav={addFavourite}
               onUnfav={removeFavourite}
               onCopy={handleCopy}
               onAutofill={handleAutofill}
               onInteract={(id) => trackRecent(id, true)}
             />
-          {/each}
+          {:else}
+            <CardView
+              cards={visibleCards}
+              {networks}
+              {favourites}
+              isFavSection={false}
+              onFav={addFavourite}
+              onUnfav={removeFavourite}
+              onCopy={handleCopy}
+              onAutofill={handleAutofill}
+              onInteract={(id) => trackRecent(id, true)}
+            />
+          {/if}
         </div>
-      {/each}
-    {/if}
+      {/if}
+    {/each}
   </div>
 
   {#if copyMessage}
