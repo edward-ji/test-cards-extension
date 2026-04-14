@@ -21,6 +21,7 @@
   const DENSITY = 'density';
   const CUSTOM_GATEWAYS = 'custom-gateways';
   const COLLAPSED_GROUPS = 'collapsed-groups';
+  const HIDDEN_GATEWAYS = 'hidden-gateways';
 
   const SETTINGS_KEYS = [COLOR_SCHEME, DENSITY, SHOW_RECENT, RECENT_LIMIT] as const;
   type ThemeMode = 'light' | 'dark' | 'system';
@@ -44,9 +45,11 @@
   let recentSectionEl: HTMLElement | null = $state(null);
   let cardsEl: HTMLElement | null = $state(null);
   let collapsedGroups = $state<Set<string>>(new Set());
+  let hiddenGatewayIds = $state<Set<string>>(new Set());
 
   // Derived
   const gateways = $derived<RawGatewayFile[]>([...builtinGatewayFiles, ...customGatewayFiles]);
+  const visibleGateways = $derived(gateways.filter(g => !hiddenGatewayIds.has(g.id)));
   const currentGateway = $derived(gateways.find(g => g.id === currentGatewayId));
   const searchQueryLower = $derived(searchQuery.toLowerCase());
   const favCards = $derived(
@@ -78,7 +81,7 @@
   });
 
   onMount(async () => {
-    const [storedFavs, storedTheme, storedDensity, gatewayIds, networkData, savedGateway, storedRecent, storedShowRecent, storedRecentLimit, storedCustomGateways, storedCollapsed] = await Promise.all([
+    const [storedFavs, storedTheme, storedDensity, gatewayIds, networkData, savedGateway, storedRecent, storedShowRecent, storedRecentLimit, storedCustomGateways, storedCollapsed, storedHidden] = await Promise.all([
       getFromStorage<string[]>(FAVOURITES_LIST),
       getFromStorage<ThemeMode>(COLOR_SCHEME),
       getFromStorage<Density>(DENSITY),
@@ -90,6 +93,7 @@
       getFromStorage<number>(RECENT_LIMIT),
       getFromStorage<RawGatewayFile[]>(CUSTOM_GATEWAYS),
       getFromStorage<string[]>(COLLAPSED_GROUPS),
+      getFromStorage<string[]>(HIDDEN_GATEWAYS),
     ]);
 
     favourites = storedFavs ?? [];
@@ -101,6 +105,7 @@
     recentLimit = storedRecentLimit ?? 5;
     customGatewayFiles = storedCustomGateways ?? [];
     collapsedGroups = new Set(storedCollapsed ?? []);
+    hiddenGatewayIds = new Set(storedHidden ?? []);
 
     // Load all built-in gateway files in parallel (small local resources)
     const ids = gatewayIds ?? [];
@@ -227,8 +232,14 @@
   }
 
   async function clearCustomGateways() {
-    await setInStorage(CUSTOM_GATEWAYS, []);
+    const customIds = new Set(customGatewayFiles.map(g => g.id));
+    const nextHidden = new Set([...hiddenGatewayIds].filter(id => !customIds.has(id)));
+    await Promise.all([
+      setInStorage(CUSTOM_GATEWAYS, []),
+      setInStorage(HIDDEN_GATEWAYS, [...nextHidden]),
+    ]);
     customGatewayFiles = [];
+    hiddenGatewayIds = nextHidden;
     if (!builtinGatewayFiles.some(g => g.id === currentGatewayId)) {
       const fallback = builtinGatewayFiles[0]?.id ?? 'adyen';
       currentGatewayId = fallback;
@@ -255,21 +266,38 @@
     recentLimit = 5;
     customGatewayFiles = [];
     collapsedGroups = new Set();
+    hiddenGatewayIds = new Set();
     if (!builtinGatewayFiles.some(g => g.id === currentGatewayId)) {
       currentGatewayId = builtinGatewayFiles[0]?.id ?? 'adyen';
       await loadDataForGateway(currentGatewayId);
     }
   }
 
-  async function toggleGroup(group: string) {
-    const next = new Set(collapsedGroups);
-    if (next.has(group)) {
-      next.delete(group);
+  async function toggleInSet(current: Set<string>, key: string, storageKey: string): Promise<Set<string>> {
+    const next = new Set(current);
+    if (next.has(key)) {
+      next.delete(key);
     } else {
-      next.add(group);
+      next.add(key);
     }
-    await setInStorage(COLLAPSED_GROUPS, [...next]);
-    collapsedGroups = next;
+    await setInStorage(storageKey, [...next]);
+    return next;
+  }
+
+  async function toggleGroup(group: string) {
+    collapsedGroups = await toggleInSet(collapsedGroups, group, COLLAPSED_GROUPS);
+  }
+
+  async function toggleHideGateway(id: string) {
+    hiddenGatewayIds = await toggleInSet(hiddenGatewayIds, id, HIDDEN_GATEWAYS);
+    if (hiddenGatewayIds.has(currentGatewayId)) {
+      const fallback = visibleGateways[0]?.id ?? builtinGatewayFiles[0]?.id ?? 'adyen';
+      currentGatewayId = fallback;
+      await Promise.all([
+        setInStorage(SELECTED_GATEWAY, fallback),
+        loadDataForGateway(fallback),
+      ]);
+    }
   }
 
   async function updateTheme(next: ThemeMode) {
@@ -338,7 +366,7 @@
         value={currentGatewayId}
         onchange={(e) => handleGatewayChange((e.target as HTMLSelectElement).value)}
       >
-        {#each gateways as gw (gw.id)}
+        {#each visibleGateways as gw (gw.id)}
           <option value={gw.id}>{gw.name}</option>
         {/each}
       </select>
@@ -395,8 +423,10 @@
     onClearSettings={clearSettings}
     onClearAll={clearAll}
     customGateways={customGatewayFiles.map(g => ({ id: g.id, name: g.name }))}
+    hiddenGatewayIds={hiddenGatewayIds}
     onImportGateway={handleImportGateway}
     onRemoveCustomGateway={handleRemoveCustomGateway}
+    onToggleHideGateway={toggleHideGateway}
   />
 
   <div id="cards" bind:this={cardsEl} style:overflow-y={isSettingsOpen ? 'hidden' : undefined}>

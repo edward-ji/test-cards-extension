@@ -25,9 +25,11 @@
     onClearAll: () => void;
     onImportGateway: (file: File) => Promise<string | undefined>;
     onRemoveCustomGateway: (id: string) => Promise<void>;
+    hiddenGatewayIds: Set<string>;
+    onToggleHideGateway: (id: string) => Promise<void>;
   }
 
-  let { isOpen, themeMode, density, showRecent, recentLimit, customGateways, onClose, onThemeChange, onDensityChange, onShowRecentChange, onRecentLimitChange, onClearFavourites, onClearRecent, onClearCustomGateways, onClearSettings, onClearAll, onImportGateway, onRemoveCustomGateway }: Props = $props();
+  let { isOpen, themeMode, density, showRecent, recentLimit, customGateways, hiddenGatewayIds, onClose, onThemeChange, onDensityChange, onShowRecentChange, onRecentLimitChange, onClearFavourites, onClearRecent, onClearCustomGateways, onClearSettings, onClearAll, onImportGateway, onRemoveCustomGateway, onToggleHideGateway }: Props = $props();
 
   let importError = $state('');
   let fileInputEl: HTMLInputElement | null = $state(null);
@@ -181,11 +183,29 @@
 
           {#each customGateways as gw (gw.id)}
             <div class="custom-gateway-row">
-              <span class="custom-gateway-name">{gw.name}</span>
-              <button
-                class="data-button data-button--danger"
-                onclick={() => onRemoveCustomGateway(gw.id)}
-              >Remove</button>
+              <span class="custom-gateway-name" class:custom-gateway-name--hidden={hiddenGatewayIds.has(gw.id)}>{gw.name}</span>
+              <div class="custom-gateway-actions">
+                <button
+                  class="gw-icon-button"
+                  onclick={() => onToggleHideGateway(gw.id)}
+                  title={hiddenGatewayIds.has(gw.id) ? 'Show gateway' : 'Hide gateway'}
+                >
+                  <img
+                    src={hiddenGatewayIds.has(gw.id) ? '/images/eye.svg' : '/images/eye-slash.svg'}
+                    width="16"
+                    height="16"
+                    alt=""
+                    class="icon-dark-invert"
+                  />
+                </button>
+                <button
+                  class="gw-icon-button gw-icon-button--danger"
+                  onclick={() => onRemoveCustomGateway(gw.id)}
+                  title="Remove gateway"
+                >
+                  <span class="icon-mask" style="--mask: url('/images/trash.svg')" aria-hidden="true"></span>
+                </button>
+              </div>
             </div>
           {/each}
         </section>
@@ -387,7 +407,8 @@
     border-color: var(--text-muted);
   }
 
-  .data-button--danger:hover {
+  .data-button--danger:hover,
+  .gw-icon-button--danger:hover {
     background: rgba(220, 38, 38, 0.08);
     border-color: rgba(220, 38, 38, 0.4);
     color: rgb(220, 38, 38);
@@ -413,6 +434,50 @@
     text-overflow: ellipsis;
     white-space: nowrap;
   }
+
+  .custom-gateway-name--hidden {
+    opacity: 0.45;
+    text-decoration: line-through;
+  }
+
+  .custom-gateway-actions {
+    display: flex;
+    gap: 4px;
+    flex-shrink: 0;
+  }
+
+  .icon-mask {
+    display: block;
+    width: 14px;
+    height: 14px;
+    background-color: currentColor;
+    mask-image: var(--mask);
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: center;
+  }
+
+  .gw-icon-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    background: none;
+    border: 1px solid var(--input-border);
+    border-radius: 6px;
+    cursor: pointer;
+    color: var(--text);
+    transition: background 0.15s, border-color 0.15s;
+    flex-shrink: 0;
+  }
+
+  .gw-icon-button:hover {
+    background: var(--row-hover);
+    border-color: var(--text-muted);
+  }
+
 
   .settings-footer {
     padding: 16px;
