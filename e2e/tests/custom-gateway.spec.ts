@@ -86,13 +86,13 @@ test.describe('custom gateways', () => {
         await openSettings(page);
         await importGateway(page);
 
-        await expect(page.locator('.custom-gateway-name')).toContainText('Test Gateway');
+        await expect(page.locator('.gateway-name').filter({ hasText: 'Test Gateway' })).toBeVisible();
     });
 
     test('remove gateway removes it from selector', async ({ page }) => {
         await openSettings(page);
         await importGateway(page);
-        await page.locator('.custom-gateway-row').filter({ hasText: 'Test Gateway' }).getByRole('button', { name: 'Remove' }).click();
+        await page.locator('.gateway-row').filter({ hasText: 'Test Gateway' }).getByRole('button', { name: 'Remove' }).click();
         await closeSettings(page);
 
         const options = page.locator('#gatewaySelector option');
@@ -106,7 +106,7 @@ test.describe('custom gateways', () => {
 
         await page.locator('#gatewaySelector').selectOption('test-gateway');
         await openSettings(page);
-        await page.locator('.custom-gateway-row').filter({ hasText: 'Test Gateway' }).getByRole('button', { name: 'Remove' }).click();
+        await page.locator('.gateway-row').filter({ hasText: 'Test Gateway' }).getByRole('button', { name: 'Remove' }).click();
         await closeSettings(page);
 
         await expect(page.locator('#gatewaySelector')).toHaveValue('adyen');
@@ -164,12 +164,12 @@ test.describe('custom gateways', () => {
     test('re-uploading same id replaces existing', async ({ page }) => {
         await openSettings(page);
         await importGateway(page);
-        await expect(page.locator('.custom-gateway-row')).toHaveCount(1);
+        await expect(page.locator('.gateway-row').filter({ hasText: 'Test Gateway' })).toHaveCount(1);
 
         // Upload again — should not add a second entry
         await importGateway(page);
 
-        await expect(page.locator('.custom-gateway-row')).toHaveCount(1);
+        await expect(page.locator('.gateway-row').filter({ hasText: 'Test Gateway' })).toHaveCount(1);
     });
 
     test('autofill fills form fields for custom gateway card', async ({ page }) => {

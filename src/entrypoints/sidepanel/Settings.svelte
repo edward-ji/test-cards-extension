@@ -12,7 +12,7 @@
     density: Density;
     showRecent: boolean;
     recentLimit: number;
-    customGateways: { id: string; name: string }[];
+    gateways: { id: string; name: string; isCustom: boolean }[];
     onClose: () => void;
     onThemeChange: (theme: ThemeMode) => void;
     onDensityChange: (density: Density) => void;
@@ -29,7 +29,7 @@
     onToggleHideGateway: (id: string) => Promise<void>;
   }
 
-  let { isOpen, themeMode, density, showRecent, recentLimit, customGateways, hiddenGatewayIds, onClose, onThemeChange, onDensityChange, onShowRecentChange, onRecentLimitChange, onClearFavourites, onClearRecent, onClearCustomGateways, onClearSettings, onClearAll, onImportGateway, onRemoveCustomGateway, onToggleHideGateway }: Props = $props();
+  let { isOpen, themeMode, density, showRecent, recentLimit, gateways, hiddenGatewayIds, onClose, onThemeChange, onDensityChange, onShowRecentChange, onRecentLimitChange, onClearFavourites, onClearRecent, onClearCustomGateways, onClearSettings, onClearAll, onImportGateway, onRemoveCustomGateway, onToggleHideGateway }: Props = $props();
 
   let importError = $state('');
   let fileInputEl: HTMLInputElement | null = $state(null);
@@ -161,7 +161,7 @@
         </section>
 
         <section class="settings-section">
-          <h3 class="section-label">Custom gateways</h3>
+          <h3 class="section-label">Gateways</h3>
 
           <input
             type="file"
@@ -181,10 +181,11 @@
             <p class="import-error">{importError}</p>
           {/if}
 
-          {#each customGateways as gw (gw.id)}
-            <div class="custom-gateway-row">
-              <span class="custom-gateway-name" class:custom-gateway-name--hidden={hiddenGatewayIds.has(gw.id)}>{gw.name}</span>
-              <div class="custom-gateway-actions">
+          <div class="gateway-list">
+          {#each gateways as gw (gw.id)}
+            <div class="gateway-row">
+              <span class="gateway-name" class:gateway-name--hidden={hiddenGatewayIds.has(gw.id)}>{gw.name}</span>
+              <div class="gateway-actions">
                 <button
                   class="gw-icon-button"
                   onclick={() => onToggleHideGateway(gw.id)}
@@ -198,16 +199,19 @@
                     class="icon-dark-invert"
                   />
                 </button>
-                <button
-                  class="gw-icon-button gw-icon-button--danger"
-                  onclick={() => onRemoveCustomGateway(gw.id)}
-                  title="Remove gateway"
-                >
-                  <span class="icon-mask" style="--mask: url('/images/trash.svg')" aria-hidden="true"></span>
-                </button>
+                {#if gw.isCustom}
+                  <button
+                    class="gw-icon-button gw-icon-button--danger"
+                    onclick={() => onRemoveCustomGateway(gw.id)}
+                    title="Remove gateway"
+                  >
+                    <span class="icon-mask" style="--mask: url('/images/trash.svg')" aria-hidden="true"></span>
+                  </button>
+                {/if}
               </div>
             </div>
           {/each}
+          </div>
         </section>
 
         <section class="settings-section">
@@ -420,7 +424,14 @@
     color: rgb(220, 38, 38);
   }
 
-  .custom-gateway-row {
+  .gateway-list {
+    max-height: 126px; /* 3.5 rows × (28px height + 8px margin-top) */
+    overflow-y: auto;
+    scrollbar-gutter: stable;
+    margin-top: 12px;
+  }
+
+  .gateway-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -428,19 +439,19 @@
     margin-top: 8px;
   }
 
-  .custom-gateway-name {
+  .gateway-name {
     font-size: 12px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
 
-  .custom-gateway-name--hidden {
+  .gateway-name--hidden {
     opacity: 0.45;
     text-decoration: line-through;
   }
 
-  .custom-gateway-actions {
+  .gateway-actions {
     display: flex;
     gap: 4px;
     flex-shrink: 0;

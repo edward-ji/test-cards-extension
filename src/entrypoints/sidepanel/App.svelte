@@ -422,7 +422,7 @@
     onClearCustomGateways={clearCustomGateways}
     onClearSettings={clearSettings}
     onClearAll={clearAll}
-    customGateways={customGatewayFiles.map(g => ({ id: g.id, name: g.name }))}
+    gateways={gateways.map(g => ({ id: g.id, name: g.name, isCustom: customGatewayFiles.some(c => c.id === g.id) }))}
     hiddenGatewayIds={hiddenGatewayIds}
     onImportGateway={handleImportGateway}
     onRemoveCustomGateway={handleRemoveCustomGateway}
