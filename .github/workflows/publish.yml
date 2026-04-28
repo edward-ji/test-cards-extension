@@ -31,7 +31,7 @@ jobs:
           npm run zip:edge
 
       - name: Upload release binaries
-        run: gh release upload ${{ github.event.release.tag_name }} .output/*.zip
+        run: gh release upload ${{ github.event.release.tag_name }} $(ls .output/*.zip | grep -v sources)
         env:
           GH_TOKEN: ${{ github.token }}
 
