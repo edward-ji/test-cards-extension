@@ -130,15 +130,15 @@
   async function addFavourite(id: string) {
     if (!favourites.includes(id)) {
       const newFavs = [...favourites, id];
-      await setInStorage(FAVOURITES_LIST, newFavs);
       favourites = newFavs;
+      await setInStorage(FAVOURITES_LIST, newFavs);
     }
   }
 
   async function removeFavourite(id: string) {
     const newFavs = favourites.filter(f => f !== id);
-    await setInStorage(FAVOURITES_LIST, newFavs);
     favourites = newFavs;
+    await setInStorage(FAVOURITES_LIST, newFavs);
   }
 
   let copyTimerId: ReturnType<typeof setTimeout> | undefined;
@@ -168,7 +168,11 @@
   }
 
   async function setInStorage(name: string, value: unknown) {
-    await browser.storage.local.set({ [name]: value });
+    try {
+      await browser.storage.local.set({ [name]: value });
+    } catch (error) {
+      console.warn(`Unable to persist "${name}" in local storage.`, error);
+    }
   }
 
   async function getFromStorage<T>(name: string): Promise<T | undefined> {
@@ -313,8 +317,8 @@
   async function handleGatewayChange(value: string) {
     if (!isGatewayId(value)) return;
     currentGatewayId = value;
-    await setInStorage(SELECTED_GATEWAY, value);
     await loadDataForGateway(value);
+    await setInStorage(SELECTED_GATEWAY, value);
   }
 
   async function handleImportGateway(file: File): Promise<string | undefined> {

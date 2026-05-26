@@ -2,6 +2,12 @@ import { test, expect } from './fixtures';
 
 const CARD_1 = '4871 0499 9999 9910';
 const CARD_2 = '2222 4000 7000 0005';
+type ExtensionStorage = {
+    QUOTA_BYTES: number;
+    getBytesInUse(): Promise<number>;
+    get(key: string): Promise<Record<string, unknown>>;
+    set(items: Record<string, string>): Promise<void>;
+};
 
 test.describe('favorites', () => {
     test.beforeEach(async ({ page, extensionId }) => {
@@ -83,5 +89,31 @@ test.describe('favorites', () => {
         // Switch back to adyen
         await page.locator('#gatewaySelector').selectOption('adyen');
         await expect(page.locator('#tableFavouritesId')).toContainText(CARD_1);
+    });
+
+    test('storage write failure does not block favorites or gateway switching', async ({ page }) => {
+        await page.evaluate(async () => {
+            const storage = (globalThis as unknown as { chrome: { storage: { local: ExtensionStorage } } }).chrome.storage.local;
+            const bytesUsed = await storage.getBytesInUse();
+            const quota = storage.QUOTA_BYTES;
+            const remaining = quota - bytesUsed;
+            await storage.set({ quotaFiller: 'x'.repeat(remaining - 256) });
+            const unfilledBytes = quota - await storage.getBytesInUse();
+            await storage.set({ quotaFiller: 'x'.repeat(remaining - 256 + unfilledBytes) });
+        });
+
+        await page.locator('.card-item').filter({ hasText: CARD_1 }).locator('.fav-icon').click();
+        await expect(page.locator('#tableFavouritesId')).toContainText(CARD_1);
+        const persistedFavorites = await page.evaluate(async () => {
+            const storage = (globalThis as unknown as { chrome: { storage: { local: ExtensionStorage } } }).chrome.storage.local;
+            return (await storage.get('favourites-list'))['favourites-list'];
+        });
+        expect(persistedFavorites).toBeUndefined();
+
+        await page.locator('#gatewaySelector').selectOption('worldpay');
+        await expect(page.locator('#cards')).toContainText('3434 3434 3434 343');
+
+        await page.locator('#gatewaySelector').selectOption('adyen');
+        await expect(page.locator('#cards')).toContainText(CARD_2);
     });
 });
