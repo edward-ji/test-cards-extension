@@ -44,6 +44,16 @@ test.describe('gateway', () => {
         await expect(page.locator('#docsLink')).toHaveAttribute('href', /worldpay\.com/);
     });
 
+    test('includes Adyen result codes gateway', async ({ page }) => {
+        await page.locator('#gatewaySelector').selectOption('adyen-result-codes');
+        await expect(page.locator('#gatewaySelector')).toHaveValue('adyen-result-codes');
+        await expect(page.locator('#gatewaySelector')).toContainText('Adyen (result codes)');
+        await expect(page.locator('#cards')).toContainText('INVALID_CARD_NUMBER');
+        await expect(page.locator('#cards')).toContainText('004');
+        await expect(page.locator('#cards')).not.toContainText('2222 4000 7000 0005');
+        await expect(page.locator('#docsLink')).toHaveAttribute('href', /result-codes/);
+    });
+
     test('gateway selection persists across reload', async ({ page, extensionId }) => {
         await page.locator('#gatewaySelector').selectOption('worldpay');
         await expect(page.locator('text="3434 3434 3434 343"').first()).toBeVisible();

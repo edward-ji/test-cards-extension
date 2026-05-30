@@ -1,0 +1,354 @@
+{
+  "id": "adyen-result-codes",
+  "name": "Adyen (result codes)",
+  "docsLink": "https://docs.adyen.com/development-resources/testing/result-codes",
+  "cards": [
+    {
+      "group": "Result codes and refusal reasons",
+      "items": [
+        {
+          "name": "UNKNOWN",
+          "resultCode": "Error",
+          "refusalReason": "Unknown",
+          "RequestedTestAcquirerResponseCode": "0"
+        },
+        {
+          "name": "APPROVED",
+          "resultCode": "Authorised",
+          "RequestedTestAcquirerResponseCode": "1"
+        },
+        {
+          "name": "DECLINED",
+          "resultCode": "Refused",
+          "refusalReason": "Refused",
+          "RequestedTestAcquirerResponseCode": "2"
+        },
+        {
+          "name": "REFERRAL",
+          "resultCode": "Refused",
+          "refusalReason": "Referral",
+          "RequestedTestAcquirerResponseCode": "3"
+        },
+        {
+          "name": "ERROR",
+          "resultCode": "Error",
+          "refusalReason": "Acquirer Error",
+          "RequestedTestAcquirerResponseCode": "4"
+        },
+        {
+          "name": "BLOCK_CARD",
+          "resultCode": "Refused",
+          "refusalReason": "Blocked Card",
+          "RequestedTestAcquirerResponseCode": "5"
+        },
+        {
+          "name": "CARD_EXPIRED",
+          "resultCode": "Refused",
+          "refusalReason": "Expired Card",
+          "RequestedTestAcquirerResponseCode": "6"
+        },
+        {
+          "name": "INVALID_AMOUNT",
+          "resultCode": "Refused",
+          "refusalReason": "Invalid Amount",
+          "RequestedTestAcquirerResponseCode": "7"
+        },
+        {
+          "name": "INVALID_CARD_NUMBER",
+          "resultCode": "Refused",
+          "refusalReason": "Invalid Card Number",
+          "RequestedTestAcquirerResponseCode": "8"
+        },
+        {
+          "name": "ISSUER_UNAVAILABLE",
+          "resultCode": "Refused",
+          "refusalReason": "Issuer Unavailable",
+          "RequestedTestAcquirerResponseCode": "9"
+        },
+        {
+          "name": "NOT_SUPPORTED",
+          "resultCode": "Refused",
+          "refusalReason": "Not supported",
+          "RequestedTestAcquirerResponseCode": "10"
+        },
+        {
+          "name": "NOT_3D_AUTHENTICATED",
+          "resultCode": "Refused",
+          "refusalReason": "3D Not Authenticated",
+          "RequestedTestAcquirerResponseCode": "11"
+        },
+        {
+          "name": "NOT_ENOUGH_BALANCE",
+          "resultCode": "Refused",
+          "refusalReason": "Not enough balance",
+          "RequestedTestAcquirerResponseCode": "12"
+        },
+        {
+          "name": "PENDING",
+          "resultCode": "Received",
+          "RequestedTestAcquirerResponseCode": "13"
+        },
+        {
+          "name": "ACQUIRER_FRAUD",
+          "resultCode": "Refused",
+          "refusalReason": "Acquirer Fraud",
+          "RequestedTestAcquirerResponseCode": "14"
+        },
+        {
+          "name": "CANCELLED",
+          "resultCode": "Refused",
+          "refusalReason": "Cancelled",
+          "RequestedTestAcquirerResponseCode": "15"
+        },
+        {
+          "name": "SHOPPER_CANCELLED",
+          "resultCode": "Refused",
+          "refusalReason": "Shopper Cancelled",
+          "RequestedTestAcquirerResponseCode": "16"
+        },
+        {
+          "name": "INVALID_PIN",
+          "resultCode": "Refused",
+          "refusalReason": "Invalid Pin",
+          "RequestedTestAcquirerResponseCode": "17"
+        },
+        {
+          "name": "PIN_TRIES_EXCEEDED",
+          "resultCode": "Refused",
+          "refusalReason": "Pin tries exceeded",
+          "RequestedTestAcquirerResponseCode": "18"
+        },
+        {
+          "name": "PIN_VALIDATION_NOT_POSSIBLE",
+          "resultCode": "Refused",
+          "refusalReason": "Pin validation not possible",
+          "RequestedTestAcquirerResponseCode": "19"
+        },
+        {
+          "name": "FRAUD",
+          "resultCode": "Refused",
+          "refusalReason": "FRAUD",
+          "RequestedTestAcquirerResponseCode": "20"
+        },
+        {
+          "name": "NOT_SUBMITTED",
+          "resultCode": "Refused",
+          "refusalReason": "Not Submitted",
+          "RequestedTestAcquirerResponseCode": "21"
+        },
+        {
+          "name": "FRAUD_CANCELLED",
+          "resultCode": "Cancelled",
+          "refusalReason": "FRAUD-CANCELLED",
+          "RequestedTestAcquirerResponseCode": "22"
+        },
+        {
+          "name": "TRANSACTION_NOT_PERMITTED",
+          "resultCode": "Refused",
+          "refusalReason": "Transaction Not Permitted",
+          "RequestedTestAcquirerResponseCode": "23"
+        },
+        {
+          "name": "CVC_DECLINED",
+          "resultCode": "Refused",
+          "refusalReason": "CVC Declined",
+          "RequestedTestAcquirerResponseCode": "24"
+        },
+        {
+          "name": "RESTRICTED_CARD",
+          "resultCode": "Refused",
+          "refusalReason": "Restricted Card",
+          "RequestedTestAcquirerResponseCode": "25"
+        },
+        {
+          "name": "REVOCATION_OF_AUTH",
+          "resultCode": "Refused",
+          "refusalReason": "Revocation Of Auth",
+          "RequestedTestAcquirerResponseCode": "26"
+        },
+        {
+          "name": "DECLINED_NON_GENERIC",
+          "resultCode": "Refused",
+          "refusalReason": "Declined Non Generic",
+          "RequestedTestAcquirerResponseCode": "27"
+        },
+        {
+          "name": "WITHDRAWAL_AMOUNT_EXCEEDED",
+          "resultCode": "Refused",
+          "refusalReason": "Withdrawal amount exceeded",
+          "RequestedTestAcquirerResponseCode": "28"
+        },
+        {
+          "name": "WITHDRAWAL_COUNT_EXCEEDED",
+          "resultCode": "Refused",
+          "refusalReason": "Withdrawal count exceeded",
+          "RequestedTestAcquirerResponseCode": "29"
+        },
+        {
+          "name": "ISSUER_SUSPECTED_FRAUD",
+          "resultCode": "Refused",
+          "refusalReason": "Issuer Suspected Fraud",
+          "RequestedTestAcquirerResponseCode": "31"
+        },
+        {
+          "name": "AVS_DECLINED",
+          "resultCode": "Refused",
+          "refusalReason": "AVS Declined",
+          "RequestedTestAcquirerResponseCode": "32"
+        },
+        {
+          "name": "PIN_REQUIRED",
+          "resultCode": "Refused",
+          "refusalReason": "Card requires online pin",
+          "RequestedTestAcquirerResponseCode": "33"
+        },
+        {
+          "name": "NO_CHECKING_ACCOUNT_AVAILABLE_ON_CARD",
+          "resultCode": "Refused",
+          "refusalReason": "No checking account available on Card",
+          "RequestedTestAcquirerResponseCode": "34"
+        },
+        {
+          "name": "NO_SAVINGS_ACCOUNT_AVAILABLE_ON_CARD",
+          "resultCode": "Refused",
+          "refusalReason": "No savings account available on Card",
+          "RequestedTestAcquirerResponseCode": "35"
+        },
+        {
+          "name": "MOBILE_PIN_REQUIRED",
+          "resultCode": "Refused",
+          "refusalReason": "Mobile PIN required",
+          "RequestedTestAcquirerResponseCode": "36"
+        },
+        {
+          "name": "CONTACTLESS_FALLBACK",
+          "resultCode": "Refused",
+          "refusalReason": "Contactless fallback",
+          "RequestedTestAcquirerResponseCode": "37"
+        },
+        {
+          "name": "AUTHENTICATION_REQUIRED",
+          "resultCode": "Refused",
+          "refusalReason": "Authentication required",
+          "RequestedTestAcquirerResponseCode": "38"
+        },
+        {
+          "name": "RREQ_NOT_RECEIVED",
+          "resultCode": "Refused",
+          "refusalReason": "RReq not received from DS",
+          "RequestedTestAcquirerResponseCode": "39"
+        },
+        {
+          "name": "BAN_CURRENT_AID",
+          "resultCode": "Refused",
+          "refusalReason": "Current AID is in Penalty Box.",
+          "RequestedTestAcquirerResponseCode": "40"
+        },
+        {
+          "name": "CVM_REQUIRED_RESTART_PAYMENT",
+          "resultCode": "Refused",
+          "refusalReason": "CVM Required Restart Payment",
+          "RequestedTestAcquirerResponseCode": "41"
+        },
+        {
+          "name": "THREED_SECURE_AUTHENTICATION_ERROR",
+          "resultCode": "Refused",
+          "refusalReason": "3DS Authentication Error",
+          "RequestedTestAcquirerResponseCode": "42"
+        },
+        {
+          "name": "ONLINE_PIN_REQUIRED",
+          "resultCode": "Refused",
+          "refusalReason": "Online PIN required",
+          "RequestedTestAcquirerResponseCode": "43"
+        },
+        {
+          "name": "TRY_ANOTHER_INTERFACE",
+          "resultCode": "Refused",
+          "refusalReason": "Try another interface",
+          "RequestedTestAcquirerResponseCode": "44"
+        },
+        {
+          "name": "CHIP_DOWNGRADE_MODE",
+          "resultCode": "Refused",
+          "refusalReason": "Chip downgrade mode",
+          "RequestedTestAcquirerResponseCode": "45"
+        },
+        {
+          "name": "ERPS_BLOCK",
+          "resultCode": "Refused",
+          "refusalReason": "Transaction blocked by Adyen to prevent excessive retry fees",
+          "RequestedTestAcquirerResponseCode": "46"
+        }
+      ]
+    },
+    {
+      "group": "CVC/CVV/CID result codes",
+      "items": [
+        {
+          "number": "4111 1111 1111 1111",
+          "exp": "03/30",
+          "csc": "000",
+          "name": "Adyen Test",
+          "cvcResult": "0 Unknown",
+          "outcome": "Approval",
+          "network": "visa"
+        },
+        {
+          "number": "4111 1111 1111 1111",
+          "exp": "03/30",
+          "csc": "001",
+          "name": "Adyen Test",
+          "cvcResult": "1 Matches",
+          "outcome": "Approval",
+          "network": "visa"
+        },
+        {
+          "number": "4111 1111 1111 1111",
+          "exp": "03/30",
+          "csc": "002",
+          "name": "Adyen Test",
+          "cvcResult": "2 Does not match",
+          "outcome": "Decline",
+          "network": "visa"
+        },
+        {
+          "number": "4111 1111 1111 1111",
+          "exp": "03/30",
+          "csc": "003",
+          "name": "Adyen Test",
+          "cvcResult": "3 Not checked",
+          "outcome": "Approval",
+          "network": "visa"
+        },
+        {
+          "number": "4111 1111 1111 1111",
+          "exp": "03/30",
+          "csc": "004",
+          "name": "Adyen Test",
+          "cvcResult": "4 No CVC/CVV provided, but was required",
+          "outcome": "Decline",
+          "network": "visa"
+        },
+        {
+          "number": "4111 1111 1111 1111",
+          "exp": "03/30",
+          "csc": "005",
+          "name": "Adyen Test",
+          "cvcResult": "5 Issuer not certified for CVC/CVV",
+          "outcome": "Approval",
+          "network": "visa"
+        },
+        {
+          "number": "4111 1111 1111 1111",
+          "exp": "03/30",
+          "csc": "006",
+          "name": "Adyen Test",
+          "cvcResult": "6 No CVC/CVV provided",
+          "outcome": "Approval",
+          "network": "visa"
+        }
+      ]
+    }
+  ]
+}
