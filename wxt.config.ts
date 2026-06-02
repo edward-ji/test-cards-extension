@@ -1,4 +1,5 @@
 import { defineConfig } from 'wxt';
+import packageJson from './package.json';
 
 export default defineConfig({
   srcDir: 'src',
@@ -8,7 +9,7 @@ export default defineConfig({
   },
   manifest: ({ browser }) => ({
     name: 'Test Cards',
-    version: '1.1.1',
+    version: packageJson.version,
     description: 'Copy and prefill test card numbers and other payment methods with a single click.',
     action: {
       default_title: 'Test Cards',
