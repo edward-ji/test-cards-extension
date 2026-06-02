@@ -91,6 +91,20 @@ test.describe('favorites', () => {
         await expect(page.locator('#tableFavouritesId')).toContainText(CARD_1);
     });
 
+    test('cards that differ only by group can be favorited independently', async ({ page }) => {
+        await page.locator('#gatewaySelector').selectOption('worldpay-wpg');
+        await page.locator('#search').fill('NOT SUPPLIED BY SHOPPER');
+
+        const rows = page.locator('.card-item').filter({ hasText: 'NOT SUPPLIED BY SHOPPER' });
+        await expect(rows).toHaveCount(2);
+
+        await rows.nth(1).locator('.fav-icon').click();
+
+        await expect(page.locator('#tableFavouritesId .card-item')).toHaveCount(1);
+        await expect(page.locator('#tableFavouritesId')).toContainText('NOT SUPPLIED BY SHOPPER');
+        await expect(rows.locator('.fav-icon')).toHaveCount(1);
+    });
+
     test('storage write failure does not block favorites or gateway switching', async ({ page }) => {
         await page.evaluate(async () => {
             const storage = (globalThis as unknown as { chrome: { storage: { local: ExtensionStorage } } }).chrome.storage.local;

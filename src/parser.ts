@@ -46,17 +46,27 @@ export interface RawGatewayFile {
 }
 
 const AUTOFILL_KEYS = new Set(['number', 'name', 'csc', 'exp']);
-const DISPLAY_SKIP_KEYS = new Set([...AUTOFILL_KEYS, 'network', 'id']);
 
 // djb2 hash → 6-char lowercase hex string
-function hashCard(parts: string[]): string {
-    const str = parts.join('|');
+function hashCard(card: Record<string, unknown>): string {
+    const str = stableStringify(card);
     let h = 5381;
     for (let i = 0; i < str.length; i++) {
         h = ((h << 5) + h) ^ str.charCodeAt(i);
         h = h >>> 0; // keep unsigned 32-bit
     }
     return h.toString(16).padStart(8, '0').slice(-6);
+}
+
+function stableStringify(value: unknown): string {
+    if (value === undefined) return 'undefined';
+    if (value === null || typeof value !== 'object') return JSON.stringify(value) ?? String(value);
+    if (Array.isArray(value)) return `[${value.map(stableStringify).join(',')}]`;
+
+    const entries = Object.entries(value as Record<string, unknown>)
+        .sort(([a], [b]) => a < b ? -1 : a > b ? 1 : 0)
+        .map(([key, val]) => `${JSON.stringify(key)}:${stableStringify(val)}`);
+    return `{${entries.join(',')}}`;
 }
 
 // Resolves a +XY shorthand (e.g. "+3Y") to an MM/YY expiry string, or passes through as-is.
@@ -124,18 +134,11 @@ export function parseGatewayData(gatewayId: string, rawGroups: { group: string; 
                 }
             });
 
-            // Compute stable card ID: hash of resolved prefill fields + sorted extra fields
-            const extraParts = Object.keys(item)
-                .filter(k => !DISPLAY_SKIP_KEYS.has(k))
-                .sort()
-                .map(k => `${k}=${String(item[k])}`);
-            const id = `${gatewayId}-${hashCard([
-                prefill.number ?? '',
-                typeof item.exp === 'string' ? item.exp : '',
-                prefill.csc ?? '',
-                prefill.name ?? '',
-                ...extraParts,
-            ])}`;
+            // Compute stable card ID from the source card fields and group.
+            const id = `${gatewayId}-${hashCard({
+                group: group.group,
+                card: item,
+            })}`;
 
             // Compute search content
             const networkNames = networksArr
