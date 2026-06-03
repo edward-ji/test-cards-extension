@@ -12,7 +12,9 @@ export const test = base.extend<{
 }>({
   context: async ({ }, use) => {
     const pathToExtension = path.join(__dirname, PATH_TO_EXTENSION);
+    const browserChannel = process.env.CI ? 'chrome' : undefined;
     const context = await chromium.launchPersistentContext('', {
+      channel: browserChannel,
       headless: false,
       args: [
         `--headless=new`,
