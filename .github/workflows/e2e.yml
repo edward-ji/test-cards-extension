@@ -17,6 +17,10 @@ on:
       - LICENSE
       - "worker/**"
 
+permissions:
+  contents: read
+  actions: write
+
 jobs:
   test:
     timeout-minutes: 45
