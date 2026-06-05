@@ -1,16 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Run directly if running in the CI environment
-if [ -f /etc/os-release ]; then
-    . /etc/os-release
-    if [ "${ID:-}" = "ubuntu" ] && [ "${VERSION_ID:-}" = "24.04" ]; then
-        npm run build
-        exec npx playwright test "$@"
-    fi
-fi
-
-# Otherwise, run inside a container matching the CI environment
 if command -v podman &>/dev/null; then
     RUNTIME=podman
 elif command -v docker &>/dev/null; then
@@ -20,22 +10,16 @@ else
     exit 1
 fi
 
-PW_VERSION=$(node -e "console.log(require('./node_modules/@playwright/test/package.json').version)")
+PW_VERSION=$(node -p "require('./package-lock.json').packages['node_modules/@playwright/test'].version")
 IMAGE="mcr.microsoft.com/playwright:v${PW_VERSION}-noble"
 
-mkdir -p test-results playwright-report
+# Mask node_modules and .output with empty volumes: their platform-specific
+# contents must not be shared across the host/container boundary.
 $RUNTIME run --rm \
-    -v "$(pwd)/src:/work/src:ro,z" \
-    -v "$(pwd)/public:/work/public:ro,z" \
-    -v "$(pwd)/e2e:/work/e2e:rw,z" \
-    -v "$(pwd)/scripts:/work/scripts:ro,z" \
-    -v "$(pwd)/package.json:/work/package.json:ro,z" \
-    -v "$(pwd)/package-lock.json:/work/package-lock.json:ro,z" \
-    -v "$(pwd)/tsconfig.json:/work/tsconfig.json:ro,z" \
-    -v "$(pwd)/wxt.config.ts:/work/wxt.config.ts:ro,z" \
-    -v "$(pwd)/playwright.config.ts:/work/playwright.config.ts:ro,z" \
-    -v "$(pwd)/test-results:/work/test-results:rw,z" \
-    -v "$(pwd)/playwright-report:/work/playwright-report:rw,z" \
+    --security-opt label=disable \
+    -v "$(pwd):/work" \
+    -v /work/node_modules \
+    -v /work/.output \
     -w /work \
     --shm-size=1gb \
     "$IMAGE" \
