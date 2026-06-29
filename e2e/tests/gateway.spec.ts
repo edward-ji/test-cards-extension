@@ -12,6 +12,14 @@ const gateways: { id: string; readyText: string }[] = [
     { id: 'nmi', readyText: '3711 1111 1111 114' },
 ];
 
+async function openSettings(page: import('@playwright/test').Page) {
+    await page.locator('#settingsButton').click();
+}
+
+async function closeSettings(page: import('@playwright/test').Page) {
+    await page.locator('.close-button').click();
+}
+
 test.describe('gateway screenshots', () => {
     test.beforeEach(async ({ page, extensionId }) => {
         await page.goto(`chrome-extension://${extensionId}/sidepanel.html`);
@@ -61,5 +69,36 @@ test.describe('gateway', () => {
         await page.goto(`chrome-extension://${extensionId}/sidepanel.html`);
         await expect(page.locator('#gatewaySelector')).toHaveValue('worldpay');
         await expect(page.locator('text="3434 3434 3434 343"').first()).toBeVisible();
+    });
+
+    test('gateway rename updates selector and persists across reload', async ({ page, extensionId }) => {
+        await openSettings(page);
+
+        const adyenRow = page.locator('.gateway-row').filter({
+            has: page.locator('.gateway-name', { hasText: /^Adyen$/ }),
+        });
+        await adyenRow.getByRole('button', { name: 'Rename Adyen' }).click();
+        await page.getByRole('textbox', { name: 'Rename Adyen' }).fill('Primary Gateway');
+        await page.getByRole('button', { name: 'Save gateway name' }).click();
+        await closeSettings(page);
+
+        await expect(page.locator('#gatewaySelector option[value="adyen"]')).toHaveText('Primary Gateway');
+
+        await page.goto(`chrome-extension://${extensionId}/sidepanel.html`);
+        await expect(page.locator('#gatewaySelector option[value="adyen"]')).toHaveText('Primary Gateway');
+        await expect(page.locator('#gatewaySelector')).toHaveValue('adyen');
+
+        await openSettings(page);
+        const renamedAdyenRow = page.locator('.gateway-row').filter({
+            has: page.locator('.gateway-name', { hasText: /^Primary Gateway$/ }),
+        });
+        await renamedAdyenRow.getByRole('button', { name: 'Reset gateway name' }).click();
+        await closeSettings(page);
+
+        await expect(page.locator('#gatewaySelector option[value="adyen"]')).toHaveText('Adyen');
+
+        await page.goto(`chrome-extension://${extensionId}/sidepanel.html`);
+        await expect(page.locator('#gatewaySelector option[value="adyen"]')).toHaveText('Adyen');
+        await expect(page.locator('#gatewaySelector')).toHaveValue('adyen');
     });
 });

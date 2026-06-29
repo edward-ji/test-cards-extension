@@ -22,10 +22,12 @@
   const CUSTOM_GATEWAYS = 'custom-gateways';
   const COLLAPSED_GROUPS = 'collapsed-groups';
   const HIDDEN_GATEWAYS = 'hidden-gateways';
+  const GATEWAY_NAME_OVERRIDES = 'gateway-name-overrides';
 
-  const SETTINGS_KEYS = [COLOR_SCHEME, DENSITY, SHOW_RECENT, RECENT_LIMIT] as const;
+  const SETTINGS_KEYS = [COLOR_SCHEME, DENSITY, SHOW_RECENT, RECENT_LIMIT, GATEWAY_NAME_OVERRIDES] as const;
   type ThemeMode = 'light' | 'dark' | 'system';
   type Density = 'comfortable' | 'compact';
+  type GatewayNameOverrides = Record<string, string>;
 
   // State
   let builtinGatewayFiles = $state<RawGatewayFile[]>([]);
@@ -46,9 +48,12 @@
   let cardsEl: HTMLElement | null = $state(null);
   let collapsedGroups = $state<Set<string>>(new Set());
   let hiddenGatewayIds = $state<Set<string>>(new Set());
+  let gatewayNameOverrides = $state<GatewayNameOverrides>({});
 
   // Derived
-  const gateways = $derived<RawGatewayFile[]>([...builtinGatewayFiles, ...customGatewayFiles]);
+  const gateways = $derived<RawGatewayFile[]>(
+    [...builtinGatewayFiles, ...customGatewayFiles].map(g => ({ ...g, name: gatewayNameOverrides[g.id] ?? g.name }))
+  );
   const visibleGateways = $derived(gateways.filter(g => !hiddenGatewayIds.has(g.id)));
   const currentGateway = $derived(gateways.find(g => g.id === currentGatewayId));
   const searchQueryLower = $derived(searchQuery.toLowerCase());
@@ -81,7 +86,7 @@
   });
 
   onMount(async () => {
-    const [storedFavs, storedTheme, storedDensity, gatewayIds, networkData, savedGateway, storedRecent, storedShowRecent, storedRecentLimit, storedCustomGateways, storedCollapsed, storedHidden] = await Promise.all([
+    const [storedFavs, storedTheme, storedDensity, gatewayIds, networkData, savedGateway, storedRecent, storedShowRecent, storedRecentLimit, storedCustomGateways, storedCollapsed, storedHidden, storedGatewayNameOverrides] = await Promise.all([
       getFromStorage<string[]>(FAVOURITES_LIST),
       getFromStorage<ThemeMode>(COLOR_SCHEME),
       getFromStorage<Density>(DENSITY),
@@ -94,6 +99,7 @@
       getFromStorage<RawGatewayFile[]>(CUSTOM_GATEWAYS),
       getFromStorage<string[]>(COLLAPSED_GROUPS),
       getFromStorage<string[]>(HIDDEN_GATEWAYS),
+      getFromStorage<GatewayNameOverrides>(GATEWAY_NAME_OVERRIDES),
     ]);
 
     favourites = storedFavs ?? [];
@@ -106,6 +112,7 @@
     customGatewayFiles = storedCustomGateways ?? [];
     collapsedGroups = new Set(storedCollapsed ?? []);
     hiddenGatewayIds = new Set(storedHidden ?? []);
+    gatewayNameOverrides = sanitizeGatewayNameOverrides(storedGatewayNameOverrides);
 
     // Load all built-in gateway files in parallel (small local resources)
     const ids = gatewayIds ?? [];
@@ -189,6 +196,19 @@
     }
   }
 
+  function sanitizeGatewayNameOverrides(value: GatewayNameOverrides | undefined): GatewayNameOverrides {
+    if (!value || typeof value !== 'object' || Array.isArray(value)) return {};
+    return Object.fromEntries(
+      Object.entries(value)
+        .filter(([id, name]) => typeof id === 'string' && typeof name === 'string' && name.trim() !== '')
+        .map(([id, name]) => [id, name.trim()])
+    );
+  }
+
+  function withoutIds<T>(source: Record<string, T>, ids: Set<string>): Record<string, T> {
+    return Object.fromEntries(Object.entries(source).filter(([id]) => !ids.has(id)));
+  }
+
 
   function sectionHeightWithMargin(el: HTMLElement | null): number {
     if (!el) return 0;
@@ -238,12 +258,15 @@
   async function clearCustomGateways() {
     const customIds = new Set(customGatewayFiles.map(g => g.id));
     const nextHidden = new Set([...hiddenGatewayIds].filter(id => !customIds.has(id)));
+    const nextNameOverrides = withoutIds(gatewayNameOverrides, customIds);
     await Promise.all([
       setInStorage(CUSTOM_GATEWAYS, []),
       setInStorage(HIDDEN_GATEWAYS, [...nextHidden]),
+      setInStorage(GATEWAY_NAME_OVERRIDES, nextNameOverrides),
     ]);
     customGatewayFiles = [];
     hiddenGatewayIds = nextHidden;
+    gatewayNameOverrides = nextNameOverrides;
     if (!builtinGatewayFiles.some(g => g.id === currentGatewayId)) {
       const fallback = builtinGatewayFiles[0]?.id ?? 'adyen';
       currentGatewayId = fallback;
@@ -258,6 +281,7 @@
     density = 'comfortable';
     showRecent = false;
     recentLimit = 5;
+    gatewayNameOverrides = {};
   }
 
   async function clearAll() {
@@ -271,6 +295,7 @@
     customGatewayFiles = [];
     collapsedGroups = new Set();
     hiddenGatewayIds = new Set();
+    gatewayNameOverrides = {};
     if (!builtinGatewayFiles.some(g => g.id === currentGatewayId)) {
       currentGatewayId = builtinGatewayFiles[0]?.id ?? 'adyen';
       await loadDataForGateway(currentGatewayId);
@@ -349,15 +374,46 @@
   }
 
   async function handleRemoveCustomGateway(id: string) {
+    const nextNameOverrides = withoutIds(gatewayNameOverrides, new Set([id]));
     const updated = customGatewayFiles.filter(g => g.id !== id);
-    await setInStorage(CUSTOM_GATEWAYS, updated);
+    await Promise.all([
+      setInStorage(CUSTOM_GATEWAYS, updated),
+      setInStorage(GATEWAY_NAME_OVERRIDES, nextNameOverrides),
+    ]);
     customGatewayFiles = updated;
+    gatewayNameOverrides = nextNameOverrides;
     if (currentGatewayId === id) {
       const fallback = builtinGatewayFiles[0]?.id ?? 'adyen';
       currentGatewayId = fallback;
       await setInStorage(SELECTED_GATEWAY, fallback);
       await loadDataForGateway(fallback);
     }
+  }
+
+  async function handleRenameGateway(id: string, name: string): Promise<string | undefined> {
+    const trimmedName = name.trim();
+    if (!trimmedName) return 'Gateway name is required.';
+
+    const gateway = builtinGatewayFiles.find(g => g.id === id) ?? customGatewayFiles.find(g => g.id === id);
+    if (!gateway) return 'Gateway no longer exists.';
+
+    const next = { ...gatewayNameOverrides };
+    if (trimmedName === gateway.name) {
+      delete next[id];
+    } else {
+      next[id] = trimmedName;
+    }
+
+    await setInStorage(GATEWAY_NAME_OVERRIDES, next);
+    gatewayNameOverrides = next;
+  }
+
+  async function handleResetGatewayName(id: string) {
+    if (gatewayNameOverrides[id] === undefined) return;
+    const next = { ...gatewayNameOverrides };
+    delete next[id];
+    await setInStorage(GATEWAY_NAME_OVERRIDES, next);
+    gatewayNameOverrides = next;
   }
 </script>
 
@@ -426,11 +482,13 @@
     onClearCustomGateways={clearCustomGateways}
     onClearSettings={clearSettings}
     onClearAll={clearAll}
-    gateways={gateways.map(g => ({ id: g.id, name: g.name, isCustom: customGatewayFiles.some(c => c.id === g.id) }))}
+    gateways={gateways.map(g => ({ id: g.id, name: g.name, isCustom: customGatewayFiles.some(c => c.id === g.id), hasNameOverride: gatewayNameOverrides[g.id] !== undefined }))}
     hiddenGatewayIds={hiddenGatewayIds}
     onImportGateway={handleImportGateway}
     onRemoveCustomGateway={handleRemoveCustomGateway}
     onToggleHideGateway={toggleHideGateway}
+    onRenameGateway={handleRenameGateway}
+    onResetGatewayName={handleResetGatewayName}
   />
 
   <div id="cards" bind:this={cardsEl} style:overflow-y={isSettingsOpen ? 'hidden' : undefined}>

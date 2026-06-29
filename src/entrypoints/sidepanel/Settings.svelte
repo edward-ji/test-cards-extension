@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { tick } from "svelte";
   import { fade, slide } from "svelte/transition";
 
   let panelReady = $state(false);
@@ -12,7 +13,7 @@
     density: Density;
     showRecent: boolean;
     recentLimit: number;
-    gateways: { id: string; name: string; isCustom: boolean }[];
+    gateways: { id: string; name: string; isCustom: boolean; hasNameOverride: boolean }[];
     onClose: () => void;
     onThemeChange: (theme: ThemeMode) => void;
     onDensityChange: (density: Density) => void;
@@ -25,14 +26,20 @@
     onClearAll: () => void;
     onImportGateway: (file: File) => Promise<string | undefined>;
     onRemoveCustomGateway: (id: string) => Promise<void>;
+    onRenameGateway: (id: string, name: string) => Promise<string | undefined>;
+    onResetGatewayName: (id: string) => Promise<void>;
     hiddenGatewayIds: Set<string>;
     onToggleHideGateway: (id: string) => Promise<void>;
   }
 
-  let { isOpen, themeMode, density, showRecent, recentLimit, gateways, hiddenGatewayIds, onClose, onThemeChange, onDensityChange, onShowRecentChange, onRecentLimitChange, onClearFavourites, onClearRecent, onClearCustomGateways, onClearSettings, onClearAll, onImportGateway, onRemoveCustomGateway, onToggleHideGateway }: Props = $props();
+  let { isOpen, themeMode, density, showRecent, recentLimit, gateways, hiddenGatewayIds, onClose, onThemeChange, onDensityChange, onShowRecentChange, onRecentLimitChange, onClearFavourites, onClearRecent, onClearCustomGateways, onClearSettings, onClearAll, onImportGateway, onRemoveCustomGateway, onRenameGateway, onResetGatewayName, onToggleHideGateway }: Props = $props();
 
   let importError = $state('');
   let fileInputEl: HTMLInputElement | null = $state(null);
+  let editingGatewayId: string | null = $state(null);
+  let editingGatewayName = $state('');
+  let renameError = $state('');
+  let renameInputEl: HTMLInputElement | null = $state(null);
 
   async function handleFileChange(e: Event) {
     const file = (e.target as HTMLInputElement).files?.[0];
@@ -49,6 +56,46 @@
 
   function themeLabel(mode: ThemeMode) {
     return `${mode.charAt(0).toUpperCase()}${mode.slice(1)}`;
+  }
+
+  async function startRename(id: string, name: string) {
+    editingGatewayId = id;
+    editingGatewayName = name;
+    renameError = '';
+    await tick();
+    renameInputEl?.focus();
+    renameInputEl?.select();
+  }
+
+  function cancelRename() {
+    editingGatewayId = null;
+    editingGatewayName = '';
+    renameError = '';
+  }
+
+  async function saveRename(id: string) {
+    const nextName = editingGatewayName.trim();
+    if (!nextName) {
+      renameError = 'Gateway name is required.';
+      return;
+    }
+
+    const err = await onRenameGateway(id, nextName);
+    if (err) {
+      renameError = err;
+      return;
+    }
+    cancelRename();
+  }
+
+  function handleRenameKeydown(e: KeyboardEvent, id: string) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      saveRename(id);
+    } else if (e.key === 'Escape') {
+      e.preventDefault();
+      cancelRename();
+    }
   }
 </script>
 
@@ -184,29 +231,81 @@
           <div class="gateway-list">
           {#each gateways as gw (gw.id)}
             <div class="gateway-row">
-              <span class="gateway-name" class:gateway-name--hidden={hiddenGatewayIds.has(gw.id)}>{gw.name}</span>
-              <div class="gateway-actions">
-                <button
-                  class="gw-icon-button"
-                  onclick={() => onToggleHideGateway(gw.id)}
-                  title={hiddenGatewayIds.has(gw.id) ? 'Show gateway' : 'Hide gateway'}
-                >
-                  <img
-                    src={hiddenGatewayIds.has(gw.id) ? '/images/eye.svg' : '/images/eye-slash.svg'}
-                    width="16"
-                    height="16"
-                    alt=""
-                    class="icon-dark-invert"
+              {#if editingGatewayId === gw.id}
+                <div class="gateway-rename">
+                  <input
+                    class="gateway-name-input"
+                    bind:this={renameInputEl}
+                    bind:value={editingGatewayName}
+                    aria-label={`Rename ${gw.name}`}
+                    onkeydown={(e) => handleRenameKeydown(e, gw.id)}
                   />
-                </button>
-                {#if gw.isCustom}
+                  {#if renameError}
+                    <p class="import-error">{renameError}</p>
+                  {/if}
+                </div>
+              {:else}
+                <span class="gateway-name" class:gateway-name--hidden={hiddenGatewayIds.has(gw.id)}>{gw.name}</span>
+              {/if}
+              <div class="gateway-actions">
+                {#if editingGatewayId === gw.id}
                   <button
-                    class="gw-icon-button gw-icon-button--danger"
-                    onclick={() => onRemoveCustomGateway(gw.id)}
-                    title="Remove gateway"
+                    class="gw-icon-button"
+                    onclick={() => saveRename(gw.id)}
+                    title="Save gateway name"
+                    aria-label="Save gateway name"
                   >
-                    <span class="icon-mask" style="--mask: url('/images/trash.svg')" aria-hidden="true"></span>
+                    <span class="icon-mask" style="--mask: url('/images/check.svg')" aria-hidden="true"></span>
                   </button>
+                  <button
+                    class="gw-icon-button"
+                    onclick={cancelRename}
+                    title="Cancel rename"
+                    aria-label="Cancel rename"
+                  >
+                    <span class="icon-mask" style="--mask: url('/images/cancel.svg')" aria-hidden="true"></span>
+                  </button>
+                {:else}
+                  {#if gw.hasNameOverride}
+                    <button
+                      class="gw-icon-button"
+                      onclick={() => onResetGatewayName(gw.id)}
+                      title="Reset gateway name"
+                      aria-label="Reset gateway name"
+                    >
+                      <span class="icon-mask" style="--mask: url('/images/reset.svg')" aria-hidden="true"></span>
+                    </button>
+                  {/if}
+                  <button
+                    class="gw-icon-button"
+                    onclick={() => startRename(gw.id, gw.name)}
+                    title="Rename gateway"
+                    aria-label={`Rename ${gw.name}`}
+                  >
+                    <span class="icon-mask" style="--mask: url('/images/edit.svg')" aria-hidden="true"></span>
+                  </button>
+                  <button
+                    class="gw-icon-button"
+                    onclick={() => onToggleHideGateway(gw.id)}
+                    title={hiddenGatewayIds.has(gw.id) ? 'Show gateway' : 'Hide gateway'}
+                  >
+                    <img
+                      src={hiddenGatewayIds.has(gw.id) ? '/images/eye.svg' : '/images/eye-slash.svg'}
+                      width="16"
+                      height="16"
+                      alt=""
+                      class="icon-dark-invert"
+                    />
+                  </button>
+                  {#if gw.isCustom}
+                    <button
+                      class="gw-icon-button gw-icon-button--danger"
+                      onclick={() => onRemoveCustomGateway(gw.id)}
+                      title="Remove gateway"
+                    >
+                      <span class="icon-mask" style="--mask: url('/images/trash.svg')" aria-hidden="true"></span>
+                    </button>
+                  {/if}
                 {/if}
               </div>
             </div>
@@ -433,17 +532,20 @@
 
   .gateway-row {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     gap: 8px;
     margin-top: 8px;
+    min-height: 28px;
+    font-size: 12px;
   }
 
   .gateway-name {
-    font-size: 12px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    line-height: 28px;
+    min-width: 0;
   }
 
   .gateway-name--hidden {
@@ -455,6 +557,24 @@
     display: flex;
     gap: 4px;
     flex-shrink: 0;
+  }
+
+  .gateway-rename {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .gateway-name-input {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    height: 28px;
+    padding: 5px 8px;
+    border: 1px solid var(--input-border);
+    border-radius: 6px;
+    background: var(--input-bg);
+    color: var(--input-text);
+    font: inherit;
   }
 
   .icon-mask {
